@@ -1,4 +1,4 @@
-# EGCI213_GroupProjects
+# EGCI213_Group Members
 Akkhrawin Nair 6580013
 Pakin Panawattanakul 6580043
 Nitchayanin Thamkunanon 6580081
