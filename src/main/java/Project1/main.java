@@ -11,9 +11,12 @@ class Customer
     public Customer(String name)
     {
         this.name = name;
+        this.firsttime = true;
+        this.point = 0;
     }
     public void setname(String n){name =n;}
-    public void setPoints(int pt){point = pt;}//calculate from purchased order
+    public void setPoints(int pt){point = pt; this.firsttime = false;}//calculate from purchased order
+    public boolean getFirstTime(){return this.firsttime;}
     public String getName(){return name;}
     public int getPoints(){return point;}
 }
@@ -246,13 +249,43 @@ public class main {
             fileName = keyboard.next();
         }
     }
+    public void processOrder()
+    {
+        //read from ArrayList of orders
+        for(Order order : orders) {
+            System.out.printf("%d. %6s(%6d pts)  %8s= %15sx%3d  %16s=%,14.2f  (+%6d pts next order)\n", order.getID(), order.getCustomer().getName(), order.getCustomer().getPoints(), "order", order.getProduct().get_name(), order.getUnit(), "sub-total(1)", (double)order.getProduct().get_unit_price() * order.getUnit(), (int) (order.getProduct().get_unit_price() * order.getUnit()) / 500);
+            double discount = 0;
+            String pointDeduct = "";
+            if (!order.getCustomer().getFirstTime()) {
+                if (order.getCustomer().getPoints() >= 100) {
+                    order.getCustomer().setPoints(order.getCustomer().getPoints() - 100);
+                    discount = order.getProduct().get_unit_price() * order.getUnit() * 0.05;
+                    pointDeduct = "(-   100 pts)";
+                } else discount = 0;
+            } else discount = 200;
+            System.out.printf("%24s%8s= %14.2f%10s%16s=%,14.2f %s\n", "", "discount", discount, "", "sub-total(2)", (order.getProduct().get_unit_price() * order.getUnit()) - discount, pointDeduct);
+            double totalInterest = 0;
+            String totalInterestString = "";
+            if (order.getInstall().getMonths() > 0) {
+                totalInterest = ((order.getProduct().get_unit_price() * order.getUnit()) - discount) * order.getInstall().getInterest() * order.getInstall().getMonths() * 0.01;
+                System.out.println(totalInterest);
+                String s = String.format("%14.2f", totalInterest);
+                totalInterestString = "total interest =" + s;
+            }
+            double total = order.getProduct().get_unit_price() * order.getUnit() - discount + totalInterest;
+            System.out.printf("%24s%d-month installments%12s%16s", "", order.getInstall().getMonths(), "", (order.getInstall().getMonths() > 0) ? totalInterestString : "");
+            System.out.printf("%24s%8s=%,14.2f%12s%8s=%,14.2f\n", "", "total", total, "", "monthly total", total / order.getInstall().getMonths());
+
+        }
+    }
 
     public static void main(String []args)
     {
         main program = new main();
+        program.readProduct();
         program.readInstallments();
         program.readOrder();
-        System.out.println("test branch");
+        program.processOrder();
         //calculate sub-total (1) from product price and units purchased
         //calculate sub-total (2) from sub-total (1) - discount
     }
