@@ -146,8 +146,7 @@ public class main {
                 catch(RuntimeException e)//includes all the child classes of RuntimeException
                 {
                     System.out.println(e.toString());
-                    System.out.println(line);
-                    System.out.println();
+                    System.out.printf("%s --> skip line\n\n", line);
                     count++;
                 }
             }
