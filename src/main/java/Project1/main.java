@@ -14,6 +14,8 @@ class Customer
     }
     public void setname(String n){name =n;}
     public void setPoints(int pt){point = pt;}//calculate from purchased order
+    public String getName(){return name;}
+    public int getPoints(){return point;}
 }
 class Product
 {
