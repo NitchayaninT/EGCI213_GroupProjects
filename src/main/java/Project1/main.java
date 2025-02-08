@@ -13,6 +13,7 @@ class Customer
         this.name = name;
     }
     public void setname(String n){name =n;}
+    public void setPoints(int pt){point = pt;}//calculate from purchased order
 }
 class Product
 {
@@ -31,6 +32,8 @@ class Installment
     public void setInterest(double i){interest = i;}
     public int getMonths(){return this.months;}
     public double getInterest(){return this.interest;}
+
+    public void print(){System.out.printf("%2d-month plan %4s monthly interest = %.2f%% \n",this.months," ",this.interest);}
 }
 class Order
 {
@@ -121,7 +124,7 @@ public class main {
         String path = "src/main/java/Project1/";
         String fileName  = "installments.txt";
         String inputFile = path+fileName;
-
+        System.out.println("Read from "+inputFile);
         try{
             File inFile = new File(inputFile);
             Scanner fileScan = new Scanner(inFile);
@@ -141,6 +144,7 @@ public class main {
 
                     double interest = Double.parseDouble(cols[1].trim());
                     installmentMap.put(months,new Installment(months,interest));
+                    installmentMap.get(months).print();
                     count++;
                 }
                 catch(RuntimeException e)//includes all the child classes of RuntimeException
@@ -159,8 +163,13 @@ public class main {
             fileName = keyboard.next();
         }
     }
+
     public static void main(String []args)
     {
-        
+        main program = new main();
+        program.readInstallments();
+        //calculate sub-total (1) from product price and units purchased
+        //calculate sub-total (2) from sub-total (1) - discount
+
     }
 }
