@@ -138,7 +138,6 @@ public class main {
                 try {
                     String[] cols = line.split(",");
                     int months = Integer.parseInt(cols[0].trim());
-                    if(months > 10 || months < 0) throw new InvalidInputException(cols[0].trim());
 
                     double interest = Double.parseDouble(cols[1].trim());
                     installmentMap.put(months,new Installment(months,interest));
@@ -150,8 +149,6 @@ public class main {
                     System.out.println(line);
                     System.out.println();
                     count++;
-                } catch (InvalidInputException e) {
-                    throw new RuntimeException(e);
                 }
             }
 
