@@ -170,6 +170,8 @@ public class main {
     {
         main program = new main();
         program.readInstallments();
+        program.readOrder();
+        System.out.println("test branch");
         //calculate sub-total (1) from product price and units purchased
         //calculate sub-total (2) from sub-total (1) - discount
 
