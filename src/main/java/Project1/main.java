@@ -107,10 +107,6 @@ class InvalidInputException extends Exception {
 }
 
 public class main {
-    public static void main(String[] args) {
-        System.out.println("hello world i am p");
-    }
-
     Map<String, Product> productMap = new HashMap<>();
     Map<Integer, Installment> installmentMap = new HashMap<>();
     ArrayList<Order> orders = new ArrayList<>();
@@ -125,7 +121,7 @@ public class main {
             System.out.println();
 
             // Declare line here because using in catch
-            String line;
+            String line = "";
             try {
                 File infile = new File(in_path);
                 Scanner scan = new Scanner(infile);
