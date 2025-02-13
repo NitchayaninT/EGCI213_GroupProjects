@@ -26,8 +26,8 @@ class Product{
     protected String name;
     protected int unit_price;
     // static HashMap to store total_sales of each products
-    protected static HashMap<String,Integer> tol_sales_price = new HashMap<>();
-    protected static HashMap<String,Integer> tol_sales_unit = new HashMap<>();
+    int tol_sales_price;
+    int tol_sales_unit;
 
     // Constructor
     public Product(){ super();} // default
@@ -36,18 +36,16 @@ class Product{
         this.name = name;
         this.unit_price = unit_price;
         // If it is the first time that this product is mention create in the HashMap
-        if(!tol_sales_price.containsKey(pc)){
-            tol_sales_price.put(pc,0);
-            tol_sales_unit.put(pc,0);
-        }
+        this.tol_sales_price = 0;
+        this.tol_sales_unit = 0;
     }
 
     // Methods
     // update the total_sales value
     public void record_sales(int unit){
         // Update the price by unit*unit_price
-        tol_sales_price.put(this.product_code,tol_sales_price.get(product_code)+(unit*this.unit_price));
-        tol_sales_unit.put(this.product_code,tol_sales_unit.get(product_code)+1);
+        this.tol_sales_price = unit_price * unit;
+        this.tol_sales_unit = this.tol_sales_unit+1;
     }
 
     //Setter Getter
@@ -56,12 +54,11 @@ class Product{
     public String get_product_code(){return this.product_code;}
     // Use product code to get total_sales
     public int get_tol_sales_price(String pc){
-        return tol_sales_price.get(pc);
+        return tol_sales_price;
     }
-    public int get_tol_sales_unit(String pc){
-        return tol_sales_unit.get(pc);
+    public int get_tol_sales_unit(String pc) {
+        return tol_sales_unit;
     }
-
 }
 class Installment
 {
