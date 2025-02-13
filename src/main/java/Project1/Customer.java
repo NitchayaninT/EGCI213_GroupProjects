@@ -16,4 +16,5 @@ class Customer
     public boolean getFirstTime(){return this.firsttime;}
     public String getName(){return name;}
     public int getPoints(){return point;}
-}
+    public void setFirsttime(boolean firsttime){this.firsttime = firsttime;}
+    }

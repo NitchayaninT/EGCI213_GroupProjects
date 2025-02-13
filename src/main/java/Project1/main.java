@@ -18,12 +18,14 @@ public class main {
     Map<String, Product> productMap = new HashMap<>();
     Map<Integer, Installment> installmentMap = new HashMap<>();
     ArrayList<Order> orders = new ArrayList<>();
+    Map<String, Customer> customerMap = new HashMap<>();
+    //
 
     // function use to read file from products
     public void readProduct(){
         boolean done = false;
         String path = "src/main/java/Project1/";
-        String file_name = "product.txt";
+        String file_name = "products.txt";
 
         do {
             // Declare line here because using in catch
@@ -76,7 +78,7 @@ public class main {
     public void readInstallments() {
         boolean done = false;
         String path = "src/main/java/Project1/";
-        String fileName = "installment.txt";
+        String fileName = "installments.txt";
 
         while (!done) {
             try {
@@ -123,7 +125,7 @@ public class main {
     public void readOrder() {
         boolean done = false;
         String path = "src/main/Java/Project1/";
-        String fileName = "orders_error.txt";
+        String fileName = "orders_errors.txt";
         while (!done) {
             try {
                 String inputFile = path + fileName;
@@ -160,10 +162,20 @@ public class main {
                             throw new InvalidInputException("For installment plan: \"" + col[4].trim() + "\"");
                         }
 
+
                         // the Product code is valid and Unit is valid update the total sales
                         productMap.get(code).record_sales(unit);
                         // Add order to order ArrayList
-                        orders.add(new Order(id, new Customer(name), productMap.get(code), unit, installmentMap.get(month)));
+                        Customer customer = customerMap.get(name);
+                        if (customer == null) {
+                            // New customer: apply 200 discount and mark as no longer first-time
+
+                            customer = new Customer(name);
+                            customer.setFirsttime(true);  // Set as first-time customer
+                            customerMap.put(name, customer);  // Add to the customerMap
+                        }
+                        orders.add(new Order(id, customer, productMap.get(code), unit, installmentMap.get(month)));
+                        System.out.printf("Order%3d >>%6s%16s x%3d%5d-month installments\n",id,name,productMap.get(code).get_name(),unit,month);
                         //WILL FIX THIS
                     } catch (Exception e) {
                         System.out.println(e);
@@ -185,17 +197,20 @@ public class main {
     {
         //read from ArrayList of orders
         for(Order order : orders) {
-            System.out.printf("%d. %6s(%6d pts)  %8s= %15sx%3d  %16s=%,14.2f  (+%6d pts next order)\n", order.getID(), order.getCustomer().getName(), order.getCustomer().getPoints(), "order", order.getProduct().get_name(), order.getUnit(), "sub-total(1)", (double)order.getProduct().get_unit_price() * order.getUnit(), (int) (order.getProduct().get_unit_price() * order.getUnit()) / 500);
-            order.getCustomer().setPoints((int) (order.getProduct().get_unit_price() * order.getUnit() / 500));
+            System.out.printf("%d. %6s(%6d pts)  %8s= %15sx%3d  %16s=%,14.2f  (+%6d pts next order)\n", order.getID(), order.getCustomer().getName(), order.getCustomer().getPoints(), "order", order.getProduct().get_name(), order.getUnit(), "sub-total(1)", (double)order.getProduct().get_unit_price() * order.getUnit(), (int) (order.getProduct().get_unit_price() * order.getUnit()) /500);
             double discount = 0;
             String pointDeduct = "";
             if (!order.getCustomer().getFirstTime()) {
                 if (order.getCustomer().getPoints() >= 100) {
-                    order.getCustomer().setPoints(order.getCustomer().getPoints() - 100);
+                    order.getCustomer().setPoints(order.getCustomer().getPoints() - 100 + (int) (order.getProduct().get_unit_price() * order.getUnit()/500));
                     discount = order.getProduct().get_unit_price() * order.getUnit() * 0.05;
                     pointDeduct = "(-   100 pts)";
                 } else discount = 0;
-            } else discount = 200;
+            } else {
+                discount = 200;
+                order.getCustomer().setFirsttime(false);
+                order.getCustomer().setPoints((int) (order.getProduct().get_unit_price() * order.getUnit() / 500));
+            }
             System.out.printf("%24s%8s= %14.2f%10s%16s=%,14.2f %s\n", "", "discount", discount, "", "sub-total(2)", (order.getProduct().get_unit_price() * order.getUnit()) - discount, pointDeduct);
             double totalInterest = 0;
             String totalInterestString = "";
