@@ -44,19 +44,16 @@ class Product{
     // update the total_sales value
     public void record_sales(int unit){
         // Update the price by unit*unit_price
-        this.tol_sales_price += unit_price * unit;
-        this.tol_sales_unit = this.tol_sales_unit+unit;
+        this.tol_sales_price += this.unit_price * unit;
+        this.tol_sales_unit += unit;
     }
 
     //Setter Getter
     public int get_unit_price(){return this.unit_price;}
     public String get_name(){return this.name;}
     public String get_product_code(){return this.product_code;}
-    public void add_tol_sales(int newUnits){
-        this.tol_sales_price += newUnits * this.unit_price;
-        this.tol_sales_unit += newUnits;
-    }
-    // Use product code to get total_sales
+
+    // Get total sales for product summary
     public int get_tol_sales_price(){
         return tol_sales_price;
     }
@@ -90,8 +87,6 @@ class Order
         this.id = i;
         this.customer = customer;
         this.product = product;
-        // this update the tol_sales
-        this.product.record_sales(unit);
         this.unit = unit;
         this.installment = installment;
     }
@@ -252,6 +247,10 @@ public class main {
 
                         if (unit < 0) {
                             throw new InvalidInputException("For units: \"" + col[3].trim() + "\"");
+                        }
+                        else{
+                            // the Product code is valid and Unit is valid update the total sales
+                            productMap.get(code).record_sales(unit);
                         }
                         int month = Integer.parseInt(col[4].trim());
 
