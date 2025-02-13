@@ -248,16 +248,15 @@ public class main {
                         if (unit < 0) {
                             throw new InvalidInputException("For units: \"" + col[3].trim() + "\"");
                         }
-                        else{
-                            // the Product code is valid and Unit is valid update the total sales
-                            productMap.get(code).record_sales(unit);
-                        }
                         int month = Integer.parseInt(col[4].trim());
 
                         if (installmentMap.get(month) == (null)) {
                             throw new InvalidInputException("For installment plan: \"" + col[4].trim() + "\"");
                         }
 
+                        // the Product code is valid and Unit is valid update the total sales
+                        productMap.get(code).record_sales(unit);
+                        // Add order to order ArrayList
                         orders.add(new Order(id, new Customer(name), productMap.get(code), unit, installmentMap.get(month)));
                         //WILL FIX THIS
                     } catch (Exception e) {
