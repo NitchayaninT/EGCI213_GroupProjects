@@ -280,6 +280,7 @@ public class main {
         //read from ArrayList of orders
         for(Order order : orders) {
             System.out.printf("%d. %6s(%6d pts)  %8s= %15sx%3d  %16s=%,14.2f  (+%6d pts next order)\n", order.getID(), order.getCustomer().getName(), order.getCustomer().getPoints(), "order", order.getProduct().get_name(), order.getUnit(), "sub-total(1)", (double)order.getProduct().get_unit_price() * order.getUnit(), (int) (order.getProduct().get_unit_price() * order.getUnit()) / 500);
+            order.getCustomer().setPoints((int) (order.getProduct().get_unit_price() * order.getUnit() / 500));
             double discount = 0;
             String pointDeduct = "";
             if (!order.getCustomer().getFirstTime()) {
