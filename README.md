@@ -1,4 +1,4 @@
-# EGCI 213 GroupProjects
+# EGCI 213 GroupProjects 💻🦾
 ## Here are our projects from the course EGCI 213 - Programming Paradigms
 ### The members are
 #### Akkhrawin Nair 6580013 (Hope)
