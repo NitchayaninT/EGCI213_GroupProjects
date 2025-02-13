@@ -14,8 +14,8 @@ class Customer
         this.firsttime = true;
         this.point = 0;
     }
-    public void setname(String n){name =n;}
-    public void setPoints(int pt){point = pt; this.firsttime = false;}//calculate from purchased order
+    public void setName(String n){name =n;}
+    public void setPoints(int pt){point = pt;}//calculate from purchased order
     public boolean getFirstTime(){return this.firsttime;}
     public String getName(){return name;}
     public int getPoints(){return point;}
@@ -36,27 +36,31 @@ class Product{
         this.name = name;
         this.unit_price = unit_price;
         // If it is the first time that this product is mention create in the HashMap
-        this.tol_sales_price = 0;
-        this.tol_sales_unit = 0;
+        tol_sales_price = 0;
+        tol_sales_unit = 0;
     }
 
     // Methods
     // update the total_sales value
     public void record_sales(int unit){
         // Update the price by unit*unit_price
-        this.tol_sales_price = unit_price * unit;
-        this.tol_sales_unit = this.tol_sales_unit+1;
+        this.tol_sales_price += unit_price * unit;
+        this.tol_sales_unit = this.tol_sales_unit+unit;
     }
 
     //Setter Getter
     public int get_unit_price(){return this.unit_price;}
     public String get_name(){return this.name;}
     public String get_product_code(){return this.product_code;}
+    public void add_tol_sales(int newUnits){
+        this.tol_sales_price += newUnits * this.unit_price;
+        this.tol_sales_unit += newUnits;
+    }
     // Use product code to get total_sales
-    public int get_tol_sales_price(String pc){
+    public int get_tol_sales_price(){
         return tol_sales_price;
     }
-    public int get_tol_sales_unit(String pc) {
+    public int get_tol_sales_unit() {
         return tol_sales_unit;
     }
 }
@@ -106,6 +110,9 @@ class InvalidInputException extends Exception {
     }
 }
 
+class WrongfileException extends Exception{
+    public WrongfileException(String message){super(message);}
+}
 public class main {
     Map<String, Product> productMap = new HashMap<>();
     Map<Integer, Installment> installmentMap = new HashMap<>();
@@ -124,7 +131,9 @@ public class main {
                 String in_path = path + file_name;
                 File infile = new File(in_path);
                 Scanner scan = new Scanner(infile);
-
+                if(!Objects.equals(file_name, "products.txt")) {
+                    throw new WrongfileException("You Entered the wrong file!\n");
+                }
                 System.out.println("Read form "+in_path);
                 // Skip the first line of the file
                 if(scan.hasNext()) {
@@ -148,13 +157,14 @@ public class main {
             } catch (InvalidInputException e) {
                 System.out.println(e);
                 System.out.printf("%s --> skip line\n\n", line);
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException | WrongfileException e) {
+                System.out.println();
                 System.out.println(e);
                 System.out.println("Enter correct file name =");
                 Scanner key_scan = new Scanner(System.in);
                 file_name = key_scan.nextLine();
-
             }
+
         }while(!done);
         for (Map.Entry<String, Product> entry : productMap.entrySet()) {
             Product product = entry.getValue();
@@ -168,12 +178,13 @@ public class main {
         String fileName = "installment.txt";
 
         while (!done) {
-
             try {
                 String inputFile = path + fileName;
                 File inFile = new File(inputFile);
                 Scanner fileScan = new Scanner(inFile);
-
+                if(!Objects.equals(fileName, "installments.txt")) {
+                    throw new WrongfileException("You Entered the wrong file!");
+                }
                 System.out.println("Read from " + inputFile);
 
                 int count = 0;
@@ -199,7 +210,8 @@ public class main {
                     }
                 } done = true;
 
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException | WrongfileException e) {
+                System.out.println();
                 System.out.println(e);
                 System.out.println("Enter correct file name = ");
                 Scanner keyboard = new Scanner(System.in);
@@ -216,6 +228,9 @@ public class main {
                 String inputFile = path + fileName;
                 File infile = new File(inputFile);
                 Scanner scan = new Scanner(infile);
+                if(!Objects.equals(fileName, "orders.txt") & !Objects.equals(fileName, "orders_errors.txt")) {
+                    throw new WrongfileException("You Entered the wrong file!");
+                }
                 System.out.println("Read from " + inputFile);
                 if (scan.hasNextLine()) {
                     scan.nextLine();  // Skip the first line (header)
@@ -245,13 +260,15 @@ public class main {
                         }
 
                         orders.add(new Order(id, new Customer(name), productMap.get(code), unit, installmentMap.get(month)));
+                        //WILL FIX THIS
                     } catch (Exception e) {
                         System.out.println(e);
                         System.out.printf("%s --> skip line\n\n", line);
                     }
                 }
                 done = true;
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException | WrongfileException e) {
+                System.out.println();
                 System.out.println(e);
                 System.out.println("Enter correct file name = ");
                 Scanner keyboard = new Scanner(System.in);
@@ -279,7 +296,6 @@ public class main {
             String totalInterestString = "";
             if (order.getInstall().getMonths() > 0) {
                 totalInterest = ((order.getProduct().get_unit_price() * order.getUnit()) - discount) * order.getInstall().getInterest() * order.getInstall().getMonths() * 0.01;
-                System.out.println(totalInterest);
                 String s = String.format("%14.2f", totalInterest);
                 totalInterestString = "total interest =" + s;
             }
