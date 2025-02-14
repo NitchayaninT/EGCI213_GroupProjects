@@ -233,7 +233,6 @@ public class main {
         program.readInstallments();
         program.readOrder();
         program.processOrder();
-        //calculate sub-total (1) from product price and units purchased
-        //calculate sub-total (2) from sub-total (1) - discount
+
     }
 }
