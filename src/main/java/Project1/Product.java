@@ -1,5 +1,10 @@
 package Project1;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
+
 class Product{
     // Class variable
     protected String product_code;
@@ -39,5 +44,23 @@ class Product{
     }
     public int get_tol_sales_unit() {
         return tol_sales_unit;
+    }
+
+    /// lucky draw per product
+    public Order luckyDraw(ArrayList<Order> orders)
+    {
+        //involves order class and customer class
+        ArrayList<Order> luckyDraw = new ArrayList<>();
+        for(Order order : orders)
+        {
+            if(Objects.equals(order.getProduct().get_name(), name))
+            {
+                luckyDraw.add(order);
+            }
+        }
+        //Random
+        Random R = new Random();
+        int randomIndex = R.nextInt(luckyDraw.size());
+        return luckyDraw.get(randomIndex);
     }
 }

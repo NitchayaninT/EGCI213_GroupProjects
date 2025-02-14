@@ -125,7 +125,7 @@ public class main {
     public void readOrder() {
         boolean done = false;
         String path = "src/main/Java/Project1/";
-        String fileName = "orders_errors.txt";
+        String fileName = "orders.txt";
         while (!done) {
             try {
                 String inputFile = path + fileName;
@@ -226,6 +226,15 @@ public class main {
         }
     }
 
+    public void productSummary()
+    {
+        System.out.println("=== Product Summary ===");
+        for(Product p : productMap.values())
+        {
+            Order luckyOrder = p.luckyDraw(orders);
+            System.out.printf("%-10s %10s %3d units  =  %11.2f THB  lucky draw winner = %6s (order %2d)\n",p.get_name(),"total sales = ",p.get_tol_sales_unit(),(float)p.get_tol_sales_price(),luckyOrder.getCustomer().getName(),luckyOrder.getID());
+        }
+    }
     public static void main(String []args)
     {
         main program = new main();
@@ -233,6 +242,6 @@ public class main {
         program.readInstallments();
         program.readOrder();
         program.processOrder();
-
+        program.productSummary();
     }
 }
