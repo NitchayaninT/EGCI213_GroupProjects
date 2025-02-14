@@ -220,8 +220,16 @@ public class main {
                 totalInterestString = "total interest =" + s;
             }
             double total = order.getProduct().get_unit_price() * order.getUnit() - discount + totalInterest;
-            System.out.printf("%24s%d-month installments%12s%16s", "", order.getInstall().getMonths(), "", (order.getInstall().getMonths() > 0) ? totalInterestString : "");
-            System.out.printf("%24s%8s=%,14.2f%12s%8s=%,14.2f\n", "", "total", total, "", "monthly total", total / order.getInstall().getMonths());
+            double monthlyTotal = total / order.getInstall().getMonths();
+
+            if(order.getInstall().getMonths() == 0)
+            {
+                monthlyTotal = total; //if theres no discount, monthly total = total
+                System.out.printf("%35s\n","Full Payment");
+            }
+            else System.out.printf("%24s%d-month installments%12s%16s", "", order.getInstall().getMonths(), "", (order.getInstall().getMonths() > 0) ? totalInterestString : "");
+
+            System.out.printf("%24s%8s=%,14.2f%12s%8s=%,14.2f\n", "", "total", total, "", "monthly total", monthlyTotal);
 
         }
     }
