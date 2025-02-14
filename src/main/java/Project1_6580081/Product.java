@@ -1,11 +1,17 @@
-package Project1;
+//Akkhrawin Nair 6580013
+//Pakin Panawattanakul 6580043
+//Nitchayanin Thamkunanon 6580081
+//Pibhu Chitburanachart 6580195
+//Panupong Sangaphunchai 6580587
+
+package Project1_6580081;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
-class Product{
+class Product implements Comparable<Product>{
     // Class variable
     protected String product_code;
     protected String name;
@@ -62,5 +68,10 @@ class Product{
         Random R = new Random();
         int randomIndex = R.nextInt(luckyDraw.size());
         return luckyDraw.get(randomIndex);
+    }
+
+    @Override
+    public int compareTo(Product p) {
+        return Integer.compare(p.tol_sales_unit,this.get_tol_sales_unit());
     }
 }

@@ -1,4 +1,10 @@
-package Project1;
+//Akkhrawin Nair 6580013
+//Pakin Panawattanakul 6580043
+//Nitchayanin Thamkunanon 6580081
+//Pibhu Chitburanachart 6580195
+//Panupong Sangaphunchai 6580587
+
+package Project1_6580081;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -24,7 +30,7 @@ public class main {
     // function use to read file from products
     public void readProduct(){
         boolean done = false;
-        String path = "src/main/java/Project1/";
+        String path = "src/main/java/Project1_6580081/";
         String file_name = "products.txt";
 
         do {
@@ -77,7 +83,7 @@ public class main {
 
     public void readInstallments() {
         boolean done = false;
-        String path = "src/main/java/Project1/";
+        String path = "src/main/java/Project1_6580081/";
         String fileName = "installments.txt";
 
         while (!done) {
@@ -124,7 +130,7 @@ public class main {
     }
     public void readOrder() {
         boolean done = false;
-        String path = "src/main/Java/Project1/";
+        String path = "src/main/Java/Project1_6580081/";
         String fileName = "orders.txt";
         while (!done) {
             try {
@@ -267,11 +273,14 @@ public class main {
     public void productSummary()
     {
         System.out.println("\n=== Product Summary ===");
-        for(Product p : productMap.values())
+        ArrayList<Product> productList = new ArrayList<>(productMap.values());
+        Collections.sort(productList); //sort products by total unit sales
+        for(Product p : productList)
         {
             Order luckyOrder = p.luckyDraw(orders);
             System.out.printf("%-16s%-13s%3d units  =  %,13.2f THB  lucky draw winner = %6s (order %2d)\n",p.get_name(),"total sales = ",p.get_tol_sales_unit(),(float)p.get_tol_sales_price(),luckyOrder.getCustomer().getName(),luckyOrder.getID());
         }
+
     }
     public void customerSummary(){
         System.out.println("\n=== Customer Summary ===");
