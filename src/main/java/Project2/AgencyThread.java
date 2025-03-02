@@ -21,23 +21,26 @@ public class AgencyThread extends Thread{
     //run method for each agency thread
     public void run()
     {
-        //receive customers and update remaining customers(from prev days + today)
-        Random rand = new Random();
-        int arriving_cus = rand.nextInt(max_arrival);
-        remaining_cus+=arriving_cus;
+        while(true)
+        {
+            //receive customers and update remaining customers(from prev days + today)
+            Random rand = new Random();
+            int arriving_cus = rand.nextInt(max_arrival);
+            remaining_cus+=arriving_cus;
 
-        //wait for main to print day
-        try {
-            barrier.await();
-        } catch (Exception e) {}
+            //wait for main to print day
+            try {
+                barrier.await();
+            } catch (Exception e) {}
 
-        //printing new arrival and remaining customers
-        printNewArrival(arriving_cus);
-        try {
-            barrier.await(); //threads waiting at the barrier before printing next thing
-        } catch (Exception e) {}
+            //printing new arrival and remaining customers
+            printNewArrival(arriving_cus);
+            try {
+                barrier.await(); //threads waiting at the barrier before printing next thing
+            } catch (Exception e) {}
 
-        //printing send xx customers to Tour ...
+            //printing send xx customers to Tour ...
+        }
     }
     private void printNewArrival(int arriving)
     {

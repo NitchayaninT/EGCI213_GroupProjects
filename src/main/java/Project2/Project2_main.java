@@ -95,12 +95,13 @@ public class Project2_main {
             System.out.printf("%17s"+ " >> "+"=".repeat(60)+"\n",Thread.currentThread().getName());
             System.out.printf("%17s"+ " >> "+"Day%2d\n",Thread.currentThread().getName(),i);
 
-            barrier.await(); //check point for other threads to start
-            //threads printing stuff...
+            barrier.await(); //check point for other threads to start (other threads wait for main to print day before printing more stuff)
+            barrier.await(); //main thread wait until agency threads finished printing new arrival and remaining cus
+            //threads printing more stuff...
 
-            for(AgencyThread A: AgencyThreads){
-                A.join();
-            }
+        }
+        for(AgencyThread A: AgencyThreads){
+            A.join();
         }
     }
 }
