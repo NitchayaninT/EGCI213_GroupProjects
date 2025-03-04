@@ -7,13 +7,14 @@ import java.util.concurrent.CyclicBarrier;
 //individual travel agency
 //each iteration of a loop = 1 day
 public class AgencyThread extends Thread{
+    private String thread_name;
     private int remaining_cus;
-    private final int max_arrival;
+    public static int max_arrival;
     private CyclicBarrier barrier;
     //private ArrayList<Tour> tours
 
     //constructor
-    AgencyThread(String name, int max){super(name); this.max_arrival=max;}
+    AgencyThread(String name, int max){super(name); thread_name=name; max_arrival=max;}
 
     //setters
     public void setBarrier(CyclicBarrier ba) { barrier = ba; }
@@ -45,5 +46,9 @@ public class AgencyThread extends Thread{
     private void printNewArrival(int arriving)
     {
         System.out.printf("%17s" + " >> new arrival = "+arriving+"%15s remaining customers = "+remaining_cus+"\n",Thread.currentThread().getName(),"");
+    }
+    @Override
+    public String toString() {
+        return thread_name;
     }
 }

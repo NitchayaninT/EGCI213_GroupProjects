@@ -15,7 +15,9 @@ import java.util.concurrent.CyclicBarrier;
 public class Project2_main {
     int days_simulation; //days of simulation
     ArrayList<AgencyThread> AgencyThreads;//array of Agency threads
-    CyclicBarrier barrier; //barrier for agency threads + main (for operation thread, pls create yourself)
+    ArrayList<OperatorThread> OperatorThreads; //array of Operator threads
+    CyclicBarrier sharedBarrier; //barrier for both AgencyThreads and OperatorThreads to communicate
+    ArrayList<Place> places;
 
     //MAIN METHOD
     public static void main(String []args)
@@ -28,15 +30,27 @@ public class Project2_main {
             throw new RuntimeException(e);
         }
     }
+    //initialize
+    private void init()
+    {
+        AgencyThreads = new ArrayList<>();
+        OperatorThreads = new ArrayList<>();
+        places = new ArrayList<>();
+    }
+    //initialize and set barrier
+    private void setBarrier()
+    {
+        sharedBarrier = new CyclicBarrier(AgencyThreads.size()+OperatorThreads.size()+1);
+        for (AgencyThread A: AgencyThreads) {A.setBarrier( sharedBarrier );}//set barrier to AgencyThreads
+        for (OperatorThread O : OperatorThreads){O.setBarrier((sharedBarrier));}//set barrier to OperatorThreads
+    }
     //method to read from file
-    public void readSimulation()
+    private void readSimulation()
     {
         boolean done = false;
         String path = "src/main/java/Project2/";
         String file_name = "config.txt";
-        //initialized
-        AgencyThreads = new ArrayList<>();
-
+        init();//initialized thread array objects
         do {
             try {
                 String in_path = path + file_name;
@@ -54,20 +68,29 @@ public class Project2_main {
                     else if (lineCount==1) { //line 1 = for agencies
                         int agency_num = Integer.parseInt(cols[1].trim());
                         int max_daily_arrival = Integer.parseInt(cols[2].trim());
-                        barrier = new CyclicBarrier( agency_num+1 ); //barrier for all agency threads + main
                         for(int i=0;i<agency_num;i++)
                         {
                             String agency_name = "AgencyThread_"+Integer.toString(i);
                             AgencyThreads.add(new AgencyThread(agency_name,max_daily_arrival));//create thread object
                         }
-                        for (AgencyThread A: AgencyThreads) {A.setBarrier( barrier );}//set barrier to all threads
                     }
                     else if(lineCount==2){//line 2 = for tours
                         int tour_num = Integer.parseInt(cols[1].trim());
                         int tour_capacity = Integer.parseInt(cols[2].trim());
+                        for(int i=0;i<tour_num;i++)
+                        {
+                            String tour_name = "Tour_"+Integer.toString(i);
+                            String operator_name = "OperatorThread_"+Integer.toString(i);
+                            OperatorThreads.add(new OperatorThread(operator_name,new Tour(tour_capacity,tour_name)));
+                        }
                     }
                     else if(lineCount==3){//line 3 = for places
                         int place_num = Integer.parseInt(cols[1].trim());
+                        for(int i=0;i<place_num;i++)
+                        {
+                            String place_name = "Place_"+Integer.toString(i);
+                            places.add(new Place(place_name));
+                        }
                     }
                     lineCount++;
                 }
@@ -86,17 +109,31 @@ public class Project2_main {
 
         }while(!done);
     }
+    //method to print parameters
+    private void printParameters()
+    {
+        System.out.printf("%17s"+" >> "+"=".repeat(25)+" Parameters "+"=".repeat(25)+"\n",Thread.currentThread().getName());
+        System.out.printf("%17s"+" >> "+"%-19s = "+days_simulation+"\n",Thread.currentThread().getName(),"Days of Simulation");
+        System.out.printf("%17s"+" >> "+"%-19s = "+AgencyThread.max_arrival+"\n",Thread.currentThread().getName(),"Max Arrival");
+        System.out.printf("%17s"+" >> "+"%-19s = "+AgencyThreads+"\n",Thread.currentThread().getName(),"AgencyThreads");
+        System.out.printf("%17s"+" >> "+"%-19s = "+Tour.capacity+"\n",Thread.currentThread().getName(),"Tour capacity");
+        System.out.printf("%17s"+" >> "+"%-19s = "+OperatorThreads+"\n",Thread.currentThread().getName(),"Operator Threads");
+        System.out.printf("%17s"+" >> "+"%-19s = "+places+"\n",Thread.currentThread().getName(),"Places");
+        //for tour, operatorThreads, Places. dont forget to create the objects in readSimulation() and then print here
+    }
     //method to run simulation
-    public void runSimulation() throws Exception {
+    private void runSimulation() throws Exception {
+        setBarrier();
         for(AgencyThread A : AgencyThreads) {A.start();} //start agency threads
-
+        for(OperatorThread O : OperatorThreads) {O.start();} //start operator threads
+        printParameters();
         for(int i=1;i<= days_simulation;i++)//start simulation from day 1
         {
             System.out.printf("%17s"+ " >> "+"=".repeat(60)+"\n",Thread.currentThread().getName());
             System.out.printf("%17s"+ " >> "+"Day%2d\n",Thread.currentThread().getName(),i);
 
-            barrier.await(); //check point for other threads to start (other threads wait for main to print day before printing more stuff)
-            barrier.await(); //main thread wait until agency threads finished printing new arrival and remaining cus
+            sharedBarrier.await(); //check point for other threads to start (other threads wait for main to print day before printing more stuff)
+            sharedBarrier.await(); //main thread wait until agency threads finished printing new arrival and remaining cus
             //threads printing more stuff...
 
         }
