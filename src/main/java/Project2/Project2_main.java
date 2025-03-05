@@ -8,6 +8,7 @@ package Project2;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.concurrent.CyclicBarrier;
 
@@ -129,7 +130,6 @@ public class Project2_main {
         System.out.printf("%17s"+" >> "+"%-19s = "+tours.getFirst().getCapacity()+"\n",Thread.currentThread().getName(),"Tour capacity");
         System.out.printf("%17s"+" >> "+"%-19s = "+OperatorThreads+"\n",Thread.currentThread().getName(),"Operator Threads");
         System.out.printf("%17s"+" >> "+"%-19s = "+places+"\n",Thread.currentThread().getName(),"Places");
-        //for tour, operatorThreads, Places. dont forget to create the objects in readSimulation() and then print here
     }
     //method to run simulation
     private void runSimulation() throws Exception {
@@ -139,10 +139,13 @@ public class Project2_main {
         printParameters();
         for(int i=1;i<= days_simulation;i++)//start simulation from day 1
         {
+            System.out.printf("%17s"+" >> \n",Thread.currentThread().getName());
             System.out.printf("%17s"+ " >> "+"=".repeat(60)+"\n",Thread.currentThread().getName());
             System.out.printf("%17s"+ " >> "+"Day%2d\n",Thread.currentThread().getName(),i);
             days_simulation_loop--;
-            sharedBarrier.await(); //check point for other threads to start (other threads wait for main to print day before printing more stuff)
+            int arrivingThreads = sharedBarrier.await(); //check point for other threads to start (other threads wait for main to print day before printing more stuff)
+            if(arrivingThreads==0)System.out.printf("%17s"+" >> \n",Thread.currentThread().getName());
+
             sharedBarrier.await(); //main thread wait until agency threads finished printing new arrival and remaining cus
             sharedBarrier.await();//wait for all agency threads to send customers to tours
             sharedBarrier.await();//wait for all operator threads to send customers to places   
@@ -157,6 +160,7 @@ public class Project2_main {
         System.out.printf("%17s"+ " >>\n",Thread.currentThread().getName());
         System.out.printf("%17s"+ " >> "+"=".repeat(60)+"\n",Thread.currentThread().getName());
         System.out.printf("%17s"+ " >> Summary\n",Thread.currentThread().getName());
+        Collections.sort(tours);
         for(Tour t:tours)
         {
             System.out.printf("%17s"+ " >> "+t.getName()+"%4stotal customers =%6d\n",Thread.currentThread().getName(),"",t.getCustomer());

@@ -41,7 +41,6 @@ public class OperatorThread extends Thread{
             try {
                 barrier.await(); //
             } catch (Exception e) {}
-         
         }
     }
     private void CustomertoPlace()
@@ -50,14 +49,14 @@ public class OperatorThread extends Thread{
         Place randomPlace = place.get(rand.nextInt(place.size()));
         synchronized(randomPlace)
         {
-        int customer = tour.getSeat();//# of customer sent = # of seat taken
-        randomPlace.updateVisitor(customer);
-        tour.updateCustomer(customer);
-        String s = "";
-        if(customer==0)s="no customer";
-        else s = String.format("take%4d customers to "+randomPlace.getName()+"%3svisitor count =%6d",customer,"",randomPlace.getVisitor());
-        System.out.printf("%17s" + " >> %s\n",Thread.currentThread().getName(),s);
-        tour.setSeat(0);//after sent, seats are emptied
+            int customer = tour.getSeat();//# of customer sent = # of seat taken
+            randomPlace.updateVisitor(customer);
+            tour.updateCustomer(customer);
+            String s = "";
+            if(customer==0)s="no customer";
+            else s = String.format("take%4d customers to "+randomPlace.getName()+"%7svisitor count =%6d",customer,"",randomPlace.getVisitor());
+            System.out.printf("%17s" + " >> %s\n",Thread.currentThread().getName(),s);
+            tour.setSeat(0);//after sent, seats are emptied
         }
     }
     @Override

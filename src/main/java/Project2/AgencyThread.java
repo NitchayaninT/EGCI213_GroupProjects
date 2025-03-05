@@ -47,28 +47,28 @@ public class AgencyThread extends Thread{
 
             //wait for all agency thread to print Customer to Tour
             try {
-                barrier.await(); //
+                int ArrivingThreads = barrier.await();
+                if(ArrivingThreads==0) System.out.printf("%17s"+" >> \n",Thread.currentThread().getName());
             } catch (Exception e) {}
             //wait for all operator threads to send customers to places
             try {
                 barrier.await(); //
             } catch (Exception e) {}
-            
-           
+
         }
     }
     private void printNewArrival(int arriving)
     {
-        System.out.printf("%17s" + " >> new arrival = %-2d%15s remaining customers = %-2d\n",Thread.currentThread().getName(),arriving,"",remaining_cus);
+        System.out.printf("%17s" + " >> new arrival = %-2d%19s remaining customers = %-2d\n",Thread.currentThread().getName(),arriving,"",remaining_cus);
     }
     private void CustomerToTour(Random rand)
     {
         Tour randomTour = tours.get(rand.nextInt(tours.size()));
         synchronized(randomTour)
         {
-        int seat_available = randomTour.getCapacity()-randomTour.getSeat();
-        int send_customers = 0;
-        if(seat_available>=remaining_cus)//if seat >= customer, can send all customer
+            int seat_available = randomTour.getCapacity()-randomTour.getSeat();
+            int send_customers = 0;
+            if(seat_available>=remaining_cus)//if seat >= customer, can send all customer
             {
                send_customers = remaining_cus;
                randomTour.updateSeat(send_customers);
@@ -78,7 +78,7 @@ public class AgencyThread extends Thread{
                 randomTour.updateSeat(send_customers);//if seat < customer, fill seats and subtract customer
                 remaining_cus-=send_customers;
             }
-        System.out.printf("%17s" + " >> send%4d customers to "+randomTour.getName()+"%4sseats taken = %-2d\n",Thread.currentThread().getName(),send_customers,"",randomTour.getSeat());
+            System.out.printf("%17s" + " >> send%4d customers to "+randomTour.getName()+"%8sseats taken = %-2d\n",Thread.currentThread().getName(),send_customers,"",randomTour.getSeat());
         }
     }
     @Override
