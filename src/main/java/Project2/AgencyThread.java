@@ -1,6 +1,7 @@
 package Project2;
 
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.*;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
@@ -11,18 +12,19 @@ public class AgencyThread extends Thread{
     private int remaining_cus;
     public static int max_arrival;
     private CyclicBarrier barrier;
-    //private ArrayList<Tour> tours
+    private static ArrayList<Tour> tours;
 
     //constructor
     AgencyThread(String name, int max){super(name); thread_name=name; max_arrival=max;}
 
     //setters
-    public void setBarrier(CyclicBarrier ba) { barrier = ba; }
+    public void setBarrier(CyclicBarrier ba) { barrier = ba;}
+    public void setTour(ArrayList<Tour>t){tours = t;}
 
     //run method for each agency thread
     public void run()
     {
-        while(true)
+        while(Project2_main.days_simulation_loop>0)
         {
             //receive customers and update remaining customers(from prev days + today)
             Random rand = new Random();
@@ -33,19 +35,51 @@ public class AgencyThread extends Thread{
             try {
                 barrier.await();
             } catch (Exception e) {}
-
+            
             //printing new arrival and remaining customers
             printNewArrival(arriving_cus);
             try {
                 barrier.await(); //threads waiting at the barrier before printing next thing
             } catch (Exception e) {}
+            
+            //send customers to tour
+            CustomerToTour(rand);
 
-            //printing send xx customers to Tour ...
+            //wait for all agency thread to print Customer to Tour
+            try {
+                barrier.await(); //
+            } catch (Exception e) {}
+            //wait for all operator threads to send customers to places
+            try {
+                barrier.await(); //
+            } catch (Exception e) {}
+            
+           
         }
     }
     private void printNewArrival(int arriving)
     {
-        System.out.printf("%17s" + " >> new arrival = "+arriving+"%15s remaining customers = "+remaining_cus+"\n",Thread.currentThread().getName(),"");
+        System.out.printf("%17s" + " >> new arrival = %-2d%15s remaining customers = %-2d\n",Thread.currentThread().getName(),arriving,"",remaining_cus);
+    }
+    private void CustomerToTour(Random rand)
+    {
+        Tour randomTour = tours.get(rand.nextInt(tours.size()));
+        synchronized(randomTour)
+        {
+        int seat_available = randomTour.getCapacity()-randomTour.getSeat();
+        int send_customers = 0;
+        if(seat_available>=remaining_cus)//if seat >= customer, can send all customer
+            {
+               send_customers = remaining_cus;
+               randomTour.updateSeat(send_customers);
+               remaining_cus = 0;
+            }else{
+                send_customers = seat_available;
+                randomTour.updateSeat(send_customers);//if seat < customer, fill seats and subtract customer
+                remaining_cus-=send_customers;
+            }
+        System.out.printf("%17s" + " >> send%4d customers to "+randomTour.getName()+"%4sseats taken = %-2d\n",Thread.currentThread().getName(),send_customers,"",randomTour.getSeat());
+        }
     }
     @Override
     public String toString() {
