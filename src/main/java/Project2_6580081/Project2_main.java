@@ -3,7 +3,7 @@
 //Nitchayanin Thamkunanon 6580081
 //Pibhu Chitburanachart 6580195
 //Panupong Sangaphunchai 6580587
-package Project2;
+package Project2_6580081;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,7 +53,7 @@ public class Project2_main {
     private void readSimulation()
     {
         boolean done = false;
-        String path = "src/main/java/Project2/";
+        String path = "src/main/java/Project2_6580081/";
         String file_name = "config.txt";
         init();//initialized thread array objects
         do {
@@ -105,6 +105,7 @@ public class Project2_main {
                     }
                     lineCount++;
                 }
+                if(lineCount<4) throw new Exception("There should always be 4 lines in the file");
                 done = true;
             } catch (FileNotFoundException e) {
                 System.out.println();
@@ -115,7 +116,10 @@ public class Project2_main {
             }
             catch(Exception e)
             {
-                System.out.println(e.toString());
+                System.out.println(e);
+                System.out.println("New file name =");
+                Scanner key_scan = new Scanner(System.in);
+                file_name = key_scan.nextLine();
             }
 
         }while(!done);
