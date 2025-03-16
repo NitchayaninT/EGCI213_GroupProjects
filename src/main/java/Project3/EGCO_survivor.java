@@ -22,15 +22,18 @@ public class EGCO_survivor extends JFrame{
 
     }
 
-    public void menu()  {
+    //charLabels[0].setBorder(BorderFactory.createLineBorder(Color.RED, 2)); // add boarder
+
+    public void mainMenu() {
 
         setSize(framewidth, frameheight);
         setLocationRelativeTo(null);
         setTitle("Main Menu");
-        setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // set background image by using JLabel as contentpane
-        setContentPane( contentPane = new JLabel());
-        //MyImageIcon background = new MyImageIcon();
+        setContentPane(contentPane = new JLabel());
+        // MyImageIcon background = new MyImageIcon();
     }
 }
+
