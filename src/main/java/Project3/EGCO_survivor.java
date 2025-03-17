@@ -10,16 +10,16 @@ import java.awt.*;
 public class EGCO_survivor extends JFrame{
 
     //components
-    private JPanel          contentPane;
-    private JLabel          drawPane;
-    private JButton         startButton, creditsButton;
-    private ButtonGroup      bgroup;
-    private JComboBox<Player>      chooseCharacterBox; //keep characters
-    private JToggleButton   [] tb; //keep radio buttons
-    private JTextField      enterNameText;
-    private JTextArea       creditsText;
-    private Font            F_Plain;
-    private Font            F_Bold;
+    private JPanel              contentPane;
+    private JLabel              drawPane;
+    private JButton             startButton, creditsButton;
+    private ButtonGroup         bgroup;
+    private JComboBox<Player>   chooseCharacterBox; //keep characters
+    private JToggleButton []    tb; //keep radio buttons
+    private JTextField          enterNameText;
+    private JTextArea           creditsText;
+    private Font                F_Plain;
+    private Font                F_Bold;
 
     //frame width and height
     private int framewidth   = MyConstants.FRAME_WIDTH;
@@ -32,7 +32,7 @@ public class EGCO_survivor extends JFrame{
 
     //messages to be passed to next frame
     private String          playerName;
-    private Player          []players; //contains characters object
+    private Player          [] players; //contains characters object
     private MySoundEffect   [] sounds;
     private Weapon          [] weapons;
 

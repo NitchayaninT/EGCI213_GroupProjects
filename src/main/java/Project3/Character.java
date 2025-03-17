@@ -17,19 +17,24 @@ abstract class BaseLabel extends JLabel{
     // Constructors
     public BaseLabel() {super();} // default constructor
 
-    public BaseLabel(String file, int w, int h, Map mf){
+    public BaseLabel(String n, int s, int w, int h, String file){
+        name = n;
+        speed = s;
         width = w;
         height = h;
         icon = new MyImageIcon(file).resize(width, height);
         setIcon(icon);
         setHorizontalAlignment(JLabel.CENTER);
-        mapFrame = mf;
     }
 
     // getter setter
     public void setName(String n) { name = n;}
 
     public String getName() { return name;}
+
+    public void setMap(Map m){
+        mapFrame = m;
+    }
 
     // Methods
     //      might need to modify these last part for character that always
@@ -54,8 +59,9 @@ abstract class Character extends BaseLabel{
     protected int       hp;
 
     // Constructor
-    Character(String file, int w, int h, Map mf) {
-        super(file, w, h, mf);
+    Character(String n, int hp, int s, int w, int h, String file) {
+        super(n, s, w, h, file);
+        this.hp = hp;
     }
 
     // setter getter
@@ -84,10 +90,11 @@ class Player extends Character {
     protected Weapon        weapon;
     protected PlayerPanel   panel;
     // Constructors
-    Player(String file, int w, int h, Map mf, int maxHp){
-        super(file, w, h, mf);
-        maxHp = maxHp;
-        hp = maxHp;
+    Player(String n, int hp, int s, int w, int h, Weapon wp, String file){
+        super(n, hp, s, w, h, file);
+        this.weapon = wp;
+        this.maxHp = hp;
+        this.hp = maxHp;
         dmgMultiplier = 1;
         exp = 0;
         maxExp = 10;
@@ -109,17 +116,25 @@ class Player extends Character {
             repaint();
         }
     }
+
+    @Override
+    public String toString(){
+        return this.name;
+    }
 }
+
 
 class PlayerPanel extends JPanel{
     // members
-    protected Player player;
+    protected Player          player;
     protected JProgressBar    healthBar;
+
+    //
 
     // Constructor
     PlayerPanel(Player p){
         this.player = p;
-
+        this.setSize(player.width,player.height);
         // Creating Health Bar
         healthBar = new JProgressBar(SwingConstants.HORIZONTAL, player.maxHp);
         healthBar.setValue(player.maxHp);
@@ -135,13 +150,18 @@ class PlayerPanel extends JPanel{
 class Monster extends Character{
 
     // Constructor
-    Monster(String file, int w, int h, Map mf){
-        super(file, w, h, mf);
+    Monster(String n, int hp, int s, int w, int h, String file){
+        super(n, hp, s, w, h,file);
     }
 }
 
 class Boss extends Monster{
-    Boss(String file, int w, int h, Map mf){
-        super(file, w, h, mf);
+    Boss(String n, int hp, int s, int w, int h, String file){
+        super(n, hp, s, w, h, file);
+    }
+
+    @Override
+    protected void death(){
+        //win();
     }
 }
