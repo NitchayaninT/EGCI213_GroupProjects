@@ -33,7 +33,7 @@ public class EGCO_survivor extends JFrame{
 
         // set background image by using JLabel as contentpane
         setContentPane(contentPane = new JLabel());
-        // MyImageIcon background = new MyImageIcon();
+        //MyImageIcon background = new MyImageIcon();
     }
 }
 
