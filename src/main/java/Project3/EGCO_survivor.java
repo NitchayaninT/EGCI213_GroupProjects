@@ -184,8 +184,6 @@ public class EGCO_survivor extends JFrame{
         weapons[2] = new Weapon("Weapon2",30,120,50,MyConstants.FILE_WEAPON0,1);
         weapons[3] = new Weapon("Weapon3",30,120,50,MyConstants.FILE_WEAPON0,1);
         weapons[4] = new Weapon("Weapon4",30,120,50,MyConstants.FILE_WEAPON0,1);
-        setContentPane(contentPane = new JLabel());
-        //MyImageIcon background = new MyImageIcon();
     }
 }
 
