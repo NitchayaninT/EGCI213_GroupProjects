@@ -88,7 +88,9 @@ public class EGCO_survivor extends JFrame{
             public void focusLost(FocusEvent e) {
                 if (enterNameText.getText().isEmpty()) {
                     enterNameText.setText("Enter name"); //restore text if left empty
-                    playerName = enterNameText.getText();//keep player's name until user presses start
+                }
+                else {
+                    playerName = enterNameText.getText(); //store player name
                 }
             }
         });
