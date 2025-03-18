@@ -13,13 +13,15 @@ public class EGCO_survivor extends JFrame{
     private JPanel              contentPane;
     private JLabel              drawPane;
     private JButton             startButton, creditsButton;
-    private ButtonGroup         bgroup;
-    private JComboBox<Player>   chooseCharacterBox; //keep characters
+    private ButtonGroup         bg;
+    private JComboBox<String>   chooseCharacterBox; //keep characters
     private JToggleButton []    tb; //keep radio buttons
     private JTextField          enterNameText;
     private JTextArea           creditsText;
     private Font                F_Plain;
     private Font                F_Bold;
+    private String              [] players; //contains players name (will pass the name user chooses to next frame)
+    private String              [] songs; //contains all songs (will pass the song name to next frame)
 
     //frame width and height
     private int framewidth   = MyConstants.FRAME_WIDTH;
@@ -27,13 +29,13 @@ public class EGCO_survivor extends JFrame{
 
     //this frame
     private EGCO_survivor   currentFrame;
-    //next frame
+    //next frame ***
     MapFrame                mapFrame;
 
-    //messages to be passed to next frame
+    //messages to be passed to next frame*** IMPORTANT
     private String          playerName;
-    private Player          [] players; //contains characters object
-    private MySoundEffect   [] sounds;
+    private String          chosenCharacterName;
+    private String          chosenSong;
     private Weapon          [] weapons;
 
     // main methods
@@ -71,9 +73,8 @@ public class EGCO_survivor extends JFrame{
         drawPane.setLayout(null);
 
         //for sound effect
-        sounds = new MySoundEffect[5];
-        sounds[0] = new MySoundEffect(MyConstants.FILE_THEME1);
-        sounds[0].playLoop(); sounds[0].setVolume(0.4f);
+        MySoundEffect main_theme = new MySoundEffect(MyConstants.FILE_THEME1);
+        main_theme.playLoop(); main_theme.setVolume(0.4f);
 
         //enter name textfield with initial text "enter name", saves player name to a variable that needs to be passed to next frame
         enterNameText = new JTextField("Enter name", 16);
@@ -106,7 +107,12 @@ public class EGCO_survivor extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 //if clicked, go to next frame
                 mapFrame = new MapFrame();
-                //and pass messages to the next frame
+                //and pass messages to the next frame ****
+                mapFrame.setPlayerName(playerName);
+                mapFrame.setMusicName(chosenSong);
+                mapFrame.setCharacterName(chosenCharacterName);
+                mapFrame.setWeapons(weapons);
+                mapFrame.addComponents();
             }
         });
 
@@ -128,17 +134,28 @@ public class EGCO_survivor extends JFrame{
         });
 
         //for radio buttons (songs)
-        tb = new JToggleButton[5];
-        tb[0] = new JRadioButton("Song 1"); tb[0].setFont(F_Plain);
-        tb[1] = new JRadioButton("Song 2"); tb[1].setFont(F_Plain);
-        tb[2] = new JRadioButton("Song 3"); tb[2].setFont(F_Plain);
-        tb[3] = new JRadioButton("Song 4"); tb[3].setFont(F_Plain);
-        tb[4] = new JRadioButton("Song 5"); tb[4].setFont(F_Plain);
-        bgroup = new ButtonGroup();
-        for(int i=0;i<5;i++) {bgroup.add(tb[i]);}
+        setSongs();
+        tb = new JRadioButton[5];
+        bg = new ButtonGroup();
+        for(int i=0;i<5;i++)
+        {
+            tb[i] = new JRadioButton(songs[i]); tb[i].setFont(F_Plain);
+            bg.add(tb[i]);
+            //anonymous class for choosing songs
+            tb[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JRadioButton selectedButton = (JRadioButton) e.getSource();
+                    chosenSong = selectedButton.getText();
+                }
+            });
+        }
+        tb[0].setSelected(true);
+        chosenSong = tb[0].getText(); //set initial
         JPanel radioButtonGroup = new JPanel();
         radioButtonGroup.setLayout( new GridLayout(5, 1) );
         for (int i=0; i < 5; i++) radioButtonGroup.add( tb[i] );
+
 
         //set weapons
         setWeapons();
@@ -147,6 +164,16 @@ public class EGCO_survivor extends JFrame{
         setCharacters();
         chooseCharacterBox = new JComboBox<>(players);
         chooseCharacterBox.setFont(F_Bold);
+        chooseCharacterBox.setSelectedIndex(0);
+        chosenCharacterName = (String) chooseCharacterBox.getSelectedItem(); //set initial
+
+        //for user to choose 1 character
+        chooseCharacterBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chosenCharacterName = (String) chooseCharacterBox.getSelectedItem();
+            }
+        });
 
         //setting bounds for all components
         enterNameText.setBounds(450,450,295,40);
@@ -168,14 +195,21 @@ public class EGCO_survivor extends JFrame{
     }
     private void setCharacters()
     {
-        players = new Player[5];
-        //setting characters skills,weapon, pic and name ...
-        players[0] = new Player("Ninny",15,4,30,80,weapons[0],MyConstants.FILE_CHAR0);
-        //pls set your characters by yourself!!!
-        players[1] = new Player("Phil",15,4,30,80,weapons[1],MyConstants.FILE_CHAR0);
-        players[2] = new Player("Hope",15,4,30,80,weapons[2],MyConstants.FILE_CHAR0);
-        players[3] = new Player("Tony",15,4,30,80,weapons[3],MyConstants.FILE_CHAR0);
-        players[4] = new Player("P",15,4,30,80,weapons[4],MyConstants.FILE_CHAR0);
+        players = new String[5];
+        players[0] = "Hope";
+        players[1] = "Phil";
+        players[2] = "Ninny";
+        players[3] = "P";
+        players[4] = "Tony";
+    }
+    private void setSongs()
+    {
+        songs = new String[5];
+        songs[0] = "Song 0";
+        songs[1] = "Song 1";
+        songs[2] = "Song 2";
+        songs[3] = "Song 3";
+        songs[4] = "Song 4";
     }
     private void setWeapons()
     {
@@ -187,5 +221,7 @@ public class EGCO_survivor extends JFrame{
         weapons[3] = new Weapon("Weapon3",30,120,50,MyConstants.FILE_WEAPON0,1);
         weapons[4] = new Weapon("Weapon4",30,120,50,MyConstants.FILE_WEAPON0,1);
     }
+
+
 }
 

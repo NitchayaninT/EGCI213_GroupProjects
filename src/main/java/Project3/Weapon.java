@@ -28,4 +28,9 @@ class Weapon
         this.height = w.height; this.width = w.width;
         this.icon = w.getIcon(); this.level = w.getLevel();
     }
+
+    public String toString()
+    {
+        return this.name;
+    }
 }
