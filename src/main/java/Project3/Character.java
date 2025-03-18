@@ -116,7 +116,6 @@ class Player extends Character {
             repaint();
         }
     }
-
     @Override
     public String toString(){
         return this.name;

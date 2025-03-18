@@ -14,9 +14,32 @@ interface MyConstants{
     //for character pictures
     static final String FILE_CHAR0    = PATH + "phil.png";
 
+    //for monster pictures
+    static final String FILE_AJ0        = PATH + "Tanasanee.png";
+    static final String FILE_AJ1        = PATH + "Mingmanas.png";
+    static final String FILE_AJ2        = PATH + "Thanadol.png";
+    static final String FILE_AJ3        = PATH + "Sumeth.png";
+    static final String FILE_AJ4        = PATH + "Konglit.png";
+    static final String FILE_AJ5        = PATH + "Lalita.png";
+    static final String FILE_AJ6        = PATH + "Suratos.png";
+    static final String FILE_AJ7        = PATH + "Paisarn.png";
+    static final String FILE_AJ8        = PATH + "Narit.png";
+    static final String FILE_AJ9        = PATH + "Vasin.png";
+    static final String FILE_AJ10       = PATH + "Konlakorn.png";
+    static final String FILE_AJ11       = PATH + "Noppadol.png";
+    static final String FILE_AJ12       = PATH + "Karin.png";
+    static final String FILE_AJ13       = PATH + "Rangsipan.png";
+
+    static final int MON1_WIDTH         = 15;
+    static final int MON1_HEIGHT        = 15;
+    static final int MON2_WIDTH         = 20;
+    static final int MON2_HEIGHT        = 20;
+    static final int BOSS_WIDTH         = 100;
+    static final int BOSS_HEIGHT        = 100;
+
     //will change this
-    static final int CH_WIDTH      = 60;
-    static final int CH_HEIGHT     = 50;
+    static final int CH_WIDTH      = 30;
+    static final int CH_HEIGHT     = 30;
     static final int IT_WIDTH      = 60;
     static final int IT_HEIGHT     = 50;
 
