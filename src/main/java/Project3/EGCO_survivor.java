@@ -113,6 +113,7 @@ public class EGCO_survivor extends JFrame{
                 mapFrame.setCharacterName(chosenCharacterName);
                 mapFrame.setWeapons(weapons);
                 mapFrame.addComponents();
+                dispose();
             }
         });
 

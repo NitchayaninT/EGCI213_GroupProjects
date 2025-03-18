@@ -12,21 +12,27 @@ public class MapFrame extends JFrame {
     String musicName;
     Weapon [] weapons;
 
+    //this frame
+    private MapFrame   currentFrame;
+
+    //constructor
     public MapFrame()
     {
-        setTitle("Welcome "+ playerName);
-        setBounds(200, 200, 400, 400);
-        setVisible(true);
+        setSize(800,600);
+        setLocationRelativeTo(null); // Centers the frame
         setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE );
-
         contentpane = (JPanel)getContentPane();
         contentpane.setLayout( new BorderLayout() );
+
     }
+    //add components
     public void addComponents(){
+        setTitle("Welcome "+ playerName);
         System.out.println(playerName);
         System.out.println(chosenCharacterName);
         System.out.println(musicName);
         System.out.println(Arrays.toString(weapons));
+        setVisible(true);
         validate();
     }
 
