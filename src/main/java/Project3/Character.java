@@ -16,11 +16,9 @@ abstract class BaseLabel extends JLabel{
     // Constructors
     public BaseLabel() {super();} // default constructor
 
-    public BaseLabel(String n, int s, int w, int h, String file){
+    public BaseLabel(String n, int s, String file){
         name = n;
         speed = s;
-        width = w;
-        height = h;
         icon = new MyImageIcon(file).resize(width, height);
         setIcon(icon);
         setHorizontalAlignment(JLabel.CENTER);
@@ -58,8 +56,8 @@ abstract class Character extends BaseLabel{
     protected int       hp;
 
     // Constructor
-    Character(String n, int hp, int s, int w, int h, String file) {
-        super(n, s, w, h, file);
+    Character(String n, int hp, int s, String file) {
+        super(n, s, file);
         this.hp = hp;
     }
 
@@ -80,7 +78,7 @@ abstract class Character extends BaseLabel{
     }
 }
 
-class Player extends Character {
+class MyCharacter extends Character {
     // Variable
     protected double        dmgMultiplier;
     protected int           exp, maxExp;
@@ -89,15 +87,18 @@ class Player extends Character {
     protected Weapon        weapon;
     protected PlayerPanel   panel;
     // Constructors
-    Player(String n, int hp, int s, int w, int h, Weapon wp, String file){
-        super(n, hp, s, w, h, file);
-        this.weapon = wp;
+    MyCharacter(String n, int hp, int s, Weapon wp, String file){
+        super(n, hp, s, file);
+        this.height = MyConstants.CH_HEIGHT;
+        this.width = MyConstants.CH_WIDTH;
         this.maxHp = hp;
         this.hp = maxHp;
+        this.weapon = wp;
         dmgMultiplier = 1;
         exp = 0;
         maxExp = 10;
         panel = new PlayerPanel(this);
+
     }
 
     void levelUp(){
@@ -124,13 +125,13 @@ class Player extends Character {
 
 class PlayerPanel extends JPanel{
     // members
-    protected Player          player;
+    protected MyCharacter player;
     protected JProgressBar    healthBar;
 
     //
 
     // Constructor
-    PlayerPanel(Player p){
+    PlayerPanel(MyCharacter p){
         this.player = p;
         this.setSize(player.width,player.height);
         // Creating Health Bar
@@ -149,7 +150,7 @@ class Monster extends Character{
 
     // Constructor
     Monster(String n, int hp, int s, int w, int h, String file){
-        super(n, hp, s, w, h,file);
+        super(n, hp, s,file);
     }
 }
 

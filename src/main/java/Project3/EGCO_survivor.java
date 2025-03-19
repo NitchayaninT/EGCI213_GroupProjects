@@ -36,7 +36,6 @@ public class EGCO_survivor extends JFrame{
     private String          playerName;
     private int             characterID;
     private String          chosenSong;
-    private Weapon          [] weapons;
 
     // main methods
     public static void main(String [] args){
@@ -120,7 +119,6 @@ public class EGCO_survivor extends JFrame{
                 mapFrame.setPlayerName(playerName);
                 mapFrame.setMusicName(chosenSong);
                 mapFrame.setCharacterID(characterID);
-                mapFrame.setWeapons(weapons);
                 mapFrame.addComponents();
                 running = false;
                 dispose();
@@ -166,10 +164,6 @@ public class EGCO_survivor extends JFrame{
         JPanel radioButtonGroup = new JPanel();
         radioButtonGroup.setLayout( new GridLayout(5, 1) );
         for (int i=0; i < 5; i++) radioButtonGroup.add( tb[i] );
-
-
-        //set weapons
-        setWeapons();
 
         //for combo box (choose character)
         setCharacters();
@@ -221,16 +215,6 @@ public class EGCO_survivor extends JFrame{
         songs[2] = "Song 2";
         songs[3] = "Song 3";
         songs[4] = "Song 4";
-    }
-    private void setWeapons()
-    {
-        weapons = new Weapon[5];
-        weapons[0] = new Weapon("Magical Wand",30,120,50,MyConstants.FILE_WEAPON0,1);
-        //pls add your weapons by yourself !!!!
-        weapons[1] = new Weapon("Weapon1",30,120,50,MyConstants.FILE_WEAPON0,1);
-        weapons[2] = new Weapon("Weapon2",30,120,50,MyConstants.FILE_WEAPON0,1);
-        weapons[3] = new Weapon("Weapon3",30,120,50,MyConstants.FILE_WEAPON0,1);
-        weapons[4] = new Weapon("Weapon4",30,120,50,MyConstants.FILE_WEAPON0,1);
     }
     //method to make stars fall
     public void starThread()
