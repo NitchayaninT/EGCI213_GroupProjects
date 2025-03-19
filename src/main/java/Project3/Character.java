@@ -51,6 +51,8 @@ abstract class BaseLabel extends JLabel{
     public void moveRight() { this.y -= speed;}
 }
 
+// ******************************************************************************
+
 abstract class Character extends BaseLabel{
     // Variable
     protected int       hp;
@@ -78,6 +80,7 @@ abstract class Character extends BaseLabel{
     }
 }
 
+// ******************************************************************************
 class MyCharacter extends Character {
     // Variable
     protected double        dmgMultiplier;
@@ -146,17 +149,22 @@ class PlayerPanel extends JPanel{
     }
 }
 
+// ******************************************************************************
 class Monster extends Character{
 
     // Constructor
     Monster(String n, int hp, int s, int w, int h, String file){
         super(n, hp, s,file);
+        width = w;
+        height = h;
     }
 }
 
 class Boss extends Monster{
-    Boss(String n, int hp, int s, int w, int h, String file){
-        super(n, hp, s, w, h, file);
+
+    // Constructor
+    Boss(String n, int hp, int s, String file){
+        super(n,hp,s, MyConstants.BOSS_HEIGHT,MyConstants.BOSS_WIDTH,file);
     }
 
     @Override
