@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 // I just create this class as a place holder for the real one
-class Map extends JPanel { }
 class LevelUpMenu extends JPanel{ }
 
 abstract class BaseLabel extends JLabel{
@@ -141,6 +140,7 @@ class PlayerPanel extends JPanel{
         healthBar.setForeground(Color.RED);
         healthBar.setBackground(Color.GRAY);
 
+        // set layout
         this.add(player, BorderLayout.CENTER);
         this.add(healthBar, BorderLayout.SOUTH);
     }

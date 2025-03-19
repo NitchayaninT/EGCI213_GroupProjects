@@ -2,7 +2,6 @@ package Project3;
 
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.text.StyledEditorKit;
 import java.util.*;
 import java.awt.*;
 
@@ -22,6 +21,7 @@ public class EGCO_survivor extends JFrame{
     private Font                F_Bold;
     private String              [] players; //contains players name (will pass the name user chooses to next frame)
     private String              [] songs; //contains all songs (will pass the song name to next frame)
+    private boolean             running = true; //keep track of the stars' status. if false, that means we move to another frame
 
     //frame width and height
     private int framewidth   = MyConstants.FRAME_WIDTH;
@@ -30,11 +30,11 @@ public class EGCO_survivor extends JFrame{
     //this frame
     private EGCO_survivor   currentFrame;
     //next frame ***
-    MapFrame                mapFrame;
+    MapMenu mapFrame;
 
     //messages to be passed to next frame*** IMPORTANT
     private String          playerName;
-    private String          chosenCharacterName;
+    private int             characterID;
     private String          chosenSong;
     private Weapon          [] weapons;
 
@@ -58,6 +58,15 @@ public class EGCO_survivor extends JFrame{
         setContentPane(contentPane = new JPanel());
         contentPane.setLayout(new BorderLayout());
         AddComponents();
+
+        while (running) {//spawning stars
+            starThread(); //spawning stars thread
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void AddComponents()
@@ -106,13 +115,14 @@ public class EGCO_survivor extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //if clicked, go to next frame
-                mapFrame = new MapFrame();
+                mapFrame = new MapMenu();
                 //and pass messages to the next frame ****
                 mapFrame.setPlayerName(playerName);
                 mapFrame.setMusicName(chosenSong);
-                mapFrame.setCharacterName(chosenCharacterName);
+                mapFrame.setCharacterID(characterID);
                 mapFrame.setWeapons(weapons);
                 mapFrame.addComponents();
+                running = false;
                 dispose();
             }
         });
@@ -166,13 +176,13 @@ public class EGCO_survivor extends JFrame{
         chooseCharacterBox = new JComboBox<>(players);
         chooseCharacterBox.setFont(F_Bold);
         chooseCharacterBox.setSelectedIndex(0);
-        chosenCharacterName = (String) chooseCharacterBox.getSelectedItem(); //set initial
+        characterID = chooseCharacterBox.getSelectedIndex();//set initial
 
         //for user to choose 1 character
         chooseCharacterBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chosenCharacterName = (String) chooseCharacterBox.getSelectedItem();
+                characterID = chooseCharacterBox.getSelectedIndex();
             }
         });
 
@@ -222,7 +232,37 @@ public class EGCO_survivor extends JFrame{
         weapons[3] = new Weapon("Weapon3",30,120,50,MyConstants.FILE_WEAPON0,1);
         weapons[4] = new Weapon("Weapon4",30,120,50,MyConstants.FILE_WEAPON0,1);
     }
+    //method to make stars fall
+    public void starThread()
+    {
+        Thread starThread= new Thread() {
+            public void run()
+            {
+                MyImageIcon icon = new MyImageIcon(MyConstants.PATH + "/star.png").resize(10, 10);
+                JLabel star = new JLabel();
+                star.setLayout(null);
+                star.setIcon(icon);
+                star.setHorizontalAlignment(JLabel.CENTER);
 
+                //use to random x and Y axis
+                Random rand = new Random();;
+                int yAxis = 0; //initial
 
+                //add to draw pane
+                drawPane.add(star);
+
+                //looping
+                while(running){
+                    try {
+                        Thread.sleep(40);
+                    } catch (InterruptedException e) {throw new RuntimeException(e);}
+                    int xAxis = rand.nextInt(MyConstants.FRAME_WIDTH - 10);
+                    yAxis = rand.nextInt(MyConstants.FRAME_HEIGHT/2);
+                    star.setBounds(xAxis, yAxis, 5, 5);
+                }
+            }
+        };
+        starThread.start();
+    }
 }
 
