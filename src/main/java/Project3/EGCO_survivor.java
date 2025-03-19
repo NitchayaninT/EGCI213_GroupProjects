@@ -42,7 +42,6 @@ public class EGCO_survivor extends JFrame{
     public static void main(String [] args){
         new EGCO_survivor();
     }
-
     //charLabels[0].setBorder(BorderFactory.createLineBorder(Color.RED, 2)); // add boarder
 
     //CONSTRUCTOR
