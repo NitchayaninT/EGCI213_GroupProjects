@@ -47,8 +47,8 @@ public class MapMenu extends JFrame {
     }
 
     //methods
-    public void setPlayerName(String name){playerName = name;}
-    public void setCharacterID(int ID){chosenCharacterID = ID;}
-    public void setMusicName(String name){musicName = name;}
-    public void setWeapons(Weapon []w){weapons = w;}
+    public void setPlayerName(String name)  { playerName = name;}
+    public void setCharacterID(int ID)      { chosenCharacterID = ID;}
+    public void setMusicName(String name)   { musicName = name;}
+    public void setWeapons(Weapon []w)      { weapons = w;}
 }
