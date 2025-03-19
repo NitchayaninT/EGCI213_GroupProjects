@@ -14,6 +14,7 @@ public class MapMenu extends JFrame {
     private JLabel                  drawCharbox;
     private JLabel                  contentpane; //for background image of frame
     private JList<Map>                    list;
+    private Map                     chosenMap;
 
     //this frame
     private MapMenu currentFrame;
@@ -84,12 +85,11 @@ public class MapMenu extends JFrame {
         //add panel to drawCharBox Label
         drawCharbox.add(statusPanel);
 
-        //create Maps
-        createMapList();
-
         //adding components
-        JScrollPane scrollPane = new JScrollPane(list); //allow scrolling
-        scrollPane.setBounds(150, 100, 300, 500);
+        JScrollPane scrollPane = new JScrollPane(createMapList()); //allow scrolling
+        scrollPane.setBounds(150, 200, 300, 300);
+
+        //scrollPane.setBounds(150, 100, 300, 500);
 
         contentpane.add(drawCharbox);
         contentpane.add(scrollPane);
@@ -124,7 +124,7 @@ public class MapMenu extends JFrame {
                 break;
         }
     }
-    public void createMapList()
+    private JList<Map> createMapList()
     {
         //create list of maps
         DefaultListModel<Map> mapModel = new DefaultListModel<>();
@@ -135,8 +135,20 @@ public class MapMenu extends JFrame {
         mapModel.addElement(new Map("Map 5", new MyImageIcon(MyConstants.FILE_FOREST)));
 
         list = new JList<Map>(mapModel);
+        list.setFixedCellHeight(75);
         //set ListRenderer
+        list.setOpaque(true);
         list.setCellRenderer(new MyListRenderer());
+
+        list.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                chosenMap = list.getSelectedValue(); // ✅ Store the selected map
+                if (chosenMap != null) {
+                    System.out.println("Stored Selected Map: " + chosenMap.getMapName());
+                }
+            }
+        });
+        return list;
     }
 }
 //ListRenderer customize how items are displayed inside a JList (create JList first!!)
@@ -146,16 +158,20 @@ class MyListRenderer extends JPanel implements ListCellRenderer<Map> {
     private JLabel Name = new JLabel();
 
     public MyListRenderer() {
-        setLayout(new BorderLayout(5, 5));
-        JPanel panelText = new JPanel(new GridLayout(0, 1));
-        panelText.add(Name);
+        setLayout(new BorderLayout(50, 30));
+        setSize(200, 75);
+        Icon.setPreferredSize(new Dimension(90, 90));
+
+        JPanel textPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        textPanel.setOpaque(false);
+        textPanel.add(Name);
 
         add(Icon, BorderLayout.WEST);
-        add(panelText, BorderLayout.CENTER);
+        add(textPanel, BorderLayout.CENTER);
 
-        // ✅ Set font and color for visibility
+        Name.setOpaque(true);
+        Name.setBackground(Color.WHITE);
         Name.setFont(new Font("Century Gothic", Font.BOLD, 16));
-        Name.setForeground(Color.BLACK);
     }
 
     @Override
@@ -164,25 +180,16 @@ class MyListRenderer extends JPanel implements ListCellRenderer<Map> {
             Name.setText(value.getMapName());
             Icon.setIcon(value.getMapIcon());
 
-            Name.setForeground(Color.BLACK);
-            Icon.setForeground(Color.BLACK);
-
             Name.setOpaque(true);
             Icon.setOpaque(true);
         }
-        // set Opaque to change background color of JLabel
         Name.setOpaque(true);
-        Icon.setOpaque(true);
         //handle selection styling
         if (isSelected) {
-            Name.setBackground(list.getSelectionBackground());
-            Icon.setBackground(list.getSelectionBackground());
-            setBackground(list.getSelectionBackground());
+            setBackground(new Color(200, 200, 200, 180));
+
         } else {
             setBackground(Color.WHITE);
-            Name.setBackground(Color.WHITE);
-            Icon.setBackground(Color.WHITE);
-            Name.setForeground(Color.BLACK);
         }
         return this;
     }
