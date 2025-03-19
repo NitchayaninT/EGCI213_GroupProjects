@@ -77,7 +77,7 @@ public class EGCO_survivor extends JFrame{
         F_Bold = new Font("Century Gothic", Font.BOLD, 16);
 
         // set background image by using JLabel as contentpane
-        MyImageIcon background = new MyImageIcon(MyConstants.FILE_BG).resize(framewidth, frameheight);
+        MyImageIcon background = new MyImageIcon(MyConstants.PATH+"/background2.jpg").resize(framewidth, frameheight);
         drawPane = new JLabel();
         drawPane.setIcon(background);
         drawPane.setLayout(null);
