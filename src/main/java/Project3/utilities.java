@@ -13,9 +13,10 @@ interface MyConstants{
 
     //for weapon pictures
     static final String FILE_WEAPON0    = PATH + "weapon0.png";
+
     //for character pictures
     static final String FILE_YOURCHARBOX    = PATH + "yourcharacter.JPG";
-    static final String FILE_CHAR0    = PATH + "phil.png";
+    static final String FILE_CHAR1    = PATH + "phil.png";
 
     //for monster pictures
     static final String FILE_AJ0        = PATH + "Tanasanee.png";
