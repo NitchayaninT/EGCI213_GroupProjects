@@ -11,14 +11,16 @@ abstract class BaseLabel extends JLabel{
     protected MyImageIcon icon;
     protected int x , y, width, height;
     protected int speed;
-    protected Map mapFrame; // for putting the map Panel as reference for characters
+    protected MapFrame mapFrame; // for putting the map Panel as reference for characters
 
     // Constructors
     public BaseLabel() {super();} // default constructor
 
-    public BaseLabel(String n, int s, String file){
+    public BaseLabel(String n, int s, String file, int w, int h){
         name = n;
         speed = s;
+        width = w;
+        height = h;
         icon = new MyImageIcon(file).resize(width, height);
         setIcon(icon);
         setHorizontalAlignment(JLabel.CENTER);
@@ -29,7 +31,7 @@ abstract class BaseLabel extends JLabel{
 
     public String getName() { return name;}
 
-    public void setMap(Map m){
+    public void setMap(MapFrame m){
         mapFrame = m;
     }
 
@@ -56,13 +58,14 @@ abstract class Character extends BaseLabel{
     protected int       hp;
 
     // Constructor
-    Character(String n, int hp, int s, String file) {
-        super(n, s, file);
+    Character(String n, int hp, int s, String file, int w, int h) {
+        super(n, s, file, w, h);
         this.hp = hp;
     }
 
     // setter getter
     void setHp(int hp) { this.hp = hp; }
+    int getHp(){return this.hp;}
 
     // Methods
     void takeDamage(int damage){
@@ -87,10 +90,8 @@ class MyCharacter extends Character {
     protected Weapon        weapon;
     protected PlayerPanel   panel;
     // Constructors
-    MyCharacter(String n, int hp, int s, Weapon wp, String file){
-        super(n, hp, s, file);
-        this.height = MyConstants.CH_HEIGHT;
-        this.width = MyConstants.CH_WIDTH;
+    MyCharacter(String n, int hp, int s, Weapon wp, String file, int w, int h){
+        super(n, hp, s, file, w, h);
         this.maxHp = hp;
         this.hp = maxHp;
         this.weapon = wp;
@@ -100,6 +101,7 @@ class MyCharacter extends Character {
         panel = new PlayerPanel(this);
 
     }
+    public Weapon getWeapon(){return this.weapon;}
 
     void levelUp(){
         level += 1;
@@ -150,7 +152,7 @@ class Monster extends Character{
 
     // Constructor
     Monster(String n, int hp, int s, int w, int h, String file){
-        super(n, hp, s,file);
+        super(n, hp, s,file, w, h);
     }
 }
 
