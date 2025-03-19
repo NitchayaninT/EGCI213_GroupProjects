@@ -8,10 +8,13 @@ interface MyConstants{
     static final String PATH       = "src/main/java/Project3/Resource/";
     static final int FRAME_WIDTH   = 1200;
     static final int FRAME_HEIGHT  = 800;
-    static final String FILE_BG    = PATH + "background.jpg";
+    static final String FILE_BG    = PATH + "background2.jpg";
+    static final String FILE_FOREST    = PATH + "forest.JPG";
+
     //for weapon pictures
     static final String FILE_WEAPON0    = PATH + "weapon0.png";
     //for character pictures
+    static final String FILE_YOURCHARBOX    = PATH + "yourcharacter.JPG";
     static final String FILE_CHAR0    = PATH + "phil.png";
 
     //for monster pictures

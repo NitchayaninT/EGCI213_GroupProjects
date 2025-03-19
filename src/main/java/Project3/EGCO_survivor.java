@@ -2,7 +2,6 @@ package Project3;
 
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.text.StyledEditorKit;
 import java.util.*;
 import java.awt.*;
 
@@ -31,11 +30,11 @@ public class EGCO_survivor extends JFrame{
     //this frame
     private EGCO_survivor   currentFrame;
     //next frame ***
-    MapFrame                mapFrame;
+    MapMenu mapFrame;
 
     //messages to be passed to next frame*** IMPORTANT
     private String          playerName;
-    private String          chosenCharacterName;
+    private int             characterID;
     private String          chosenSong;
     private Weapon          [] weapons;
 
@@ -77,7 +76,7 @@ public class EGCO_survivor extends JFrame{
         F_Bold = new Font("Century Gothic", Font.BOLD, 16);
 
         // set background image by using JLabel as contentpane
-        MyImageIcon background = new MyImageIcon(MyConstants.PATH+"/background2.jpg").resize(framewidth, frameheight);
+        MyImageIcon background = new MyImageIcon(MyConstants.FILE_BG).resize(framewidth, frameheight);
         drawPane = new JLabel();
         drawPane.setIcon(background);
         drawPane.setLayout(null);
@@ -116,11 +115,11 @@ public class EGCO_survivor extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //if clicked, go to next frame
-                mapFrame = new MapFrame();
+                mapFrame = new MapMenu();
                 //and pass messages to the next frame ****
                 mapFrame.setPlayerName(playerName);
                 mapFrame.setMusicName(chosenSong);
-                mapFrame.setCharacterName(chosenCharacterName);
+                mapFrame.setCharacterID(characterID);
                 mapFrame.setWeapons(weapons);
                 mapFrame.addComponents();
                 running = false;
@@ -177,13 +176,13 @@ public class EGCO_survivor extends JFrame{
         chooseCharacterBox = new JComboBox<>(players);
         chooseCharacterBox.setFont(F_Bold);
         chooseCharacterBox.setSelectedIndex(0);
-        chosenCharacterName = (String) chooseCharacterBox.getSelectedItem(); //set initial
+        characterID = chooseCharacterBox.getSelectedIndex();//set initial
 
         //for user to choose 1 character
         chooseCharacterBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chosenCharacterName = (String) chooseCharacterBox.getSelectedItem();
+                characterID = chooseCharacterBox.getSelectedIndex();
             }
         });
 
@@ -261,7 +260,6 @@ public class EGCO_survivor extends JFrame{
                     yAxis = rand.nextInt(MyConstants.FRAME_HEIGHT/2);
                     star.setBounds(xAxis, yAxis, 5, 5);
                 }
-                System.out.println("thread finished");
             }
         };
         starThread.start();

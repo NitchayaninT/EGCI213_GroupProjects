@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 // I just create this class as a place holder for the real one
-class Map extends JPanel { }
 class LevelUpMenu extends JPanel{ }
 
 abstract class BaseLabel extends JLabel{
