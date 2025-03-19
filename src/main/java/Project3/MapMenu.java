@@ -44,9 +44,9 @@ public class MapMenu extends JFrame {
         createPlayer();
 
         //textfield to show player name
-        JPanel myCharPanel = new JPanel();
+        /*JPanel myCharPanel = new JPanel();
         myCharPanel.setBounds(700,25,background.getIconWidth(),background.getIconHeight());
-        JLabel Namelabel = new JLabel("Your name = "+playerName);
+        JLabel Namelabel = new JLabel("Your name = "+playerName);*/
         /*
         label.setFont(new Font("Arial", Font.BOLD, 24));
         label.setForeground(Color.RED); // Text color
