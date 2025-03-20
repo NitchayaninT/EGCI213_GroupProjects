@@ -11,7 +11,7 @@ abstract class BaseLabel extends JLabel{
     protected MyImageIcon icon;
     protected int x , y, width, height;
     protected int speed;
-    protected MapFrame mapFrame; // for putting the map Panel as reference for characters
+    protected MapPanel mapPanel; // for putting the map Panel as reference for characters
 
     // Constructors
     public BaseLabel() {super();} // default constructor
@@ -31,8 +31,8 @@ abstract class BaseLabel extends JLabel{
 
     public String getName() { return name;}
 
-    public void setMap(MapFrame m){
-        mapFrame = m;
+    public void setMap(MapPanel m){
+        mapPanel = m;
     }
 
     // Methods
@@ -40,8 +40,8 @@ abstract class BaseLabel extends JLabel{
     //      at the center of the map
     public void updateLocation() {
         // ...
-        mapFrame.validate();
-        mapFrame.repaint();
+        mapPanel.validate();
+        mapPanel.repaint();
     }
 
     public void moveUp() { this.y -= speed;}
@@ -75,9 +75,9 @@ abstract class Character extends BaseLabel{
     }
 
     protected void death(){
-        mapFrame.remove(this);
-        mapFrame.revalidate();
-        mapFrame.repaint();
+        mapPanel.remove(this);
+        mapPanel.revalidate();
+        mapPanel.repaint();
     }
 }
 
@@ -127,8 +127,8 @@ class MyCharacter extends Character {
 
 class PlayerPanel extends JPanel{
     // members
-    protected MyCharacter player;
-    protected JProgressBar    healthBar;
+    protected MyCharacter       player;
+    protected JProgressBar      healthBar;
 
     //
 

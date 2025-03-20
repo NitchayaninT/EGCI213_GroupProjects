@@ -15,7 +15,7 @@ class Map {
     public String getMapName(){return mapName;}
     public MyImageIcon getMapIcon(){return mapIcon;}
 }
-//class for MapFrame
-class MapFrame extends JPanel {
+//class for MapPanel
+class MapPanel extends JPanel {
    private Map map;
 }
