@@ -70,15 +70,15 @@ public class MapMenu extends JFrame {
         //making the image bigger for the display
         MyImageIcon resizedIcon = switch (myCharacterID) {
             case 0 -> //Hope's pic
-                    new MyImageIcon(MyConstants.FILE_CHAR1).resize(200, 200);
+                    new MyImageIcon(MyConstants.FILE_CHAR0).resize(200, 200);
             case 1 -> //Phil's pic
                     new MyImageIcon(MyConstants.FILE_CHAR1).resize(200, 200);
             case 2 -> //Ninny's pic
-                    new MyImageIcon(MyConstants.FILE_CHAR1).resize(200, 200);
+                    new MyImageIcon(MyConstants.FILE_CHAR2).resize(200, 200);
             case 3 -> //P's pic
-                    new MyImageIcon(MyConstants.FILE_CHAR1).resize(200, 200);
+                    new MyImageIcon(MyConstants.FILE_CHAR3).resize(200, 200);
             case 4 -> //Tony' pic
-                    new MyImageIcon(MyConstants.FILE_CHAR1).resize(200, 200);
+                    new MyImageIcon(MyConstants.FILE_CHAR4).resize(200, 200);
             default -> null;
         };
         JLabel playerImage = new JLabel(resizedIcon);
@@ -137,15 +137,16 @@ public class MapMenu extends JFrame {
         switch(myCharacterID)
         {
             case 0:
-                //Hope
+                myCharacter = new MyCharacter("Hope",132,5,
+                                new Weapon("Mat",20,10,20,MyConstants.FILE_WEAPON0,1),MyConstants.FILE_CHAR0,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT);
                 break;
             case 1:
                 myCharacter = new MyCharacter("Phil",125,3,
-                        new Weapon("ATmega328p",5,30,30,MyConstants.FILE_WEAPON0,1),MyConstants.FILE_CHAR1,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT);
+                        new Weapon("ATmega328p",5,30,30,MyConstants.FILE_WEAPON1,1),MyConstants.FILE_CHAR1,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT);
                 break;
             case 2:
                 myCharacter = new MyCharacter("Ninny",100,4,
-                        new Weapon("Magical Wand",15,15,10,MyConstants.FILE_WEAPON0,1),MyConstants.FILE_CHAR1,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT);
+                        new Weapon("Magical Wand",15,15,10,MyConstants.FILE_WEAPON2,1),MyConstants.FILE_CHAR2,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT);
                 break;
             case 3:
                 //P

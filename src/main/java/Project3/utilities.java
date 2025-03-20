@@ -13,10 +13,18 @@ interface MyConstants{
 
     //for weapon pictures
     static final String FILE_WEAPON0    = PATH + "weapon0.png";
-
+    static final String FILE_WEAPON1    = PATH + "weapon1.png";
+    static final String FILE_WEAPON2    = PATH + "weapon2.png";
+    static final String FILE_WEAPON3    = PATH + "weapon3.png";
+    static final String FILE_WEAPON4    = PATH + "weapon4.png";
     //for character pictures
     static final String FILE_YOURCHARBOX    = PATH + "yourcharacter.JPG";
+    static final String FILE_CHAR0    = PATH + "hope.png";
     static final String FILE_CHAR1    = PATH + "phil.png";
+    static final String FILE_CHAR2    = PATH + "ninny.png";
+    static final String FILE_CHAR3    = PATH + "p.png";
+    static final String FILE_CHAR4    = PATH + "tony.png";
+
 
     //for MapFrame pictures
     static final String FILE_MAP0   = PATH + "Maps/"+ "map1.JPG";
@@ -55,6 +63,7 @@ interface MyConstants{
 
     //for music
     static final String FILE_THEME1        = PATH + "theme.wav";
+    static final String FILE_THEME2        = PATH + "theme2.wav";
 }
 
 class MyImageIcon extends ImageIcon{
