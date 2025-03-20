@@ -18,6 +18,12 @@ interface MyConstants{
     static final String FILE_YOURCHARBOX    = PATH + "yourcharacter.JPG";
     static final String FILE_CHAR1    = PATH + "phil.png";
 
+    //for Map pictures
+    static final String FILE_MAP0   = PATH + "Maps/"+ "map1.JPG";
+    static final String FILE_MAP1   = PATH + "Maps/"+ "map2.JPG";
+    static final String FILE_MAP2   = PATH + "Maps/"+ "map3.JPG";
+    static final String FILE_MAP3   = PATH + "Maps/"+ "map4.JPG";
+    static final String FILE_MAP4   = PATH + "Maps/"+ "map5.JPG";
     //for monster pictures
     static final String FILE_AJ0        = PATH + "Tanasanee.png";
     static final String FILE_AJ1        = PATH + "Mingmanas.png";

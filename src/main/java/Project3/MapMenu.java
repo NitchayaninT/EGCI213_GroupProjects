@@ -1,7 +1,11 @@
 package Project3;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,18 +14,21 @@ public class MapMenu extends JFrame {
     //methods
     private String                  playerName;
     private int                     myCharacterID;
-    private String                  musicName;
     private JLabel                  drawCharbox;
     private JLabel                  contentpane; //for background image of frame
     private JList<Map>                    list;
-    private Map                     chosenMap;
+    private Font                    F_Plain;
+    private Font                    F_Bold;
+    private Font                    F_large;
 
     //this frame
     private MapMenu currentFrame;
 
     //pass to next frame
     MyCharacter             myCharacter; //for the chosen character
-    Weapon                  myWeapons;
+    Weapon                  myWeapons; //optional if you want to switch or not. if not, no need to pass this
+    private Map             chosenMap;
+    private String          musicName;
 
     //constructor
     public MapMenu()
@@ -36,6 +43,10 @@ public class MapMenu extends JFrame {
     }
     //add components
     public void addComponents(){
+
+        //set font name
+        F_Plain = new Font("Century Gothic", Font.PLAIN, 16);
+        F_Bold = new Font("Century Gothic", Font.BOLD, 16);
 
         //set actual background image  (contentPane)
         MyImageIcon background = new MyImageIcon(MyConstants.FILE_FOREST).resize(MyConstants.FRAME_WIDTH, MyConstants.FRAME_HEIGHT);
@@ -54,15 +65,27 @@ public class MapMenu extends JFrame {
         //create panel to hold status elements
         JPanel statusPanel = new JPanel();
         statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS)); //use BoxLayout cuz it can control spacing between each components
-        Font labelFont = new Font("Century Gothic", Font.BOLD, 24);
+        F_large = new Font("Century Gothic", Font.BOLD, 24);
 
         //each components
-        JLabel nameLabel = new JLabel("Name: "+myCharacter.getName(), SwingConstants.CENTER); nameLabel.setFont(labelFont);
-        JLabel hpLabel = new JLabel("HP: "+myCharacter.getHp(), SwingConstants.CENTER); hpLabel.setFont(labelFont);
-        JLabel weaponLabel = new JLabel("Weapon: "+myCharacter.getWeapon().getName(), SwingConstants.CENTER); weaponLabel.setFont(labelFont);
+        JLabel nameLabel = new JLabel("Chosen Character: "+myCharacter.getName(), SwingConstants.CENTER); nameLabel.setFont(F_large);
+        JLabel hpLabel = new JLabel("HP: "+myCharacter.getHp(), SwingConstants.CENTER); hpLabel.setFont(F_large);
+        JLabel weaponLabel = new JLabel("Weapon: "+myCharacter.getWeapon().getName(), SwingConstants.CENTER); weaponLabel.setFont(F_large);
 
         //making the image bigger for the display
-        MyImageIcon resizedIcon = new MyImageIcon(MyConstants.FILE_CHAR1).resize(200,200);
+        MyImageIcon resizedIcon = switch (myCharacterID) {
+            case 0 -> //Hope's pic
+                    new MyImageIcon(MyConstants.FILE_CHAR1).resize(200, 200);
+            case 1 -> //Phil's pic
+                    new MyImageIcon(MyConstants.FILE_CHAR1).resize(200, 200);
+            case 2 -> //Ninny's pic
+                    new MyImageIcon(MyConstants.FILE_CHAR1).resize(200, 200);
+            case 3 -> //P's pic
+                    new MyImageIcon(MyConstants.FILE_CHAR1).resize(200, 200);
+            case 4 -> //Tony' pic
+                    new MyImageIcon(MyConstants.FILE_CHAR1).resize(200, 200);
+            default -> null;
+        };
         JLabel playerImage = new JLabel(resizedIcon);
 
         //center-align text inside labels
@@ -87,10 +110,24 @@ public class MapMenu extends JFrame {
 
         //adding components
         JScrollPane scrollPane = new JScrollPane(createMapList()); //allow scrolling
-        scrollPane.setBounds(150, 200, 300, 300);
 
-        //scrollPane.setBounds(150, 100, 300, 500);
+        //create button for choosing the Map, and pass items to GameFrame if action performed
+        JButton chooseMapButton = new JButton("Choose");
+        chooseMapButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chosenMap = list.getSelectedValue();
+                System.out.println("chosen map = "+chosenMap.getMapName());
+                dispose();
+            }
+        });
+        chooseMapButton.setFont(F_Bold);
 
+        //setting bounds
+        scrollPane.setBounds(180, 230, 300, 300);
+        chooseMapButton.setBounds(250,550,120,40);
+
+        contentpane.add(chooseMapButton);
         contentpane.add(drawCharbox);
         contentpane.add(scrollPane);
         validate();
@@ -102,7 +139,6 @@ public class MapMenu extends JFrame {
     public void setMusicName(String name){musicName = name;}
     public void createPlayer()
     {
-
         switch(myCharacterID)
         {
             case 0:
@@ -126,70 +162,70 @@ public class MapMenu extends JFrame {
     }
     private JList<Map> createMapList()
     {
-        //create list of maps
+        //create list of maps model
         DefaultListModel<Map> mapModel = new DefaultListModel<>();
-        mapModel.addElement(new Map("Map 1", new MyImageIcon(MyConstants.FILE_FOREST)));
-        mapModel.addElement(new Map("Map 2", new MyImageIcon(MyConstants.FILE_FOREST)));
-        mapModel.addElement(new Map("Map 3", new MyImageIcon(MyConstants.FILE_FOREST)));
-        mapModel.addElement(new Map("Map 4", new MyImageIcon(MyConstants.FILE_FOREST)));
-        mapModel.addElement(new Map("Map 5", new MyImageIcon(MyConstants.FILE_FOREST)));
+        mapModel.addElement(new Map("Map 1", new MyImageIcon(MyConstants.FILE_MAP0).resize(75,75)));
+        mapModel.addElement(new Map("Map 2", new MyImageIcon(MyConstants.FILE_MAP1).resize(75,75)));
+        mapModel.addElement(new Map("Map 3", new MyImageIcon(MyConstants.FILE_MAP2).resize(75,75)));
+        mapModel.addElement(new Map("Map 4", new MyImageIcon(MyConstants.FILE_MAP3).resize(75,75)));
+        mapModel.addElement(new Map("Map 5", new MyImageIcon(MyConstants.FILE_MAP4).resize(75,75)));
 
         list = new JList<Map>(mapModel);
         list.setFixedCellHeight(75);
-        //set ListRenderer
-        list.setOpaque(true);
-        list.setCellRenderer(new MyListRenderer());
 
-        list.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                chosenMap = list.getSelectedValue(); // ✅ Store the selected map
-                if (chosenMap != null) {
-                    System.out.println("Stored Selected Map: " + chosenMap.getMapName());
-                }
-            }
-        });
+        //set ListRenderer
+        list.setCellRenderer(new MyListRenderer());
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectedIndex(0); //to make sure 1 map is chosen intially
         return list;
     }
 }
 //ListRenderer customize how items are displayed inside a JList (create JList first!!)
-//custom renderer to show text + image
-class MyListRenderer extends JPanel implements ListCellRenderer<Map> {
+//custom renderer to show text + image as a list
+class MyListRenderer extends JPanel implements ListCellRenderer<Map>
+{
     private JLabel Icon = new JLabel();
     private JLabel Name = new JLabel();
 
     public MyListRenderer() {
+        //set up list renderer (contains Icon and Name)
         setLayout(new BorderLayout(50, 30));
         setSize(200, 75);
-        Icon.setPreferredSize(new Dimension(90, 90));
+        //Icon.setPreferredSize(new Dimension(90, 90));
 
-        JPanel textPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel textPanel = new JPanel(new BorderLayout());
         textPanel.setOpaque(false);
         textPanel.add(Name);
 
         add(Icon, BorderLayout.WEST);
         add(textPanel, BorderLayout.CENTER);
 
-        Name.setOpaque(true);
-        Name.setBackground(Color.WHITE);
         Name.setFont(new Font("Century Gothic", Font.BOLD, 16));
     }
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends Map> list, Map value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<? extends Map> list, Map value, int index, boolean isSelected, boolean cellHasFocus)
+    {
         if (value != null) {
             Name.setText(value.getMapName());
             Icon.setIcon(value.getMapIcon());
 
+            //to make sure both appears
             Name.setOpaque(true);
             Icon.setOpaque(true);
         }
-        Name.setOpaque(true);
-        //handle selection styling
-        if (isSelected) {
-            setBackground(new Color(200, 200, 200, 180));
-
-        } else {
+        Color grey = new Color(200, 200, 200);
+        //handle selection styling (if user chooses, it turns grey but default is white)
+        if (isSelected)
+        {
+            setBackground(grey);
+            Name.setBackground(grey);
+            Icon.setBackground(grey);
+        }
+        else
+        {
             setBackground(Color.WHITE);
+            Name.setBackground(Color.WHITE);
         }
         return this;
     }
