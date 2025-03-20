@@ -1,0 +1,551 @@
+[33mcommit d0b9c2b0d82aa08b393ed89bf8e46c504d6a201e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Merge: 02b8854 646d44e
+Author: Pakin49 <philgus884@gmail.com>
+Date:   Thu Mar 20 22:15:17 2025 +0700
+
+    Merge branch 'main' of https://github.com/NitchayaninT/EGCI213_GroupProjects
+
+[33mcommit 646d44e8f91cba500e3ad1165d6b5940f968a8ba[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: a50363a 5071355
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Mar 20 22:03:23 2025 +0700
+
+    Merge branch 'main' of https://github.com/NitchayaninT/EGCI213_GroupProjects
+
+[33mcommit 02b88547aa18fb2f5e4906be8166c4c7a4c368b9[m
+Merge: b8bc467 5071355
+Author: Pakin49 <philgus884@gmail.com>
+Date:   Thu Mar 20 21:55:25 2025 +0700
+
+    merge main
+
+[33mcommit 5071355b504ff76855f4ebaf062c183aea33fbb7[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Mar 20 14:36:55 2025 +0700
+
+    change map to mapframe
+
+[33mcommit 1e8907b53a2fbaca6f285ce61aac6eb8253658a6[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Mar 20 14:19:22 2025 +0700
+
+    Merge from rubyrose
+
+[33mcommit a50363ae04f0c7e68cca1a72c2e6e8c69a51a943[m
+Merge: b8bc467 a65ee4a
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Mar 20 12:46:45 2025 +0700
+
+    Merge branch 'rubyrose'
+
+[33mcommit a65ee4a7db836dc8cfbe6b3e9bf71028110197eb[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Mar 20 12:42:40 2025 +0700
+
+    done MapMenu,
+
+[33mcommit cbd1f8efb19e11d4c66245a08efe15a773fb59da[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Mar 20 04:31:34 2025 +0700
+
+    can pass Map Object now
+
+[33mcommit 1ebb3d414763d63962838cf917d280d7f39c7d54[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Mar 20 03:28:49 2025 +0700
+
+    for today
+
+[33mcommit b8bc4670c0ffbc45c7bbbd9f4b1f7e75b5db2327[m
+Author: Pakin49 <philgus884@gmail.com>
+Date:   Wed Mar 19 23:53:43 2025 +0700
+
+    update Monster and Boss class
+
+[33mcommit b5de8a74fd6c84e045bbbb6910806bc74d99e761[m[33m ([m[1;31morigin/rubyrose[m[33m)[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Wed Mar 19 17:36:29 2025 +0700
+
+    idk
+
+[33mcommit e1d84aad0549f963d6073f6efd82fc00e1b3f947[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Wed Mar 19 15:53:35 2025 +0700
+
+    will conitnue in evening
+
+[33mcommit a4052f0fe17099814de65daa75711bb032968a44[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Wed Mar 19 14:40:38 2025 +0700
+
+    in progress
+
+[33mcommit ded3c63d084635b941b8d1d25e1175c10efec9f4[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Wed Mar 19 11:33:24 2025 +0700
+
+    changed wallpaper a bit
+
+[33mcommit 88040b2d8f80347f96992f2a37de7b7035fe693e[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Tue Mar 18 23:37:19 2025 +0700
+
+    add stars
+
+[33mcommit 6e121f51f187bd7ba84ac2ce98bcdd45a782ac2a[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Tue Mar 18 18:10:27 2025 +0700
+
+    fixed smth
+
+[33mcommit 8ce9a2001802b7ba66dcb324f3c768129dd16c5e[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Tue Mar 18 16:50:48 2025 +0700
+
+    sucessfully passed to MapFrame
+
+[33mcommit 165b5a1b506b8e0a39bf7e8a453e471bb9ce4c8b[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Tue Mar 18 11:20:19 2025 +0700
+
+    set AJ constants
+
+[33mcommit fc4e49e2af5032131a7e9fa6d453147ffe5c9bdb[m
+Merge: df9797b 386ae01
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Tue Mar 18 02:13:49 2025 +0700
+
+    what
+
+[33mcommit df9797b602a50840d3876c47a68b44f60247b721[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Tue Mar 18 02:07:08 2025 +0700
+
+    d
+
+[33mcommit 386ae01f8676d4096bb298f5905e324f96e7a2ef[m
+Author: Pakin49 <philgus884@gmail.com>
+Date:   Tue Mar 18 02:04:06 2025 +0700
+
+     fix player class to match main
+
+[33mcommit f8884849a3210b1f40c963af68aca3216f1d6598[m
+Author: Pakin49 <philgus884@gmail.com>
+Date:   Tue Mar 18 01:25:55 2025 +0700
+
+    Merge pakin into main
+
+[33mcommit caa2b83b47646ca9e8956a8c4df4554fef01e2f4[m
+Author: Pakin49 <philgus884@gmail.com>
+Date:   Tue Mar 18 01:10:50 2025 +0700
+
+    Designing oop structure of Character and Weapon
+
+[33mcommit 009a8c6e39f533bd66454b43a61b41f0c46700a0[m
+Author: Pakin49 <philgus884@gmail.com>
+Date:   Mon Mar 17 22:48:47 2025 +0700
+
+    add Ajarn pictures
+
+[33mcommit e261aea4f119310d625b30d3c5734bb910e8511b[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Tue Mar 18 01:11:08 2025 +0700
+
+    push for now, main menu in progress
+
+[33mcommit 2d093c356c5d7cfcae061bd33bbaa2622aecae58[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Mon Mar 17 19:22:44 2025 +0700
+
+    17/3 update main menu
+
+[33mcommit f5d8f2019ed2d0d282e773d4608cea0aaa5c59cd[m
+Author: Pakin49 <philgus884@gmail.com>
+Date:   Sun Mar 16 20:46:55 2025 +0700
+
+    job.txt
+
+[33mcommit 3ff9a6bbf99b7b744152a5614f70da26a73daa80[m
+Author: Pakin49 <philgus884@gmail.com>
+Date:   Sun Mar 16 20:39:46 2025 +0700
+
+    Meeting
+
+[33mcommit ee51168c1b4d64dff8cfbee946e01a4dfaeba3ed[m
+Author: Pakin49 <philgus884@gmail.com>
+Date:   Wed Mar 12 01:24:07 2025 +0700
+
+    EGCO_survivors
+
+[33mcommit 62a347dcc46bb7528b6b157a901ecec0e803a8d0[m
+Author: Pakin49 <philgus884@gmail.com>
+Date:   Wed Mar 12 01:01:24 2025 +0700
+
+    Initialize some class
+
+[33mcommit da2897ff9e60389fc1e5308347f14bbebf657633[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Mar 6 14:45:03 2025 +0700
+
+    added ch3 pdf
+
+[33mcommit dafceb24a2ce9bb6769f39edfff42bd70d01f3fd[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Mar 6 14:31:49 2025 +0700
+
+    handle a bit error handling
+
+[33mcommit c3a3029bc7bbaf068325d50e24e5fcfbb4a4c971[m[33m ([m[1;31morigin/Tony[m[33m)[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Wed Mar 5 20:46:25 2025 +0700
+
+    sorted summary
+
+[33mcommit b99e2d2b5455c9b84602f6ef6f571495deb78e3e[m
+Author: panupongtony <146054375+panupongtony@users.noreply.github.com>
+Date:   Wed Mar 5 17:54:28 2025 +0700
+
+    Skibidi update
+
+[33mcommit 75ae6d2accacb3cced3b50231a162ba9365c39b1[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Wed Mar 5 00:14:52 2025 +0700
+
+    save progress
+
+[33mcommit 8b42d2b9c127a640d2bd2486a1e7f6d56530fa67[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Sun Mar 2 20:17:19 2025 +0700
+
+    just prints a bit of day 1 - 5 msg
+
+[33mcommit 0cb3811d9a9e8c9c22128069c3009997563daa77[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Sun Mar 2 19:17:37 2025 +0700
+
+    did something in main and AgencyThread, can try running. it just prints day 1 info
+
+[33mcommit bf934add978b0c5ab601d46370b05c07c4d10d85[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Sat Mar 1 16:05:23 2025 +0700
+
+    added java file for project 2
+
+[33mcommit 014787e69df7d50f5232e0f1fed8446005bf3d41[m
+Author: NitchayaninT <146054441+NitchayaninT@users.noreply.github.com>
+Date:   Thu Feb 20 14:12:27 2025 +0700
+
+    Delete .DS_Store
+
+[33mcommit d1d721d0527ee5e661ee912a2768f265074a6894[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Feb 20 14:11:26 2025 +0700
+
+    added project2
+
+[33mcommit daed33eb1bfa356b789f9a9a5f5bab6475fcbc47[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Sat Feb 15 01:33:59 2025 +0700
+
+    fixed FINAL errors and add names to every file
+
+[33mcommit 28f2ecb8e54aea36b6ce5274783249b186dd724b[m
+Author: Pibhu <pibhu.cht@student.mahidol.edu>
+Date:   Fri Feb 14 23:13:41 2025 +0700
+
+    yeahhhhh doneee
+
+[33mcommit 104e101348cd205e3ee5f169e3c5b340a8ee25ed[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Fri Feb 14 12:02:37 2025 +0700
+
+    fixed the mistakes in monthly total
+
+[33mcommit a4a3dfea7c9b393682f0cae626f270b26a47d00c[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Fri Feb 14 11:40:02 2025 +0700
+
+    done lucky draw
+
+[33mcommit 8ddd81ed73ed0cc19b0f624a4453815b9c0c130e[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Fri Feb 14 10:47:40 2025 +0700
+
+    ...
+
+[33mcommit 4b97a3ce30cace3305c70bd08b1e1a389459e594[m
+Author: NitchayaninT <146054441+NitchayaninT@users.noreply.github.com>
+Date:   Fri Feb 14 00:05:35 2025 +0700
+
+    Update README.md
+
+[33mcommit 8fc2208c021f404f96dde86f89a414c57fcbd8d0[m
+Author: NitchayaninT <146054441+NitchayaninT@users.noreply.github.com>
+Date:   Fri Feb 14 00:03:03 2025 +0700
+
+    Update README.md
+
+[33mcommit e7a34f01407738edfe893923980eebc42a3366d5[m
+Author: NitchayaninT <146054441+NitchayaninT@users.noreply.github.com>
+Date:   Fri Feb 14 00:02:36 2025 +0700
+
+    Update README.md
+
+[33mcommit 819d65de9e05e17da1dd612213cf877f8f22d935[m
+Author: NitchayaninT <146054441+NitchayaninT@users.noreply.github.com>
+Date:   Thu Feb 13 23:58:48 2025 +0700
+
+    Update README.md
+
+[33mcommit e3e9dfa78df0006b4c013e6caabd5a7117dc9ef1[m
+Author: NitchayaninT <146054441+NitchayaninT@users.noreply.github.com>
+Date:   Thu Feb 13 23:57:45 2025 +0700
+
+    Create README.md
+
+[33mcommit 8de8ac12d174a24122b429e3a04a67e6b4309b77[m
+Author: hope <akkhrawin22@gmail.com>
+Date:   Thu Feb 13 23:35:24 2025 +0700
+
+    K
+
+[33mcommit 74b3f83572e20c48d060b22e473b87c9050d17dc[m
+Merge: 8447c04 560ccd1
+Author: NitchayaninT <146054441+NitchayaninT@users.noreply.github.com>
+Date:   Thu Feb 13 21:51:42 2025 +0700
+
+    Merge pull request #4 from NitchayaninT/rubyrose
+    
+    Seperate File
+
+[33mcommit 560ccd1d0cfde61890367c1c81fd83e30aed770e[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Feb 13 21:50:17 2025 +0700
+
+    Seperate files
+
+[33mcommit 8447c042b4c0a48b1f05d269f560c96a055c12fe[m
+Author: panupongtony <146054375+panupongtony@users.noreply.github.com>
+Date:   Thu Feb 13 21:36:05 2025 +0700
+
+    Update main.java
+
+[33mcommit 35885a1a8eb64a97f908ab061a5cae4e20017941[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Feb 13 21:22:53 2025 +0700
+
+    remove hello world
+
+[33mcommit d1ada8ff94d51c424a9ca494acef848d0cf41ded[m
+Merge: 773d8f5 ff7d43f
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Feb 13 21:16:26 2025 +0700
+
+    Update readO branch 'main' of https://github.com/NitchayaninT/EGCI213_GroupProjects
+    update readOrder
+
+[33mcommit 773d8f595993a420994aaad180d297a01a42dd48[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Feb 13 21:16:10 2025 +0700
+
+    Update readProduct
+
+[33mcommit ff7d43fdfdc785c96e9e2450f1896bb5ddaa5b80[m
+Author: Pakin49 <philgus884@gmail.com>
+Date:   Thu Feb 13 21:08:26 2025 +0700
+
+    Hello
+
+[33mcommit 90b8b0e83a6f801e99477ae8e390e94fed3e074e[m
+Author: Pakin-pan <pakin.pan@student.mahidol.edu>
+Date:   Thu Feb 13 21:03:20 2025 +0700
+
+    Product
+
+[33mcommit e60c08d52bf29f83c4eca5b1b1200b95dec018a0[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Feb 13 18:37:32 2025 +0700
+
+    more error handling
+
+[33mcommit c46cb4734fa625c5f80c5f6e7cff8dd3e2fcb23b[m
+Merge: 56e6fb9 eec6ace
+Author: Pakin-pan <pakin.pan@student.mahidol.edu>
+Date:   Thu Feb 13 16:08:54 2025 +0700
+
+    Class order
+
+[33mcommit 56e6fb9b456656426ab6a8bd4758829e5ebec5fe[m
+Author: Pakin-pan <pakin.pan@student.mahidol.edu>
+Date:   Thu Feb 13 16:05:44 2025 +0700
+
+    Update class product
+
+[33mcommit fed0184682dcc3ed8482b0b106c946981a3a743a[m
+Author: hope <akkhrawin22@gmail.com>
+Date:   Wed Feb 12 22:32:28 2025 +0700
+
+    siuuu
+
+[33mcommit b5a69a24f44543fe1e09a1b1d9fb473e908c4faa[m
+Author: Pakin <philgus884@gmail.com>
+Date:   Sat Feb 8 22:52:16 2025 +0700
+
+    added calculation part
+
+[33mcommit 7ed4cdf0d763c3e40ec923db14b64dcad3ffa788[m
+Merge: f008e4b adf3d71
+Author: Pakin <philgus884@gmail.com>
+Date:   Sat Feb 8 20:42:35 2025 +0700
+
+    Merge remote-tracking branch 'origin/main'
+    
+    # Conflicts:
+    #       src/main/java/Project1/main.java
+
+[33mcommit adf3d71619f52859480ab491fb4c53197f8da378[m
+Author: Pakin-pan <pakin.pan@student.mahidol.edu>
+Date:   Sat Feb 8 15:42:38 2025 +0700
+
+    .
+
+[33mcommit 63d2c07857f1e8355105c166a7884bd87ce1e66b[m
+Merge: 6931feb a457834
+Author: Pakin-pan <pakin.pan@student.mahidol.edu>
+Date:   Sat Feb 8 15:23:43 2025 +0700
+
+    Merge branch 'Pakin'
+
+[33mcommit 6931feb464b67064999b8cfe363918112ca6e0c7[m
+Author: Pakin-pan <pakin.pan@student.mahidol.edu>
+Date:   Sat Feb 8 15:22:28 2025 +0700
+
+    git ignore
+
+[33mcommit a4578347819a8e6043f469e06bcdd5747d36ba90[m
+Author: Pakin-pan <pakin.pan@student.mahidol.edu>
+Date:   Sat Feb 8 13:31:30 2025 +0700
+
+    Resolve conflict
+
+[33mcommit c26cd934401b5c1c29b632019a90afdf9dbf1100[m
+Merge: 325fc8a e4889ed
+Author: NitchayaninT <146054441+NitchayaninT@users.noreply.github.com>
+Date:   Sat Feb 8 13:18:15 2025 +0700
+
+    Merge pull request #3 from NitchayaninT/Pakin
+    
+    Pakin
+
+[33mcommit e4889ed93b9aae2256332afab5b56fdb8134a60c[m
+Merge: f98d233 325fc8a
+Author: NitchayaninT <146054441+NitchayaninT@users.noreply.github.com>
+Date:   Sat Feb 8 13:18:04 2025 +0700
+
+    Merge branch 'main' into Pakin
+
+[33mcommit eec6ace8bcda5b77a4529d51d58390cac278fe04[m
+Author: panupongtony <panupong.sap@student.mahidol.edu>
+Date:   Sat Feb 8 12:33:28 2025 +0700
+
+    Order processing(Tony)
+
+[33mcommit f98d2337f78a902a0dec29bf6bdeab88c3f118de[m
+Author: Pakin-pan <pakin.pan@student.mahidol.edu>
+Date:   Sat Feb 8 12:33:12 2025 +0700
+
+    Class product
+
+[33mcommit 325fc8ac3ccc19a5ef7c9d54c11c2309be483065[m
+Merge: c58751b 69e6086
+Author: NitchayaninT <146054441+NitchayaninT@users.noreply.github.com>
+Date:   Sat Feb 8 12:19:22 2025 +0700
+
+    Merge pull request #2 from NitchayaninT/rubyrose
+    
+    test
+
+[33mcommit 69e6086d5050cc641f69f2b7e614908f6984343b[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Sat Feb 8 12:07:20 2025 +0700
+
+    test
+
+[33mcommit c58751b6687dd48e1f9d0a89a1f47ca7f5201aa5[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Sat Feb 8 11:30:29 2025 +0700
+
+    added getname and getpoints in Customer
+
+[33mcommit 7bed87ee68d8e33d11b9bc501e9e56df69a5b700[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Sat Feb 8 11:25:57 2025 +0700
+
+    tried printing readinstallment function and it works fine
+
+[33mcommit a8685ee12ee99288792e701cb49d96a0a23ed935[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Sat Feb 8 11:05:36 2025 +0700
+
+    add read Installment and created Installments class
+
+[33mcommit 8ebcfaaa15a9f5b319833aaa9e2ee2bc97a58964[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Sat Feb 8 11:04:03 2025 +0700
+
+    add read Installment and created Installments class
+
+[33mcommit c9c8b93f0027becd5c756942e5f40456466fca92[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Sat Feb 8 10:58:32 2025 +0700
+
+    add read Installment and created Installments class
+
+[33mcommit 96755b458439d17ace3eb9e46e680709be180a79[m
+Merge: df2fe35 43c31d7
+Author: Pakin-pan <pakin.pan@student.mahidol.edu>
+Date:   Sat Feb 8 10:46:19 2025 +0700
+
+    merge
+
+[33mcommit 43c31d7f57eff76761330fa5db6bc7167fa8325c[m
+Author: panupongtony <panupong.sap@student.mahidol.edu>
+Date:   Fri Feb 7 23:37:07 2025 +0700
+
+    Customer class draft (can't read yet)
+
+[33mcommit df2fe35648d68a34afbfdeb898d673a4be359629[m
+Author: Pakin49 <philgus884@gmail.com>
+Date:   Fri Feb 7 21:27:22 2025 +0700
+
+    Draft
+
+[33mcommit f008e4b23eda6f1cd4a15c099e24e9375689405a[m
+Author: hope <akkhrawin22@gmail.com>
+Date:   Fri Feb 7 20:54:28 2025 +0700
+
+    Kod rock
+
+[33mcommit 01e34b787a1a74d31e095a9144fba1289f7d2e35[m
+Author: Pibhu <pibhu.cht@student.mahidol.edu>
+Date:   Thu Feb 6 15:28:42 2025 +0700
+
+    yes!
+
+[33mcommit d6b07b24c2897bbc0d0bd00f370cac5993c786f3[m
+Author: NitchayaninT <nitchayanin.tha@student.mahidol.edu>
+Date:   Thu Feb 6 15:27:12 2025 +0700
+
+    hello
+
+[33mcommit 1fe762b04089709fd264f27b9d6f353daf80c0a5[m
+Author: Pibhu <pibhu.cht@student.mahidol.edu>
+Date:   Thu Feb 6 15:24:25 2025 +0700
+
+    hello world
+
+[33mcommit c0199b708024741dad1335c9888ec29593f5cd20[m
+Author: NitchayaninT <146054441+NitchayaninT@users.noreply.github.com>
+Date:   Wed Jan 29 18:24:38 2025 +0700
+
+    Update README.txt
