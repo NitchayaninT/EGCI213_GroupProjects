@@ -1,14 +1,9 @@
 package Project3;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MapMenu extends JFrame {
     //methods
@@ -16,7 +11,7 @@ public class MapMenu extends JFrame {
     private int                     myCharacterID;
     private JLabel                  drawCharbox;
     private JLabel                  contentpane; //for background image of frame
-    private JList<Map>                    list;
+    private JList<MapFrame>                    list;
     private Font                    F_Plain;
     private Font                    F_Bold;
     private Font                    F_large;
@@ -27,7 +22,7 @@ public class MapMenu extends JFrame {
     //pass to next frame
     MyCharacter             myCharacter; //for the chosen character
     Weapon                  myWeapons; //optional if you want to switch or not. if not, no need to pass this
-    private Map             chosenMap;
+    private MapFrame chosenMapFrame;
     private String          musicName;
 
     //constructor
@@ -36,7 +31,7 @@ public class MapMenu extends JFrame {
         setSize(MyConstants.FRAME_WIDTH,MyConstants.FRAME_HEIGHT);
         setLocationRelativeTo(null); // Centers the frame
         setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE );
-        setTitle("Choosing a Map");
+        setTitle("Choosing a MapFrame");
         setContentPane(contentpane = new JLabel());
         setVisible(true);
 
@@ -111,13 +106,13 @@ public class MapMenu extends JFrame {
         //adding components
         JScrollPane scrollPane = new JScrollPane(createMapList()); //allow scrolling
 
-        //create button for choosing the Map, and pass items to GameFrame if action performed
+        //create button for choosing the MapFrame, and pass items to GameFrame if action performed
         JButton chooseMapButton = new JButton("Choose");
         chooseMapButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chosenMap = list.getSelectedValue();
-                System.out.println("chosen map = "+chosenMap.getMapName());
+                chosenMapFrame = list.getSelectedValue();
+                System.out.println("chosen map = "+ chosenMapFrame.getMapName());
                 dispose();
             }
         });
@@ -160,17 +155,17 @@ public class MapMenu extends JFrame {
                 break;
         }
     }
-    private JList<Map> createMapList()
+    private JList<MapFrame> createMapList()
     {
         //create list of maps model
-        DefaultListModel<Map> mapModel = new DefaultListModel<>();
-        mapModel.addElement(new Map("Map 1", new MyImageIcon(MyConstants.FILE_MAP0).resize(75,75)));
-        mapModel.addElement(new Map("Map 2", new MyImageIcon(MyConstants.FILE_MAP1).resize(75,75)));
-        mapModel.addElement(new Map("Map 3", new MyImageIcon(MyConstants.FILE_MAP2).resize(75,75)));
-        mapModel.addElement(new Map("Map 4", new MyImageIcon(MyConstants.FILE_MAP3).resize(75,75)));
-        mapModel.addElement(new Map("Map 5", new MyImageIcon(MyConstants.FILE_MAP4).resize(75,75)));
+        DefaultListModel<MapFrame> mapModel = new DefaultListModel<>();
+        mapModel.addElement(new MapFrame("MapFrame 1", new MyImageIcon(MyConstants.FILE_MAP0).resize(75,75)));
+        mapModel.addElement(new MapFrame("MapFrame 2", new MyImageIcon(MyConstants.FILE_MAP1).resize(75,75)));
+        mapModel.addElement(new MapFrame("MapFrame 3", new MyImageIcon(MyConstants.FILE_MAP2).resize(75,75)));
+        mapModel.addElement(new MapFrame("MapFrame 4", new MyImageIcon(MyConstants.FILE_MAP3).resize(75,75)));
+        mapModel.addElement(new MapFrame("MapFrame 5", new MyImageIcon(MyConstants.FILE_MAP4).resize(75,75)));
 
-        list = new JList<Map>(mapModel);
+        list = new JList<MapFrame>(mapModel);
         list.setFixedCellHeight(75);
 
         //set ListRenderer
@@ -182,7 +177,7 @@ public class MapMenu extends JFrame {
 }
 //ListRenderer customize how items are displayed inside a JList (create JList first!!)
 //custom renderer to show text + image as a list
-class MyListRenderer extends JPanel implements ListCellRenderer<Map>
+class MyListRenderer extends JPanel implements ListCellRenderer<MapFrame>
 {
     private JLabel Icon = new JLabel();
     private JLabel Name = new JLabel();
@@ -204,7 +199,7 @@ class MyListRenderer extends JPanel implements ListCellRenderer<Map>
     }
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends Map> list, Map value, int index, boolean isSelected, boolean cellHasFocus)
+    public Component getListCellRendererComponent(JList<? extends MapFrame> list, MapFrame value, int index, boolean isSelected, boolean cellHasFocus)
     {
         if (value != null) {
             Name.setText(value.getMapName());

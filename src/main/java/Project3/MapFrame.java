@@ -2,11 +2,11 @@ package Project3;
 
 import javax.swing.*;
 
-//class for each Map
-class Map {
+//class for each MapFrame
+class MapFrame extends JFrame {
     private MyImageIcon mapIcon;
     private String mapName;
-    Map(String name, MyImageIcon icon){
+    MapFrame(String name, MyImageIcon icon){
         this.mapName = name;
         this.mapIcon = icon;
     }
@@ -17,5 +17,5 @@ class Map {
 }
 //class for MapPanel
 class MapPanel extends JPanel {
-   private Map map;
+   private MapFrame mapFrame;
 }

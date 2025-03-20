@@ -4,7 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 // I just create this class as a place holder for the real one
-class LevelUpMenu extends JPanel{ }
+class LevelUpMenu extends JPanel{
+    protected MyCharacter myCharacter;
+
+    // Constructor
+    LevelUpMenu(MyCharacter mc){
+        myCharacter = mc;
+    }
+}
 
 abstract class BaseLabel extends JLabel{
     protected String name;
@@ -88,7 +95,7 @@ class MyCharacter extends Character {
     protected int           maxHp; // Hp get from Character class
     protected int           level;
     protected Weapon        weapon;
-    protected PlayerPanel   panel;
+    protected MyCharacterPanel panel;
     // Constructors
     MyCharacter(String n, int hp, int s, Weapon wp, String file, int w, int h){
         super(n, hp, s, file, w, h);
@@ -98,14 +105,14 @@ class MyCharacter extends Character {
         dmgMultiplier = 1;
         exp = 0;
         maxExp = 10;
-        panel = new PlayerPanel(this);
+        panel = new MyCharacterPanel(this);
 
     }
     public Weapon getWeapon(){return this.weapon;}
 
     void levelUp(){
         level += 1;
-        LevelUpMenu lm = new LevelUpMenu();//
+        LevelUpMenu lm = new LevelUpMenu(this);//
     }
 
     @Override
@@ -125,7 +132,7 @@ class MyCharacter extends Character {
 }
 
 
-class PlayerPanel extends JPanel{
+class MyCharacterPanel extends JPanel{
     // members
     protected MyCharacter       player;
     protected JProgressBar      healthBar;
@@ -133,7 +140,7 @@ class PlayerPanel extends JPanel{
     //
 
     // Constructor
-    PlayerPanel(MyCharacter p){
+    MyCharacterPanel(MyCharacter p){
         this.player = p;
         this.setSize(player.width,player.height);
         // Creating Health Bar
