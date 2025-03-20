@@ -4,21 +4,30 @@ import javax.swing.*;
 import java.awt.*;
 
 // I just create this class as a place holder for the real one
-class LevelUpMenu extends JPanel{ }
+class LevelUpMenu extends JPanel{
+    protected MyCharacter myCharacter;
+
+    // Constructor
+    LevelUpMenu(MyCharacter mc){
+        myCharacter = mc;
+    }
+}
 
 abstract class BaseLabel extends JLabel{
     protected String name;
     protected MyImageIcon icon;
     protected int x , y, width, height;
     protected int speed;
-    protected Map mapFrame; // for putting the map Panel as reference for characters
+    protected MapPanel mapPanel; // for putting the map Panel as reference for characters
 
     // Constructors
     public BaseLabel() {super();} // default constructor
 
-    public BaseLabel(String n, int s, String file){
+    public BaseLabel(String n, int s, String file, int w, int h){
         name = n;
         speed = s;
+        width = w;
+        height = h;
         icon = new MyImageIcon(file).resize(width, height);
         setIcon(icon);
         setHorizontalAlignment(JLabel.CENTER);
@@ -29,8 +38,8 @@ abstract class BaseLabel extends JLabel{
 
     public String getName() { return name;}
 
-    public void setMap(Map m){
-        mapFrame = m;
+    public void setMap(MapPanel m){
+        mapPanel = m;
     }
 
     // Methods
@@ -38,8 +47,8 @@ abstract class BaseLabel extends JLabel{
     //      at the center of the map
     public void updateLocation() {
         // ...
-        mapFrame.validate();
-        mapFrame.repaint();
+        mapPanel.validate();
+        mapPanel.repaint();
     }
 
     public void moveUp() { this.y -= speed;}
@@ -51,20 +60,19 @@ abstract class BaseLabel extends JLabel{
     public void moveRight() { this.y -= speed;}
 }
 
-// ******************************************************************************
-
 abstract class Character extends BaseLabel{
     // Variable
     protected int       hp;
 
     // Constructor
-    Character(String n, int hp, int s, String file) {
-        super(n, s, file);
+    Character(String n, int hp, int s, String file, int w, int h) {
+        super(n, s, file, w, h);
         this.hp = hp;
     }
 
     // setter getter
     void setHp(int hp) { this.hp = hp; }
+    int getHp(){return this.hp;}
 
     // Methods
     void takeDamage(int damage){
@@ -74,13 +82,12 @@ abstract class Character extends BaseLabel{
     }
 
     protected void death(){
-        mapFrame.remove(this);
-        mapFrame.revalidate();
-        mapFrame.repaint();
+        mapPanel.remove(this);
+        mapPanel.revalidate();
+        mapPanel.repaint();
     }
 }
 
-// ******************************************************************************
 class MyCharacter extends Character {
     // Variable
     protected double        dmgMultiplier;
@@ -88,25 +95,24 @@ class MyCharacter extends Character {
     protected int           maxHp; // Hp get from Character class
     protected int           level;
     protected Weapon        weapon;
-    protected PlayerPanel   panel;
+    protected MyCharacterPanel panel;
     // Constructors
-    MyCharacter(String n, int hp, int s, Weapon wp, String file){
-        super(n, hp, s, file);
-        this.height = MyConstants.CH_HEIGHT;
-        this.width = MyConstants.CH_WIDTH;
+    MyCharacter(String n, int hp, int s, Weapon wp, String file, int w, int h){
+        super(n, hp, s, file, w, h);
         this.maxHp = hp;
         this.hp = maxHp;
         this.weapon = wp;
         dmgMultiplier = 1;
         exp = 0;
         maxExp = 10;
-        panel = new PlayerPanel(this);
+        panel = new MyCharacterPanel(this);
 
     }
+    public Weapon getWeapon(){return this.weapon;}
 
     void levelUp(){
         level += 1;
-        LevelUpMenu lm = new LevelUpMenu();//
+        LevelUpMenu lm = new LevelUpMenu(this);//
     }
 
     @Override
@@ -126,15 +132,15 @@ class MyCharacter extends Character {
 }
 
 
-class PlayerPanel extends JPanel{
+class MyCharacterPanel extends JPanel{
     // members
-    protected MyCharacter player;
-    protected JProgressBar    healthBar;
+    protected MyCharacter       player;
+    protected JProgressBar      healthBar;
 
     //
 
     // Constructor
-    PlayerPanel(MyCharacter p){
+    MyCharacterPanel(MyCharacter p){
         this.player = p;
         this.setSize(player.width,player.height);
         // Creating Health Bar
@@ -150,22 +156,17 @@ class PlayerPanel extends JPanel{
     }
 }
 
-// ******************************************************************************
 class Monster extends Character{
 
     // Constructor
     Monster(String n, int hp, int s, int w, int h, String file){
-        super(n, hp, s,file);
-        width = w;
-        height = h;
+        super(n, hp, s,file, w, h);
     }
 }
 
 class Boss extends Monster{
-
-    // Constructor
-    Boss(String n, int hp, int s, String file){
-        super(n,hp,s, MyConstants.BOSS_HEIGHT,MyConstants.BOSS_WIDTH,file);
+    Boss(String n, int hp, int s, int w, int h, String file){
+        super(n, hp, s, w, h, file);
     }
 
     @Override
