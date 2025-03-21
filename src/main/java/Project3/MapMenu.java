@@ -149,7 +149,7 @@ public class MapMenu extends JFrame {
                         new Weapon("Magical Wand",15,15,10,MyConstants.FILE_WEAPON2,1),MyConstants.FILE_CHAR2,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT);
                 break;
             case 3:
-                //P
+                //P:
                 break;
             case 4:
                 //Tony
