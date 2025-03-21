@@ -6,9 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MapMenu extends JFrame {
-    //methods
+    //variables
     private String                  playerName;
     private int                     myCharacterID;
+    private int                     musicID;
     private JLabel                  drawCharbox;
     private JLabel                  contentpane; //for background image of frame
     private JList<MapFrame>                    list;
@@ -21,9 +22,9 @@ public class MapMenu extends JFrame {
 
     //pass to next frame
     MyCharacter             myCharacter; //for the chosen character
-    Weapon                  myWeapons; //optional if you want to switch or not. if not, no need to pass this
-    private MapFrame chosenMapFrame;
-    private String          musicName;
+    Weapon[]                  myWeapons; //optional if you want to switch or not. if not, no need to pass this
+    private MapFrame     chosenMapFrame;
+    private MySoundEffect       myMusic;
 
     //constructor
     public MapMenu()
@@ -56,6 +57,9 @@ public class MapMenu extends JFrame {
 
         //create player
         createPlayer();
+
+        //create song
+        createSong();
 
         //create panel to hold status elements
         JPanel statusPanel = new JPanel();
@@ -113,6 +117,7 @@ public class MapMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 chosenMapFrame = list.getSelectedValue();
                 System.out.println("chosen map = "+ chosenMapFrame.getMapName());
+                //music continues
                 dispose();
             }
         });
@@ -131,8 +136,8 @@ public class MapMenu extends JFrame {
     //methods
     public void setPlayerName(String name){playerName = name;}
     public void setCharacterID(int ID){myCharacterID = ID;}
-    public void setMusicName(String name){musicName = name;}
-    public void createPlayer()
+    public void setMusicName(int musicID){this.musicID = musicID;}
+    private void createPlayer()
     {
         switch(myCharacterID)
         {
@@ -149,10 +154,32 @@ public class MapMenu extends JFrame {
                         new Weapon("Magical Wand",15,15,10,MyConstants.FILE_WEAPON2,1),MyConstants.FILE_CHAR2,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT);
                 break;
             case 3:
-                //P
+                //P:
                 break;
             case 4:
                 //Tony
+                break;
+        }
+    }
+    private void createSong()
+    {
+        switch(musicID)
+        {
+            case 0:
+                myMusic = new MySoundEffect(MyConstants.FILE_THEME0);
+                //myMusic.playLoop(); myMusic.setVolume(0.4f);
+                break;
+            case 1:
+                myMusic = new MySoundEffect(MyConstants.FILE_THEME1);
+                //myMusic.playLoop(); myMusic.setVolume(0.4f);
+                break;
+            case 2:
+                myMusic = new MySoundEffect(MyConstants.FILE_THEME2);
+                //myMusic.playLoop(); myMusic.setVolume(0.4f);
+                break;
+            case 3:
+                break;
+            case 4:
                 break;
         }
     }
@@ -187,7 +214,6 @@ class MyListRenderer extends JPanel implements ListCellRenderer<MapFrame>
         //set up list renderer (contains Icon and Name)
         setLayout(new BorderLayout(50, 30));
         setSize(200, 75);
-        //Icon.setPreferredSize(new Dimension(90, 90));
 
         JPanel textPanel = new JPanel(new BorderLayout());
         textPanel.setOpaque(false);

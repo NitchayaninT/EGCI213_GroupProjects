@@ -2,6 +2,8 @@ package Project3;
 
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.List;
+import java.util.Timer;
 import java.util.*;
 import java.awt.*;
 
@@ -22,6 +24,7 @@ public class EGCO_survivor extends JFrame{
     private String              [] players; //contains players name (will pass the name user chooses to next frame)
     private String              [] songs; //contains all songs (will pass the song name to next frame)
     private boolean             running = true; //keep track of the stars' status. if false, that means we move to another frame
+    private MySoundEffect       main_theme;
 
     //frame width and height
     private int framewidth   = MyConstants.FRAME_WIDTH;
@@ -35,7 +38,7 @@ public class EGCO_survivor extends JFrame{
     //messages to be passed to next frame*** IMPORTANT
     private String          playerName;
     private int             characterID;
-    private String          chosenSong;
+    private int             songID;
 
     // main methods
     public static void main(String [] args){
@@ -58,13 +61,38 @@ public class EGCO_survivor extends JFrame{
         contentPane.setLayout(new BorderLayout());
         AddComponents();
 
+        //start time
+        long startTime = System.currentTimeMillis();
+
+        //keep track of RUNNING threads
+        List<Thread> starThreads = new ArrayList<>();
+
         while (running) {//spawning stars
-            starThread(); //spawning stars thread
+            long currentTime = System.currentTimeMillis();
+            long differenceTime = currentTime - startTime;
+            if(differenceTime < 15000)
+            {
+                starThreads.addAll(starThread());//spawning stars thread and add to array
+            }
+            else
+            {
+                //just dont create more threads, to save resources and to not make main menu look messy!
+                //join if the frame disposes (!running), else, waits until it disposes and then join threads
+                if(!running)
+                {
+                    for (Thread t : starThreads) {
+                        try {
+                            t.join();
+                        } catch (InterruptedException e) {}
+                    }
+                    System.out.println("All star threads have finished.");
+                    break;
+                }
+                else continue;
+            }
             try {
                 Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            } catch (InterruptedException e) {}
         }
     }
 
@@ -80,8 +108,8 @@ public class EGCO_survivor extends JFrame{
         drawPane.setIcon(background);
         drawPane.setLayout(null);
 
-        //for sound effect
-        MySoundEffect main_theme = new MySoundEffect(MyConstants.FILE_THEME1);
+        //for sound effect (FILE_THEME is initial song)
+        main_theme = new MySoundEffect(MyConstants.FILE_THEME0);
         main_theme.playLoop(); main_theme.setVolume(0.4f);
 
         //enter name textfield with initial text "enter name", saves player name to a variable that needs to be passed to next frame
@@ -117,10 +145,11 @@ public class EGCO_survivor extends JFrame{
                 mapFrame = new MapMenu();
                 //and pass messages to the next frame ****
                 mapFrame.setPlayerName(playerName);
-                mapFrame.setMusicName(chosenSong);
+                mapFrame.setMusicName(songID);
                 mapFrame.setCharacterID(characterID);
                 mapFrame.addComponents();
                 running = false;
+                //but music continues
                 dispose();
             }
         });
@@ -150,17 +179,31 @@ public class EGCO_survivor extends JFrame{
         {
             tb[i] = new JRadioButton(songs[i]); tb[i].setFont(F_Plain);
             bg.add(tb[i]);
+
+            //store index as action command (to be set inside the anonymous class)
+            tb[i].setActionCommand(String.valueOf(i));
+
             //anonymous class for choosing songs
             tb[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JRadioButton selectedButton = (JRadioButton) e.getSource();
-                    chosenSong = selectedButton.getText();
+
+                    //songID now gets index from action command
+                    songID = Integer.parseInt(e.getActionCommand());
+
+                    //this keeps songFilename so that it will run correct music file
+                    String songfileName = MyConstants.PATH+"Music/theme"+songID+".wav";
+
+                    //stops the old song, then open selected song
+                    main_theme.stop();
+                    main_theme = new MySoundEffect(songfileName); //FILE_THEME 0 - 5
+                    main_theme.playLoop(); main_theme.setVolume(0.4f);
                 }
             });
         }
         tb[0].setSelected(true);
-        chosenSong = tb[0].getText(); //set initial
+        songID = 0; //set initial
         JPanel radioButtonGroup = new JPanel();
         radioButtonGroup.setLayout( new GridLayout(5, 1) );
         for (int i=0; i < 5; i++) radioButtonGroup.add( tb[i] );
@@ -210,15 +253,17 @@ public class EGCO_survivor extends JFrame{
     private void setSongs()
     {
         songs = new String[5];
-        songs[0] = "Song 0";
-        songs[1] = "Song 1";
-        songs[2] = "Song 2";
+        songs[0] = "No role modelz";
+        songs[1] = "Rick Roll";
+        songs[2] = "Mingle Game";
         songs[3] = "Song 3";
         songs[4] = "Song 4";
     }
     //method to make stars fall
-    public void starThread()
+    public List<Thread> starThread()
     {
+        //keep track of alive threads
+        List<Thread> starThreads = new ArrayList<>();
         Thread starThread= new Thread() {
             public void run()
             {
@@ -240,13 +285,18 @@ public class EGCO_survivor extends JFrame{
                     try {
                         Thread.sleep(40);
                     } catch (InterruptedException e) {throw new RuntimeException(e);}
+
                     int xAxis = rand.nextInt(MyConstants.FRAME_WIDTH - 10);
                     yAxis = rand.nextInt(MyConstants.FRAME_HEIGHT/2);
+
+                    //set stars
                     star.setBounds(xAxis, yAxis, 5, 5);
                 }
             }
         };
         starThread.start();
+        starThreads.add(starThread);
+        return starThreads;
     }
 }
 
