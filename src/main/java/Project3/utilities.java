@@ -19,11 +19,11 @@ interface MyConstants{
     static final String FILE_WEAPON4    = PATH + "weapon4.png";
     //for character pictures
     static final String FILE_YOURCHARBOX    = PATH + "yourcharacter.JPG";
-    static final String FILE_CHAR0    = PATH + "hope.png";
-    static final String FILE_CHAR1    = PATH + "phil.png";
-    static final String FILE_CHAR2    = PATH + "ninny.png";
-    static final String FILE_CHAR3    = PATH + "p.png";
-    static final String FILE_CHAR4    = PATH + "tony.png";
+    static final String FILE_CHAR0    = PATH + "MyCharacters/hope.png";
+    static final String FILE_CHAR1    = PATH + "MyCharacters/phil.png";
+    static final String FILE_CHAR2    = PATH + "MyCharacters/ninny.PNG";
+    static final String FILE_CHAR3    = PATH + "MyCharacters/p.png";
+    static final String FILE_CHAR4    = PATH + "MyCharacters/tony.png";
 
 
     //for MapFrame pictures
@@ -62,8 +62,10 @@ interface MyConstants{
     static final int IT_HEIGHT     = 50;
 
     //for music
-    static final String FILE_THEME1        = PATH + "theme.wav";
-    static final String FILE_THEME2        = PATH + "theme2.wav";
+    static final String FILE_THEME        = PATH + "Music/theme.wav";
+    static final String FILE_THEME0       = PATH + "Music/theme0.wav";
+    static final String FILE_THEME1       = PATH + "Music/theme1.wav";
+    static final String FILE_THEME2       = PATH + "Music/theme2.wav";
 }
 
 class MyImageIcon extends ImageIcon{
