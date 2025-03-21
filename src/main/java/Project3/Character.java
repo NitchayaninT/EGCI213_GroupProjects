@@ -150,6 +150,7 @@ class MyCharacterPanel extends JPanel{
         healthBar.setForeground(Color.RED);
         healthBar.setBackground(Color.GRAY);
 
+        // set layout
         this.add(player, BorderLayout.CENTER);
         this.add(healthBar, BorderLayout.SOUTH);
     }
