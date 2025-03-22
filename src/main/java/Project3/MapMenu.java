@@ -183,7 +183,7 @@ public class MapMenu extends JFrame {
 
                 break;
             case 4:
-                //myMusic = new MySoundEffect(MyConstants.FILE_THEME4);
+                myMusic = new MySoundEffect(MyConstants.FILE_THEME4);
                 //myMusic.playLoop(); myMusic.setVolume(0.4f);
                 break;
         }
