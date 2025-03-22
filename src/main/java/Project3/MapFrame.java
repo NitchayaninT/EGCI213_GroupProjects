@@ -43,6 +43,7 @@ public class MapFrame extends JFrame implements KeyListener
     private int MyCharacterWidth = MyConstants.PL_WIDTH;
     private int MyCharacterHeight = MyConstants.PL_HEIGHT;
     private Weapon weapon;
+    ArrayList <Monster> monsterArrayList = new ArrayList<>();
     //this frame
     private MapFrame   currentFrame;
     private MapPanel mapPanel;
@@ -66,7 +67,7 @@ public class MapFrame extends JFrame implements KeyListener
     //add components
     public void addComponents(){
         //create a MyCharacter
-        MyCharacter = new MyCharacter(MyCharacterName,100,10,MyCharacterWidth,MyCharacterHeight,weapon,MyConstants.FILE_CHAR0);
+        MyCharacter = new MyCharacter(MyCharacterName,100,30,MyCharacterWidth,MyCharacterHeight,weapon,MyConstants.FILE_CHAR0);
         //create a JPanel for moving background
         mapPanel = new MapPanel(MyCharacter,this);
         mapPanel.setLayout(null);
@@ -141,7 +142,8 @@ public class MapFrame extends JFrame implements KeyListener
             {
                 int randX = rand.nextInt(MyConstants.BG_WIDTH-MyConstants.MON1_WIDTH);
                 int randY = rand.nextInt(MyConstants.BG_HEIGHT-MyConstants.MON1_HEIGHT);
-                Monster monster = new Monster("default",MyConstants.MON1_HP,10,MyConstants.MON1_WIDTH,MyConstants.MON1_HEIGHT,MyConstants.FILE_AJ12,randX,randY,MyCharacter);
+                Monster monster = new Monster("default",MyConstants.MON1_HP,2,MyConstants.MON1_WIDTH,MyConstants.MON1_HEIGHT,MyConstants.FILE_AJ12,randX,randY,MyCharacter);
+                monsterArrayList.add(monster);
                 mapPanel.add(monster);
                 while(true)
                 {
@@ -218,6 +220,11 @@ class MapPanel extends JPanel{
         {
             srcx1 += MyCharacter.getSpeedX();
             srcx2 += MyCharacter.getSpeedX();
+            for (Monster monster : mf.monsterArrayList) {
+                monster.setX(monster.getX() - MyCharacter.getSpeedX());
+                monster.setY(monster.getY());
+
+            }
         }
     }
 
@@ -227,6 +234,10 @@ class MapPanel extends JPanel{
         {
             srcx1 -= MyCharacter.getSpeedX();
             srcx2 -= MyCharacter.getSpeedX();
+            for (Monster monster : mf.monsterArrayList) {
+                monster.setX(monster.getX() + MyCharacter.getSpeedX());
+                monster.setY(monster.getY());
+            }
         }
     }
 
@@ -236,6 +247,10 @@ class MapPanel extends JPanel{
         {
             srcy1 -= MyCharacter.getSpeedY();
             srcy2 -= MyCharacter.getSpeedY();
+            for (Monster monster : mf.monsterArrayList) {
+                monster.setX(monster.getX());
+                monster.setY(monster.getY()+MyCharacter.getSpeedY());
+            }
         }
     }
 
@@ -245,6 +260,10 @@ class MapPanel extends JPanel{
         {
             srcy1 += MyCharacter.getSpeedY();
             srcy2 += MyCharacter.getSpeedY();
+            for (Monster monster : mf.monsterArrayList) {
+                monster.setX(monster.getX());
+                monster.setY(monster.getY()-MyCharacter.getSpeedY());
+            }
         }
     }
     @Override

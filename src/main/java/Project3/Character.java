@@ -142,7 +142,6 @@ class MyCharacter extends Character {
     {
         if(x-speedX>=framewidth/2)x-=speedX;
         else x = framewidth/2;
-
     }
     public void moveRight()
     {
@@ -209,17 +208,31 @@ class Monster extends Character {
         setBounds(x, y, width, height);
         MyCharacter = p;
     }
-
+    public void setX(int no){x=no;}
+    public void setY(int no){y=no;}
+    public void moveLeft()
+    {
+        x-=MyCharacter.speedX;
+    }
+    public void moveRight()
+    {
+        x+=MyCharacter.speedX;
+    }
+    public void moveUp()
+    {
+        y-=MyCharacter.speedY;
+    }
+    public void moveDown()
+    {
+        y+=MyCharacter.speedY;
+    }
     public void updateLocation() {
         int MyCharacterX = MyCharacter.getMyCharacterPanel().getX();
         int MyCharacterY = MyCharacter.getMyCharacterPanel().getY();
-
-
         // Compute direction
         int dx = MyCharacterX - x;
         int dy = MyCharacterY - y;
         double distance = Math.sqrt(dx * dx + dy * dy);
-
         if (distance > 0) {
             // Normalize direction
             double unitX = dx / distance;
@@ -233,7 +246,7 @@ class Monster extends Character {
             repaint();
         }
         try {
-            Thread.sleep(600);
+            Thread.sleep(20);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
