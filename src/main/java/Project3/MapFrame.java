@@ -82,6 +82,11 @@ public class MapFrame extends JFrame implements KeyListener
             spawnMonster();
             System.out.println("Spawn monster");
         }
+        //for timer
+        addTimer();
+
+        themesound = new MySoundEffect(MyConstants.FILE_THEME1);
+        themesound.playLoop(); themesound.setVolume(0.4f);
         //creating MyCharacter
         System.out.println(MyCharacterName);
         System.out.println(chosenCharacterName);
@@ -150,6 +155,37 @@ public class MapFrame extends JFrame implements KeyListener
             }
         };
         monsterThread.start();
+    }
+    private void addTimer()
+    {
+        //start time
+        long startTime = System.currentTimeMillis();
+        Thread timerThread = new Thread()
+        {
+            public void run()
+            {
+                JLabel timer = new JLabel(String.valueOf(System.currentTimeMillis()-System.currentTimeMillis()));
+                mapPanel.add(timer);
+                while(true) //until level up (progress bar 100%) -> reset thread
+                {
+                    long currentTime = System.currentTimeMillis();
+                    long differenceTime = currentTime - startTime;
+
+                    //convert millisec to sec
+                    long sec = differenceTime/(1000);
+
+                    //convert to min
+
+                    //set timer text
+                    timer.setText(String.valueOf(differenceTime));
+                    timer.setBackground(Color.WHITE);
+                    timer.setFont(new Font("Century Gothic", Font.BOLD, 24));
+                    timer.setBounds(mapPanel.getWidth()-timer.getWidth(),10,100,60);
+                }
+            }
+        };
+        timerThread.start();
+
     }
 }
 class MapPanel extends JPanel{
