@@ -12,7 +12,7 @@ public class MapMenu extends JFrame {
     private int                     musicID;
     private JLabel                  drawCharbox;
     private JLabel                  contentpane; //for background image of frame
-    private JList<MapFrame>                    list;
+    private JList<MapFrame>         list;
     private Font                    F_Plain;
     private Font                    F_Bold;
     private Font                    F_large;
@@ -142,20 +142,19 @@ public class MapMenu extends JFrame {
         switch(myCharacterID)
         {
             case 0:
-                myCharacter = new MyCharacter("Hope",132,5,
-                                new Weapon("Mat",20,10,20,MyConstants.FILE_WEAPON0,1),MyConstants.FILE_CHAR0,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT);
+                myCharacter = new MyCharacter("Hope",132,5,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,new Weapon("Mat",20,10,20,MyConstants.FILE_WEAPON0,1),MyConstants.FILE_CHAR0);
                 break;
             case 1:
-                myCharacter = new MyCharacter("Phil",125,3,
-                        new Weapon("ATmega328p",5,30,30,MyConstants.FILE_WEAPON1,1),MyConstants.FILE_CHAR1,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT);
+                myCharacter = new MyCharacter("Phil",125,3,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,
+                        new Weapon("ATmega328p",5,30,30,MyConstants.FILE_WEAPON1,1),MyConstants.FILE_CHAR1);
                 break;
             case 2:
-                myCharacter = new MyCharacter("Ninny",100,4,
-                        new Weapon("Magical Wand",15,15,10,MyConstants.FILE_WEAPON2,1),MyConstants.FILE_CHAR2,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT);
+                myCharacter = new MyCharacter("Ninny",100,4,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,
+                        new Weapon("Magical Wand",15,15,10,MyConstants.FILE_WEAPON2,1),MyConstants.FILE_CHAR2);
                 break;
             case 3:
-                myCharacter = new MyCharacter("P",222,3,
-                        new Weapon("2Heart",2,32,32,MyConstants.FILE_WEAPON3,1),MyConstants.FILE_CHAR3,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT);
+                myCharacter = new MyCharacter("P",222,3,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,
+                        new Weapon("2Heart",2,32,32,MyConstants.FILE_WEAPON3,1),MyConstants.FILE_CHAR3);
                 break;
             case 4:
                 //Tony
@@ -182,7 +181,7 @@ public class MapMenu extends JFrame {
 
                 break;
             case 4:
-                myMusic = new MySoundEffect(MyConstants.FILE_THEME4);
+                //myMusic = new MySoundEffect(MyConstants.FILE_THEME4);
                 //myMusic.playLoop(); myMusic.setVolume(0.4f);
                 break;
         }
