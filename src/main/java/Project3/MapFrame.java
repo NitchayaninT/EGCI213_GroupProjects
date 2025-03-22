@@ -36,7 +36,6 @@ public class MapFrame extends JFrame implements KeyListener
     private MyImageIcon backgroundImg;
     String  MyCharacterName;
     String  chosenCharacterName;
-    String  musicName;
     Weapon [] weapons;
     private MySoundEffect themesound;
     private int framewidth   = MyConstants.FRAME_WIDTH;
@@ -48,9 +47,12 @@ public class MapFrame extends JFrame implements KeyListener
     private MapFrame   currentFrame;
     private MapPanel mapPanel;
     //constructor
-    public MapFrame(String name)
+    public String getMapName(){return mapName;}
+    public MapFrame(String name,MyCharacter mc,String playerName)
     {
         this.mapName = name;
+        MyCharacter = mc;
+        MyCharacterName = playerName;
         //set title, frame's size and properties
         setTitle("Welcome "+ MyCharacterName);
         setSize(framewidth,frameheight);
@@ -66,7 +68,7 @@ public class MapFrame extends JFrame implements KeyListener
         //create a MyCharacter
         MyCharacter = new MyCharacter(MyCharacterName,100,10,MyCharacterWidth,MyCharacterHeight,weapon,MyConstants.FILE_CHAR0);
         //create a JPanel for moving background
-        mapPanel = new MapPanel(MyCharacter);
+        mapPanel = new MapPanel(MyCharacter,this);
         mapPanel.setLayout(null);
         //set dimension for the JPanel
         mapPanel.setPreferredSize(new Dimension(framewidth, frameheight));
@@ -75,17 +77,14 @@ public class MapFrame extends JFrame implements KeyListener
         MyCharacterPanel.setBounds(framewidth/2-MyCharacterWidth/2,frameheight/2-MyCharacterHeight/2,MyCharacterWidth,(int)((double)MyCharacterHeight*1.2));
         mapPanel.add(MyCharacterPanel);
         mapPanel.repaint();
-        //theme song
-        for(int i=0;i<10;i++){
+
+        for(int i=0;i<10;i++) {
             spawnMonster();
             System.out.println("Spawn monster");
         }
-        themesound = new MySoundEffect(MyConstants.FILE_THEME1);
-        themesound.playLoop(); themesound.setVolume(0.4f);
         //creating MyCharacter
         System.out.println(MyCharacterName);
         System.out.println(chosenCharacterName);
-        System.out.println(musicName);
         System.out.println(Arrays.toString(weapons));
         setVisible(true);
         validate();
@@ -94,7 +93,6 @@ public class MapFrame extends JFrame implements KeyListener
     //methods
     public void setMyCharacterName(String name){MyCharacterName = name;}
     public void setCharacterName(String name){chosenCharacterName = name;}
-    public void setMusicName(String name){musicName = name;}
     public void setWeapons(Weapon []w){weapons = w;}
 
     //for moving
@@ -168,11 +166,33 @@ class MapPanel extends JPanel{
     //background image and MyCharacter obj
     private BufferedImage backgroundImg;
     private MyCharacter MyCharacter;
-    public MapPanel(MyCharacter MyCharacter)
+    private MapFrame mf;
+    public MapPanel(MyCharacter MyCharacter,MapFrame map)
     {
         //import background image
+        mf = map;
+        String mapName = mf.getMapName();
+        String background = "";
+        switch(mapName)
+        {
+            case "MapFrame 1":
+                background = MyConstants.MAP_BG1;
+                break;
+            case "MapFrame 2":
+                background = MyConstants.MAP_BG2;
+                break;
+            case "MapFrame 3":
+                background = MyConstants.MAP_BG3;
+                break;
+            case "MapFrame 4":
+                background = MyConstants.MAP_BG4;
+                break;
+            case "MapFrame 5":
+                background = MyConstants.MAP_BG5;
+                break;
+        }
         try{
-        backgroundImg = ImageIO.read(new File(MyConstants.MAP_BG));
+        backgroundImg = ImageIO.read(new File(background));
         repaint();
         }catch(IOException e)
         {

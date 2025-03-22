@@ -25,6 +25,7 @@ public class MapMenu extends JFrame {
     Weapon[]                    myWeapons; //optional if you want to switch or not. if not, no need to pass this
     private Map                 chosenMap;
     private MySoundEffect       myMusic;
+    private MapFrame mf;
 
     //constructor
     public MapMenu()
@@ -118,7 +119,7 @@ public class MapMenu extends JFrame {
                 chosenMap = list.getSelectedValue();
                 System.out.println("chosen map = "+ chosenMap.getMapName());
                 //music continues
-                MapFrame mf = new MapFrame(chosenMap.getMapName());
+                mf = new MapFrame(chosenMap.getMapName(),myCharacter,playerName);
                 dispose();
             }
         });
