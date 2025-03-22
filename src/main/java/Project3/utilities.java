@@ -66,6 +66,9 @@ interface MyConstants{
     static final String FILE_THEME0       = PATH + "Music/theme0.wav";
     static final String FILE_THEME1       = PATH + "Music/theme1.wav";
     static final String FILE_THEME2       = PATH + "Music/theme2.wav";
+
+    static final String FILE_THEME4       = PATH + "Music/theme4.wav";
+
 }
 
 class MyImageIcon extends ImageIcon{
