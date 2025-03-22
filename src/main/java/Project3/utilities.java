@@ -33,20 +33,20 @@ interface MyConstants{
     static final String FILE_MAP3   = PATH + "Maps/"+ "map4.JPG";
     static final String FILE_MAP4   = PATH + "Maps/"+ "map5.JPG";
     //for monster pictures
-    static final String FILE_AJ0        = PATH + "Tanasanee.png";
-    static final String FILE_AJ1        = PATH + "Mingmanas.png";
-    static final String FILE_AJ2        = PATH + "Thanadol.png";
-    static final String FILE_AJ3        = PATH + "Sumeth.png";
-    static final String FILE_AJ4        = PATH + "Konglit.png";
-    static final String FILE_AJ5        = PATH + "Lalita.png";
-    static final String FILE_AJ6        = PATH + "Suratos.png";
-    static final String FILE_AJ7        = PATH + "Paisarn.png";
-    static final String FILE_AJ8        = PATH + "Narit.png";
-    static final String FILE_AJ9        = PATH + "Vasin.png";
-    static final String FILE_AJ10       = PATH + "Konlakorn.png";
-    static final String FILE_AJ11       = PATH + "Noppadol.png";
-    static final String FILE_AJ12       = PATH + "Karin.png";
-    static final String FILE_AJ13       = PATH + "Rangsipan.png";
+    static final String FILE_AJ0        = PATH + "Monsters/"+ "Tanasanee.png";
+    static final String FILE_AJ1        = PATH + "Monsters/"+ "Mingmanas.png";
+    static final String FILE_AJ2        = PATH + "Monsters/"+ "Thanadol.png";
+    static final String FILE_AJ3        = PATH + "Monsters/"+ "Sumeth.png";
+    static final String FILE_AJ4        = PATH + "Monsters/"+ "Konglit.png";
+    static final String FILE_AJ5        = PATH + "Monsters/"+ "Lalita.png";
+    static final String FILE_AJ6        = PATH + "Monsters/"+ "Suratos.png";
+    static final String FILE_AJ7        = PATH + "Monsters/"+ "Paisarn.png";
+    static final String FILE_AJ8        = PATH + "Monsters/"+ "Narit.png";
+    static final String FILE_AJ9        = PATH + "Monsters/"+ "Vasin.png";
+    static final String FILE_AJ10       = PATH + "Monsters/"+ "Konlakorn.png";
+    static final String FILE_AJ11       = PATH + "Monsters/"+ "Noppadol.png";
+    static final String FILE_AJ12       = PATH + "Monsters/"+ "Karin.png";
+    static final String FILE_AJ13       = PATH + "Monsters/"+ "Rangsipan.png";
 
     static final int MON1_WIDTH         = 15;
     static final int MON1_HEIGHT        = 15;
