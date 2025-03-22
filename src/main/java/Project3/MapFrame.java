@@ -43,10 +43,12 @@ public class MapFrame extends JFrame implements KeyListener
     private int frameheight  = MyConstants.FRAME_HEIGHT;
     private int MyCharacterWidth = MyConstants.PL_WIDTH;
     private int MyCharacterHeight = MyConstants.PL_HEIGHT;
+
     private Weapon weapon;
     //this frame
     private MapFrame   currentFrame;
     private MapPanel mapPanel;
+
     //constructor
     public MapFrame(String name)
     {
@@ -71,6 +73,7 @@ public class MapFrame extends JFrame implements KeyListener
         //set dimension for the JPanel
         mapPanel.setPreferredSize(new Dimension(framewidth, frameheight));
         setContentPane(mapPanel);
+        //panel for MyCharacter
         MyCharacterPanel = MyCharacter.getMyCharacterPanel();
         MyCharacterPanel.setBounds(framewidth/2-MyCharacterWidth/2,frameheight/2-MyCharacterHeight/2,MyCharacterWidth,(int)((double)MyCharacterHeight*1.2));
         mapPanel.add(MyCharacterPanel);
@@ -80,6 +83,9 @@ public class MapFrame extends JFrame implements KeyListener
             spawnMonster();
             System.out.println("Spawn monster");
         }
+        //for timer
+        addTimer();
+
         themesound = new MySoundEffect(MyConstants.FILE_THEME1);
         themesound.playLoop(); themesound.setVolume(0.4f);
         //creating MyCharacter
@@ -152,6 +158,37 @@ public class MapFrame extends JFrame implements KeyListener
             }
         };
         monsterThread.start();
+    }
+    private void addTimer()
+    {
+        //start time
+        long startTime = System.currentTimeMillis();
+        Thread timerThread = new Thread()
+        {
+            public void run()
+            {
+                JLabel timer = new JLabel(String.valueOf(System.currentTimeMillis()-System.currentTimeMillis()));
+                mapPanel.add(timer);
+                while(true) //until level up (progress bar 100%) -> reset thread
+                {
+                    long currentTime = System.currentTimeMillis();
+                    long differenceTime = currentTime - startTime;
+
+                    //convert millisec to sec
+                    long sec = differenceTime/(1000);
+
+                    //convert to min
+
+                    //set timer text
+                    timer.setText(String.valueOf(differenceTime));
+                    timer.setBackground(Color.WHITE);
+                    timer.setFont(new Font("Century Gothic", Font.BOLD, 24));
+                    timer.setBounds(mapPanel.getWidth()-timer.getWidth(),10,100,60);
+                }
+            }
+        };
+        timerThread.start();
+
     }
 }
 class MapPanel extends JPanel{
@@ -238,5 +275,4 @@ class MapPanel extends JPanel{
         //draw the image
         g.drawImage(backgroundImg, dx1, dy1, dx2, dy2, srcx1, srcy1, srcx2, srcy2, this);
     }
-    
 }
