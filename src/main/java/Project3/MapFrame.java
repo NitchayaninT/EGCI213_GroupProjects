@@ -85,8 +85,8 @@ public class MapFrame extends JFrame implements KeyListener
         //for timer
         addTimer();
 
-        themesound = new MySoundEffect(MyConstants.FILE_THEME1);
-        themesound.playLoop(); themesound.setVolume(0.4f);
+        //themesound = new MySoundEffect(MyConstants.FILE_THEME1);
+        //themesound.playLoop(); themesound.setVolume(0.4f);
         //creating MyCharacter
         System.out.println(MyCharacterName);
         System.out.println(chosenCharacterName);
@@ -171,16 +171,21 @@ public class MapFrame extends JFrame implements KeyListener
                     long currentTime = System.currentTimeMillis();
                     long differenceTime = currentTime - startTime;
 
-                    //convert millisec to sec
-                    long sec = differenceTime/(1000);
+                    //total seconds
+                    long totalSeconds = differenceTime / 1000;
 
-                    //convert to min
+                    //minutes and actual seconds
+                    long minutes = totalSeconds / 60;
+                    long seconds = totalSeconds % 60;
+
+                    //two digits format
+                    String timer_text = String.format("%02d:%02d", minutes, seconds);
 
                     //set timer text
-                    timer.setText(String.valueOf(differenceTime));
+                    timer.setText(timer_text);
                     timer.setBackground(Color.WHITE);
                     timer.setFont(new Font("Century Gothic", Font.BOLD, 24));
-                    timer.setBounds(mapPanel.getWidth()-timer.getWidth(),10,100,60);
+                    timer.setBounds((mapPanel.getWidth()-timer.getWidth())/2,10,100,60);
                 }
             }
         };
