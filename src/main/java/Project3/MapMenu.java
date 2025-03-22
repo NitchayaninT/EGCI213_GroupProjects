@@ -12,7 +12,7 @@ public class MapMenu extends JFrame {
     private int                     musicID;
     private JLabel                  drawCharbox;
     private JLabel                  contentpane; //for background image of frame
-    private JList<MapFrame>         list;
+    private JList<Map>              list;
     private Font                    F_Plain;
     private Font                    F_Bold;
     private Font                    F_large;
@@ -21,9 +21,9 @@ public class MapMenu extends JFrame {
     private MapMenu currentFrame;
 
     //pass to next frame
-    MyCharacter             myCharacter; //for the chosen character
-    Weapon[]                  myWeapons; //optional if you want to switch or not. if not, no need to pass this
-    private MapFrame     chosenMapFrame;
+    MyCharacter                 myCharacter; //for the chosen character
+    Weapon[]                    myWeapons; //optional if you want to switch or not. if not, no need to pass this
+    private Map                 chosenMap;
     private MySoundEffect       myMusic;
 
     //constructor
@@ -115,9 +115,10 @@ public class MapMenu extends JFrame {
         chooseMapButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chosenMapFrame = list.getSelectedValue();
-                System.out.println("chosen map = "+ chosenMapFrame.getMapName());
+                chosenMap = list.getSelectedValue();
+                System.out.println("chosen map = "+ chosenMap.getMapName());
                 //music continues
+                MapFrame mf = new MapFrame(chosenMap.getMapName());
                 dispose();
             }
         });
@@ -186,17 +187,17 @@ public class MapMenu extends JFrame {
                 break;
         }
     }
-    private JList<MapFrame> createMapList()
+    private JList<Map> createMapList()
     {
         //create list of maps model
-        DefaultListModel<MapFrame> mapModel = new DefaultListModel<>();
-        mapModel.addElement(new MapFrame("MapFrame 1", new MyImageIcon(MyConstants.FILE_MAP0).resize(75,75)));
-        mapModel.addElement(new MapFrame("MapFrame 2", new MyImageIcon(MyConstants.FILE_MAP1).resize(75,75)));
-        mapModel.addElement(new MapFrame("MapFrame 3", new MyImageIcon(MyConstants.FILE_MAP2).resize(75,75)));
-        mapModel.addElement(new MapFrame("MapFrame 4", new MyImageIcon(MyConstants.FILE_MAP3).resize(75,75)));
-        mapModel.addElement(new MapFrame("MapFrame 5", new MyImageIcon(MyConstants.FILE_MAP4).resize(75,75)));
+        DefaultListModel<Map> mapModel = new DefaultListModel<>();
+        mapModel.addElement(new Map("MapFrame 1", new MyImageIcon(MyConstants.FILE_MAP0).resize(75,75)));
+        mapModel.addElement(new Map("MapFrame 2", new MyImageIcon(MyConstants.FILE_MAP1).resize(75,75)));
+        mapModel.addElement(new Map("MapFrame 3", new MyImageIcon(MyConstants.FILE_MAP2).resize(75,75)));
+        mapModel.addElement(new Map("MapFrame 4", new MyImageIcon(MyConstants.FILE_MAP3).resize(75,75)));
+        mapModel.addElement(new Map("MapFrame 5", new MyImageIcon(MyConstants.FILE_MAP4).resize(75,75)));
 
-        list = new JList<MapFrame>(mapModel);
+        list = new JList<Map>(mapModel);
         list.setFixedCellHeight(75);
 
         //set ListRenderer
@@ -208,7 +209,7 @@ public class MapMenu extends JFrame {
 }
 //ListRenderer customize how items are displayed inside a JList (create JList first!!)
 //custom renderer to show text + image as a list
-class MyListRenderer extends JPanel implements ListCellRenderer<MapFrame>
+class MyListRenderer extends JPanel implements ListCellRenderer<Map>
 {
     private JLabel Icon = new JLabel();
     private JLabel Name = new JLabel();
@@ -229,7 +230,7 @@ class MyListRenderer extends JPanel implements ListCellRenderer<MapFrame>
     }
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends MapFrame> list, MapFrame value, int index, boolean isSelected, boolean cellHasFocus)
+    public Component getListCellRendererComponent(JList<? extends Map> list, Map value, int index, boolean isSelected, boolean cellHasFocus)
     {
         if (value != null) {
             Name.setText(value.getMapName());

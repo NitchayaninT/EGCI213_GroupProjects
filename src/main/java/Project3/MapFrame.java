@@ -10,6 +10,19 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+
+class Map{
+    private MyImageIcon mapIcon;
+    private String mapName;
+    Map(String name, MyImageIcon icon){
+        this.mapName = name;
+        this.mapIcon = icon;
+    }
+
+    //setter getter
+    public String getMapName(){return mapName;}
+    public MyImageIcon getMapIcon(){return mapIcon;}
+}
 public class MapFrame extends JFrame implements KeyListener
 {
     //methods
@@ -35,10 +48,9 @@ public class MapFrame extends JFrame implements KeyListener
     private MapFrame   currentFrame;
     private MapPanel mapPanel;
     //constructor
-    public MapFrame(String name,MyImageIcon icon)
+    public MapFrame(String name)
     {
         this.mapName = name;
-        this.mapIcon = icon;
         //set title, frame's size and properties
         setTitle("Welcome "+ MyCharacterName);
         setSize(framewidth,frameheight);
@@ -81,8 +93,7 @@ public class MapFrame extends JFrame implements KeyListener
     public void setCharacterName(String name){chosenCharacterName = name;}
     public void setMusicName(String name){musicName = name;}
     public void setWeapons(Weapon []w){weapons = w;}
-    public String getMapName(){return mapName;}
-    public MyImageIcon getMapIcon(){return mapIcon;}
+
     //for moving
     public void keyPressed(KeyEvent e)
     {
