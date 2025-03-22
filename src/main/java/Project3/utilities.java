@@ -8,7 +8,11 @@ interface MyConstants{
     static final String PATH       = "src/main/java/Project3/Resource/";
     static final int FRAME_WIDTH   = 1200;
     static final int FRAME_HEIGHT  = 800;
-    static final String MAP_BG     = PATH + "map.png";
+    static final String MAP_BG1     = PATH + "map.png";
+    static final String MAP_BG2     = PATH + "map.png";
+    static final String MAP_BG3     = PATH + "map.png";
+    static final String MAP_BG4     = PATH + "map.png";
+    static final String MAP_BG5     = PATH + "map.png";
     static final String FILE_BG    = PATH + "background2.jpg";
     static final String FILE_FOREST    = PATH + "forest2.JPG";
 
@@ -74,7 +78,6 @@ interface MyConstants{
     static final String FILE_THEME0       = PATH + "Music/theme0.wav";
     static final String FILE_THEME1       = PATH + "Music/theme1.wav";
     static final String FILE_THEME2       = PATH + "Music/theme2.wav";
-
     static final String FILE_THEME4       = PATH + "Music/theme4.wav";
 
 }

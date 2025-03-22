@@ -25,6 +25,7 @@ public class MapMenu extends JFrame {
     Weapon[]                    myWeapons; //optional if you want to switch or not. if not, no need to pass this
     private Map                 chosenMap;
     private MySoundEffect       myMusic;
+    private MapFrame mf;
 
     //constructor
     public MapMenu()
@@ -59,7 +60,7 @@ public class MapMenu extends JFrame {
         createPlayer();
 
         //create song
-        createSong();
+        //createSong();
 
         //create panel to hold status elements
         JPanel statusPanel = new JPanel();
@@ -118,7 +119,7 @@ public class MapMenu extends JFrame {
                 chosenMap = list.getSelectedValue();
                 System.out.println("chosen map = "+ chosenMap.getMapName());
                 //music continues
-                MapFrame mf = new MapFrame(chosenMap.getMapName());
+                mf = new MapFrame(chosenMap.getMapName(),myCharacter,playerName);
                 dispose();
             }
         });
@@ -162,7 +163,7 @@ public class MapMenu extends JFrame {
                 break;
         }
     }
-    private void createSong()
+    /*private void createSong()
     {
         switch(musicID)
         {
@@ -186,7 +187,7 @@ public class MapMenu extends JFrame {
                 //myMusic.playLoop(); myMusic.setVolume(0.4f);
                 break;
         }
-    }
+    }*/
     private JList<Map> createMapList()
     {
         //create list of maps model
