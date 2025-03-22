@@ -256,8 +256,8 @@ public class EGCO_survivor extends JFrame{
         songs[0] = "No role modelz";
         songs[1] = "Rick Roll";
         songs[2] = "Mingle Game";
-        songs[3] = "At Doom's Gate";
-        songs[4] = "Song 4";
+        songs[3] = "Long Pan";
+        songs[4] = "At Doom's Gate";
     }
     //method to make stars fall
     public List<Thread> starThread()
