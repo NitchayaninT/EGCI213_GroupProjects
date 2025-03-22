@@ -155,7 +155,7 @@ public class MapMenu extends JFrame {
                 break;
             case 3:
                 myCharacter = new MyCharacter("P",222,3,
-                        new Weapon("2Heart",2,32,32,MyConstants.FILE_WEAPON2,1),MyConstants.FILE_CHAR3,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT);
+                        new Weapon("2Heart",2,32,32,MyConstants.FILE_WEAPON3,1),MyConstants.FILE_CHAR3,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT);
                 break;
             case 4:
                 //Tony
@@ -179,8 +179,11 @@ public class MapMenu extends JFrame {
                 //myMusic.playLoop(); myMusic.setVolume(0.4f);
                 break;
             case 3:
+
                 break;
             case 4:
+                myMusic = new MySoundEffect(MyConstants.FILE_THEME4);
+                //myMusic.playLoop(); myMusic.setVolume(0.4f);
                 break;
         }
     }
