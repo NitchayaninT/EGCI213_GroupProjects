@@ -199,11 +199,12 @@ class Monster extends Character {
     // Constructor
     private MyCharacter MyCharacter;
 
-    Monster(String n, int hp, int s, int w, int h, String file, int x, int y, MyCharacter p) {
+    Monster(String n, int hp, int s, int w, int h, String file, int x, int y, MyCharacter p,String monsterType) {
         super(n, hp, s, w, h, file, x, y);
-        width = MyConstants.MON2_WIDTH+50;
-        height = MyConstants.MON2_HEIGHT+50;
-        icon = new MyImageIcon(MyConstants.FILE_AJ12).resize(width, height);
+        width = MyConstants.MON_WIDTH;
+        height = MyConstants.MON_HEIGHT;
+        Random rand = new Random();
+        icon = new MyImageIcon(monsterType).resize(width, height);
         setIcon(icon);
         setBounds(x, y, width, height);
         MyCharacter = p;
@@ -251,15 +252,11 @@ class Monster extends Character {
             e.printStackTrace();
         }
     }
-
-
 }
 class Boss extends Monster {
-
-        Boss(String n, int hp, int s, int w, int h, String file, int x, int y, MyCharacter p) {
-            super(n, hp, s, w, h, file, x, y, p);
+        Boss(String n, int hp, int s, int w, int h, String file, int x, int y, MyCharacter p,String monster) {
+            super(n, hp, s, w, h, file, x, y, p,monster);
         }
-
         @Override
         protected void death() {
             //win();
