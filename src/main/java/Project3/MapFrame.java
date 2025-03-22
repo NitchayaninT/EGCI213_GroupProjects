@@ -13,34 +13,34 @@ import java.util.Random;
 public class MapFrame extends JFrame implements KeyListener
 {
     //methods
+    private String mapName;
+    private MyImageIcon mapIcon;
     private Random rand = new Random();
-    private Player player;
-    private PlayerPanel playerPanel;
+    private MyCharacter MyCharacter;
+    private MyCharacterPanel MyCharacterPanel;
     private Monster monster;
     private Boss boss;
     private MyImageIcon backgroundImg;
-    String playerName;
+    String MyCharacterName;
     String chosenCharacterName;
     String musicName;
     Weapon [] weapons;
     private MySoundEffect themesound;
     private int framewidth   = MyConstants.FRAME_WIDTH;
     private int frameheight  = MyConstants.FRAME_HEIGHT;
-    private int playerWidth = MyConstants.PL_WIDTH;
-    private int playerHeight = MyConstants.PL_HEIGHT;
+    private int MyCharacterWidth = MyConstants.PL_WIDTH;
+    private int MyCharacterHeight = MyConstants.PL_HEIGHT;
     private Weapon weapon;
     //this frame
     private MapFrame   currentFrame;
     private MapPanel mapPanel;
-    public static void main(String args[])
-    {
-        new MapFrame();
-    }
     //constructor
-    public MapFrame()
+    public MapFrame(String name,MyImageIcon icon)
     {
+        this.mapName = name;
+        this.mapIcon = icon;
         //set title, frame's size and properties
-        setTitle("Welcome "+ playerName);
+        setTitle("Welcome "+ MyCharacterName);
         setSize(framewidth,frameheight);
         setLocationRelativeTo(null); // Centers the frame
         setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE );
@@ -51,24 +51,24 @@ public class MapFrame extends JFrame implements KeyListener
     }
     //add components
     public void addComponents(){
-        //create a player
-        player = new Player(playerName,100,10,playerWidth,playerHeight,weapon,MyConstants.FILE_CHAR0);
+        //create a MyCharacter
+        MyCharacter = new MyCharacter(MyCharacterName,100,10,MyCharacterWidth,MyCharacterHeight,weapon,MyConstants.FILE_CHAR0);
         //create a JPanel for moving background
-        mapPanel = new MapPanel(player);
+        mapPanel = new MapPanel(MyCharacter);
         mapPanel.setLayout(null);
         //set dimension for the JPanel
         mapPanel.setPreferredSize(new Dimension(framewidth, frameheight));
         setContentPane(mapPanel);
-        playerPanel = player.getPlayerPanel();
-        playerPanel.setBounds(framewidth/2-playerWidth/2,frameheight/2-playerHeight/2,playerWidth,(int)((double)playerHeight*1.2));
-        mapPanel.add(playerPanel);
+        MyCharacterPanel = MyCharacter.getMyCharacterPanel();
+        MyCharacterPanel.setBounds(framewidth/2-MyCharacterWidth/2,frameheight/2-MyCharacterHeight/2,MyCharacterWidth,(int)((double)MyCharacterHeight*1.2));
+        mapPanel.add(MyCharacterPanel);
         mapPanel.repaint();
         //theme song
         for(int i=0;i<10;i++)spawnMonster();
         themesound = new MySoundEffect(MyConstants.FILE_THEME1);
         themesound.playLoop(); themesound.setVolume(0.4f);
-        //creating player
-        System.out.println(playerName);
+        //creating MyCharacter
+        System.out.println(MyCharacterName);
         System.out.println(chosenCharacterName);
         System.out.println(musicName);
         System.out.println(Arrays.toString(weapons));
@@ -77,10 +77,12 @@ public class MapFrame extends JFrame implements KeyListener
     }
 
     //methods
-    public void setPlayerName(String name){playerName = name;}
+    public void setMyCharacterName(String name){MyCharacterName = name;}
     public void setCharacterName(String name){chosenCharacterName = name;}
     public void setMusicName(String name){musicName = name;}
     public void setWeapons(Weapon []w){weapons = w;}
+    public String getMapName(){return mapName;}
+    public MyImageIcon getMapIcon(){return mapIcon;}
     //for moving
     public void keyPressed(KeyEvent e)
     {
@@ -88,28 +90,28 @@ public class MapFrame extends JFrame implements KeyListener
         switch(keyCode)
         {
             case KeyEvent.VK_A:
-                player.moveLeft();
+                MyCharacter.moveLeft();
                 mapPanel.moveLeft();
                 mapPanel.repaint();
                 revalidate();
                 repaint();
                 break;
             case KeyEvent.VK_D:
-                player.moveRight();
+                MyCharacter.moveRight();
                 mapPanel.moveRight();
                 mapPanel.repaint();
                 revalidate();
                 repaint();
                 break;
             case KeyEvent.VK_W:
-                player.moveUp();
+                MyCharacter.moveUp();
                 mapPanel.moveUp();
                 mapPanel.repaint();
                 revalidate();
                 repaint();
                 break;
             case KeyEvent.VK_S:
-                player.moveDown();
+                MyCharacter.moveDown();
                 mapPanel.moveDown();
                 mapPanel.repaint();
                 revalidate();
@@ -127,7 +129,7 @@ public class MapFrame extends JFrame implements KeyListener
             {
                 int randX = rand.nextInt(MyConstants.BG_WIDTH-MyConstants.MON1_WIDTH);
                 int randY = rand.nextInt(MyConstants.BG_HEIGHT-MyConstants.MON1_HEIGHT);
-                Monster monster = new Monster("default",MyConstants.MON1_HP,MyConstants.MON1_WIDTH,MyConstants.MON1_HEIGHT,10,MyConstants.FILE_AJ12,randX,randY,player);
+                Monster monster = new Monster("default",MyConstants.MON1_HP,MyConstants.MON1_WIDTH,MyConstants.MON1_HEIGHT,10,MyConstants.FILE_AJ12,randX,randY,MyCharacter);
                 mapPanel.add(monster);
                 while(true)
                 {
@@ -149,10 +151,10 @@ class MapPanel extends JPanel{
     //actual size of map
     private int IMAGE_WIDTH = MyConstants.BG_WIDTH;
     private int IMAGE_HEIGHT = MyConstants.BG_HEIGHT;
-    //background image and player obj
+    //background image and MyCharacter obj
     private BufferedImage backgroundImg;
-    private Player player;
-    public MapPanel(Player player)
+    private MyCharacter MyCharacter;
+    public MapPanel(MyCharacter MyCharacter)
     {
         //import background image
         try{
@@ -163,7 +165,7 @@ class MapPanel extends JPanel{
             e.printStackTrace();
         }
         initImagePoints();  
-        this.player = player;
+        this.MyCharacter = MyCharacter;
     }
     private void initImagePoints()
     {
@@ -178,37 +180,37 @@ class MapPanel extends JPanel{
     }
     public void moveRight()
     {
-        if (srcx2 + player.getSpeedX() <= IMAGE_WIDTH)
+        if (srcx2 + MyCharacter.getSpeedX() <= IMAGE_WIDTH)
         {
-            srcx1 += player.getSpeedX();
-            srcx2 += player.getSpeedX();
+            srcx1 += MyCharacter.getSpeedX();
+            srcx2 += MyCharacter.getSpeedX();
         }
     }
 
     public void moveLeft()
     {
-        if (srcx1 - player.getSpeedX() >= 0)
+        if (srcx1 - MyCharacter.getSpeedX() >= 0)
         {
-            srcx1 -= player.getSpeedX();
-            srcx2 -= player.getSpeedX();
+            srcx1 -= MyCharacter.getSpeedX();
+            srcx2 -= MyCharacter.getSpeedX();
         }
     }
 
     public void moveUp()
     {
-        if (srcy1 - player.getSpeedY() >= 0)
+        if (srcy1 - MyCharacter.getSpeedY() >= 0)
         {
-            srcy1 -= player.getSpeedY();
-            srcy2 -= player.getSpeedY();
+            srcy1 -= MyCharacter.getSpeedY();
+            srcy2 -= MyCharacter.getSpeedY();
         }
     }
 
     public void moveDown()
     {
-        if (srcy2 + player.getSpeedY() <= IMAGE_HEIGHT)
+        if (srcy2 + MyCharacter.getSpeedY() <= IMAGE_HEIGHT)
         {
-            srcy1 += player.getSpeedY();
-            srcy2 += player.getSpeedY();
+            srcy1 += MyCharacter.getSpeedY();
+            srcy2 += MyCharacter.getSpeedY();
         }
     }
     @Override

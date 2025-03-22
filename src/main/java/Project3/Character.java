@@ -23,7 +23,6 @@ abstract class BaseLabel extends JLabel {
     protected int width;
     protected int height;
     protected int speedX, speedY;
-    protected MapFrame mapFrame; // for putting the map Panel as reference for characters
 
     // Constructors
     public BaseLabel() {super();} // default constructor
@@ -58,21 +57,6 @@ abstract class BaseLabel extends JLabel {
         return speedY;
     }
 
-    public void setMap(MapFrame m) {
-        mapFrame = m;
-    }
-
-    // Methods
-    //      might need to modify these last part for character that always
-    //      at the center of the map
-    public void updateLocation() {
-        // ...
-        setLocation(x, y);
-        repaint();
-        mapFrame.validate();
-        mapFrame.repaint();
-    }
-
 }
 
 abstract class Character extends BaseLabel {
@@ -92,7 +76,7 @@ abstract class Character extends BaseLabel {
 
     // Methods
     void takeDamage(int damage) {
-        // override this for player and boss
+        // override this for MyCharacter and boss
         this.hp -= damage;
         if (hp <= 0) {
             this.death();
@@ -100,9 +84,7 @@ abstract class Character extends BaseLabel {
     }
 
     protected void death() {
-        mapFrame.remove(this);
-        mapFrame.revalidate();
-        mapFrame.repaint();
+
     }
 }
 
@@ -113,19 +95,19 @@ class MyCharacter extends Character {
     protected int maxHp; // Hp get from Character class
     protected int level;
     protected Weapon weapon;
-    protected PlayerPanel panel;
+    protected MyCharacterPanel panel;
     private int framewidth   = MyConstants.FRAME_WIDTH;
     private int frameheight  = MyConstants.FRAME_HEIGHT;
-    private int playerWidth = MyConstants.PL_WIDTH;
-    private int playerHeight = MyConstants.PL_HEIGHT;
+    private int MyCharacterWidth = MyConstants.PL_WIDTH;
+    private int MyCharacterHeight = MyConstants.PL_HEIGHT;
     private int imageWidth = MyConstants.BG_WIDTH;
     private int imageHeight = MyConstants.BG_HEIGHT;
-    public PlayerPanel getPlayerPanel() {
+    public MyCharacterPanel getMyCharacterPanel() {
         return panel;
     }
-
+    public Weapon getWeapon(){return this.weapon;}
     // Constructors
-    Player(String n, int hp, int s, int w, int h, Weapon wp, String file) {
+    MyCharacter(String n, int hp, int s, int w, int h, Weapon wp, String file) {
         super(n, hp, s, w, h, file,MyConstants.FRAME_WIDTH/2-MyConstants.PL_WIDTH/2,MyConstants.FRAME_WIDTH/2-MyConstants.PL_HEIGHT/2);
         this.weapon = wp;
         this.maxHp = hp;
@@ -133,12 +115,12 @@ class MyCharacter extends Character {
         dmgMultiplier = 1;
         exp = 0;
         maxExp = 10;
-        panel = new PlayerPanel(this);
+        panel = new MyCharacterPanel(this);
     }
 
     void levelUp() {
         level += 1;
-        LevelUpMenu lm = new LevelUpMenu();//
+        LevelUpMenu lm = new LevelUpMenu(this);//
     }
 
     @Override
@@ -179,29 +161,29 @@ class MyCharacter extends Character {
     }
 }
 
-class PlayerPanel extends JPanel {
+class MyCharacterPanel extends JPanel {
 
     // members
-    protected Player player;
+    protected MyCharacter MyCharacter;
     protected JProgressBar healthBar;
     private int width = MyConstants.PL_WIDTH;
     private int height = MyConstants.PL_HEIGHT;
-    private JLabel playerLabel;
+    private JLabel MyCharacterLabel;
     //default character
     private MyImageIcon defaultImg;
 
     // Constructor
-    PlayerPanel(Player p) {
-        this.player = p;
+    MyCharacterPanel(MyCharacter p) {
+        this.MyCharacter = p;
         this.setLayout(null);
         defaultImg = new MyImageIcon(MyConstants.FILE_CHAR0).resize(width, height);
-        playerLabel = new JLabel();
-        playerLabel.setIcon(defaultImg);
-        playerLabel.setBounds(0, 0, width, height);
-        this.add(playerLabel);
+        MyCharacterLabel = new JLabel();
+        MyCharacterLabel.setIcon(defaultImg);
+        MyCharacterLabel.setBounds(0, 0, width, height);
+        this.add(MyCharacterLabel);
         // Creating Health Bar
-        healthBar = new JProgressBar(SwingConstants.HORIZONTAL, player.maxHp);
-        healthBar.setValue(player.maxHp);
+        healthBar = new JProgressBar(SwingConstants.HORIZONTAL, MyCharacter.maxHp);
+        healthBar.setValue(MyCharacter.maxHp);
         healthBar.setStringPainted(true);
         healthBar.setForeground(Color.RED);
         healthBar.setBackground(Color.GRAY);
@@ -216,26 +198,26 @@ class Monster extends Character {
     private int IMAGE_WIDTH = MyConstants.BG_WIDTH;
     private int IMAGE_HEIGHT = MyConstants.BG_HEIGHT;
     // Constructor
-    private Player player;
+    private MyCharacter MyCharacter;
 
-    Monster(String n, int hp, int s, int w, int h, String file, int x, int y, Player p) {
+    Monster(String n, int hp, int s, int w, int h, String file, int x, int y, MyCharacter p) {
         super(n, hp, s, w, h, file, x, y);
         width = MyConstants.MON2_WIDTH+50;
         height = MyConstants.MON2_HEIGHT+50;
         icon = new MyImageIcon(MyConstants.FILE_AJ12).resize(width, height);
         setIcon(icon);
         setBounds(x, y, width, height);
-        player = p;
+        MyCharacter = p;
     }
 
     public void updateLocation() {
-        int playerX = player.getPlayerPanel().getX();
-        int playerY = player.getPlayerPanel().getY();
+        int MyCharacterX = MyCharacter.getMyCharacterPanel().getX();
+        int MyCharacterY = MyCharacter.getMyCharacterPanel().getY();
 
 
         // Compute direction
-        int dx = playerX - x;
-        int dy = playerY - y;
+        int dx = MyCharacterX - x;
+        int dy = MyCharacterY - y;
         double distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance > 0) {
@@ -259,7 +241,7 @@ class Monster extends Character {
 }
 class Boss extends Monster {
 
-        Boss(String n, int hp, int s, int w, int h, String file, int x, int y, Player p) {
+        Boss(String n, int hp, int s, int w, int h, String file, int x, int y, MyCharacter p) {
             super(n, hp, s, w, h, file, x, y, p);
         }
 
