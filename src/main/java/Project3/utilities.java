@@ -28,7 +28,7 @@ interface MyConstants{
     static final int BG_WIDTH = 4272;
     static final int BG_HEIGHT = 2800;
 
-    static final int MON1_HP = 100;
+    static final int MON_HP = 1;
     static final String FILE_YOURCHARBOX    = PATH + "yourcharacter.JPG";
     static final String FILE_CHAR0    = PATH + "MyCharacters/hope.png";
     static final String FILE_CHAR1    = PATH + "MyCharacters/phil.png";

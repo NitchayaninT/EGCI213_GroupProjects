@@ -13,10 +13,10 @@ abstract class BaseLabel extends JLabel {
     protected int width;
     protected int height;
     protected int speedX, speedY;
+    protected JPanel mapPanel;
 
     // Constructors
     public BaseLabel() {super();} // default constructor
-
     public BaseLabel(String n, int s, int w, int h, String file, int x, int y) {
         this.x = x;
         this.y = y;
@@ -82,10 +82,7 @@ abstract class Character extends BaseLabel {
 
 class MyCharacter extends Character {
     // Variable
-    protected double dmgMultiplier;
-    protected int exp, maxExp;
     protected int maxHp; // Hp get from Character class
-    protected int level;
     protected Weapon weapon;
     protected MyCharacterPanel panel;
     private int framewidth   = MyConstants.FRAME_WIDTH;
@@ -102,9 +99,6 @@ class MyCharacter extends Character {
         this.weapon = wp;
         this.maxHp = hp;
         this.hp = maxHp;
-        dmgMultiplier = 1;
-        exp = 0;
-        maxExp = 10;
         panel = new MyCharacterPanel(this);
     }
 
@@ -180,6 +174,7 @@ class MyCharacterPanel extends JPanel {
 
 class Monster extends Character {
 
+    private boolean alive = true;
     private int IMAGE_WIDTH = MyConstants.BG_WIDTH;
     private int IMAGE_HEIGHT = MyConstants.BG_HEIGHT;
     // Constructor
@@ -195,24 +190,12 @@ class Monster extends Character {
         setBounds(x, y, width, height);
         MyCharacter = p;
     }
+
+    public void setAlive(boolean a) {alive = a;}
+    public boolean getAlive() {return alive;}
     public void setX(int no){x=no;}
     public void setY(int no){y=no;}
-    public void moveLeft()
-    {
-        x-=MyCharacter.speedX;
-    }
-    public void moveRight()
-    {
-        x+=MyCharacter.speedX;
-    }
-    public void moveUp()
-    {
-        y-=MyCharacter.speedY;
-    }
-    public void moveDown()
-    {
-        y+=MyCharacter.speedY;
-    }
+
     public void updateLocation() {
         int MyCharacterX = MyCharacter.getMyCharacterPanel().getX();
         int MyCharacterY = MyCharacter.getMyCharacterPanel().getY();

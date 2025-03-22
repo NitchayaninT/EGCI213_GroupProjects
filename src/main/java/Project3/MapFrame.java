@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.*;
 import java.util.*;
-import javax.swing.Timer;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +45,6 @@ public class MapFrame extends JFrame implements KeyListener
     private Weapon weapon;
     ArrayList <Monster> monsterArrayList = new ArrayList<>();
     //booleans
-    private boolean spawnWeapon = false;
     private boolean selectedW = false;
     private boolean selectedA = false;
     private boolean selectedS = false;
@@ -89,10 +87,11 @@ public class MapFrame extends JFrame implements KeyListener
         myWeaponLabel.setBounds(framewidth/2-MyCharacterWidth/2,frameheight/2-MyCharacterHeight/2,weapon.getWidth(),weapon.getHeight());
         mapPanel.repaint();
 
+        /*
         for(int i=0;i<20;i++) {
             spawnMonster();
             System.out.println("Spawn monster");
-        }
+        }*/
         //for timer
         addTimer();
 
@@ -180,7 +179,7 @@ public class MapFrame extends JFrame implements KeyListener
     {
         Thread monsterThread = new Thread()
         {
-            private boolean running = true; //monster has to get hit 3 times
+            //monster has to get hit 3 times
             public void run()
             {
 
@@ -228,7 +227,7 @@ public class MapFrame extends JFrame implements KeyListener
                         break;
                     case 5:
                         monsterType = MyConstants.FILE_AJ5;
-                        speed = 6;
+                        speed = 4;
                         break;
                     case 6:
                         monsterType = MyConstants.FILE_AJ6;
@@ -244,7 +243,7 @@ public class MapFrame extends JFrame implements KeyListener
                         break;
                     case 9:
                         monsterType = MyConstants.FILE_AJ9;
-                        speed = 7;
+                        speed = 3;
                         break;
                     case 10:
                         monsterType = MyConstants.FILE_AJ10;
@@ -259,21 +258,14 @@ public class MapFrame extends JFrame implements KeyListener
                         speed = 10;
                         break;
                 }
-                Monster monster = new Monster("default",MyConstants.MON1_HP,speed,MyConstants.MON_WIDTH,MyConstants.MON_HEIGHT,MyConstants.FILE_AJ12,randX,randY,MyCharacter,monsterType);
+                Monster monster = new Monster("default",MyConstants.MON_HP,speed,MyConstants.MON_WIDTH,MyConstants.MON_HEIGHT,MyConstants.FILE_AJ12,randX,randY,MyCharacter,monsterType);
                 monsterArrayList.add(monster);
+                System.out.println("Spawn monster");
                 mapPanel.add(monster);
-                while(running)
+                while(monster.getAlive())
                 {
                     monster.updateLocation();
-                    boolean collide = checkCollision(monster);
-                    if(collide) {
-                        if(monster.getHp()==0) {
-                            mapPanel.remove(monster);
-                            revalidate();
-                            repaint();
-                            running = false; //destroys monster thread
-                        }
-                    }
+                    checkCollision(monster);
                 }
             }
         };
@@ -287,6 +279,10 @@ public class MapFrame extends JFrame implements KeyListener
         {
             public void run()
             {
+
+                int size = 15;
+                long cs = 0;
+                long ps = 0;
                 JLabel timer = new JLabel(String.valueOf(System.currentTimeMillis()-System.currentTimeMillis()));
                 mapPanel.add(timer);
                 while(true) //until level up (progress bar 100%) -> reset thread
@@ -296,7 +292,8 @@ public class MapFrame extends JFrame implements KeyListener
 
                     //total seconds
                     long totalSeconds = differenceTime / 1000;
-
+                    ps = cs;
+                    cs = totalSeconds;
                     //minutes and actual seconds
                     long minutes = totalSeconds / 60;
                     long seconds = totalSeconds % 60;
@@ -309,12 +306,48 @@ public class MapFrame extends JFrame implements KeyListener
                     timer.setBackground(Color.WHITE);
                     timer.setFont(new Font("Century Gothic", Font.BOLD, 24));
                     timer.setBounds((mapPanel.getWidth()-timer.getWidth())/2,10,100,60);
+
+                    if(totalSeconds % 10 == 0) {
+                        if(cs!=ps) {
+                            size *= 2;
+                            System.out.println("Double size");
+                        }
+                    }
+                    if (monsterArrayList.size() < size){
+                        System.out.println(monsterArrayList.size()+" "+size);
+                        spawnMonster();
+                    }
                 }
             }
         };
         timerThread.start();
     }
-    public boolean checkCollision(Monster monster) {
+
+    // Weapon and Monster
+    public boolean checkCollision(JLabel weapon) {
+
+        Rectangle weaponBounds = weapon.getBounds();
+        for (Monster m : monsterArrayList) {
+            Rectangle monsterBounds = m.getBounds();
+            if(weaponBounds.intersects(monsterBounds)) //if intersects weapon
+            {
+                m.takeDamage(MyCharacter.getWeapon().getDamage());
+                System.out.println("DAMAGE!");
+                mapPanel.remove(weapon);
+                if(m.getHp()<=0){
+                    mapPanel.remove(m);
+                    m.setAlive(false);
+                    monsterArrayList.remove(m);
+                }
+                revalidate();
+                repaint();
+                return false;
+            }
+        }
+        return true;
+    }
+    // For check monster and player
+    public void checkCollision(Monster monster) {
             // check collision with each monster on the panel
         Rectangle monsterBounds = monster.getBounds();
         Rectangle playerBounds = MyCharacterPanel.getBounds();
@@ -323,32 +356,17 @@ public class MapFrame extends JFrame implements KeyListener
         //if intersects player
         if (monsterBounds.intersects(playerBounds)) {
             System.out.println("Monster hit player!");
-            MyCharacter.takeDamage(10); //if intersects and dont spawn weapon, character loses blood.
+            MyCharacter.takeDamage(1); //if intersects and dont spawn weapon, character loses blood.
             //monster.takeDamage(MyCharacter.getWeapon().getDamage());
             // e.g. player.takeDamage(), monster.stop(), etc.
-            /*if(spawnWeapon){
-                monster.takeDamage(MyCharacter.getWeapon().getDamage());
-                spawnWeapon = false;
-            }*/
-            return true;//stop monster thread
         }
-        /*else if(monsterBounds.intersects(weaponBounds)) //if intersects weapon
-        {
-            monster.takeDamage(MyCharacter.getWeapon().getDamage());
-            System.out.println("DAMAGE!");
-            mapPanel.remove(myWeaponLabel);
-            revalidate();
-            repaint();
-            spawnWeapon = false;
-            return false;
-        }*/
-        else return false;
     }
 
     public void spawnWeapon()
     {
         Thread weaponThread = new Thread()
         {
+            private boolean spawnWeapon = false;
             private final JLabel weaponLabel = new JLabel(weapon.getIcon());
             public JLabel getWeaponLabel(){return weaponLabel;}
             public void run()
@@ -384,12 +402,13 @@ public class MapFrame extends JFrame implements KeyListener
                     {weaponY += 10;}
                     else //north
                     {weaponY -= 10;}
-                    weaponLabel.setBounds(weaponX,weaponY,weapon.getWidth(),weapon.getHeight());
+                    weaponLabel.setLocation(weaponX,weaponY);
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException e) {throw new RuntimeException(e);}
                     revalidate();
                     repaint();
+                    spawnWeapon = checkCollision(weaponLabel);
                 }
                 spawnWeapon = false; //if out of frame
             }
