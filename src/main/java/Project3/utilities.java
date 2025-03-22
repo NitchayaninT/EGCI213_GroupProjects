@@ -68,13 +68,11 @@ interface MyConstants{
     static final int BOSS_HEIGHT        = 100;
 
     //will change this
-    static final int CH_WIDTH      = 30;
-    static final int CH_HEIGHT     = 30;
     static final int IT_WIDTH      = 60;
     static final int IT_HEIGHT     = 50;
 
-    static final int PL_WIDTH = 50;
-    static final int PL_HEIGHT = 50;
+    static final int CH_WIDTH = 50;
+    static final int CH_HEIGHT = 50;
 
     //for music
     static final String FILE_THEME        = PATH + "Music/theme.wav";

@@ -40,8 +40,8 @@ public class MapFrame extends JFrame implements KeyListener
     private MySoundEffect themesound;
     private int framewidth   = MyConstants.FRAME_WIDTH;
     private int frameheight  = MyConstants.FRAME_HEIGHT;
-    private int MyCharacterWidth = MyConstants.PL_WIDTH;
-    private int MyCharacterHeight = MyConstants.PL_HEIGHT;
+    private int MyCharacterWidth = MyConstants.CH_WIDTH;
+    private int MyCharacterHeight = MyConstants.CH_HEIGHT;
     private Weapon weapon;
     ArrayList <Monster> monsterArrayList = new ArrayList<>();
     //this frame
@@ -49,9 +49,9 @@ public class MapFrame extends JFrame implements KeyListener
     private MapPanel mapPanel;
     //constructor
     public String getMapName(){return mapName;}
-    public MapFrame(String name,MyCharacter mc,String playerName)
+    public MapFrame(String mapName,MyCharacter mc,String playerName)
     {
-        this.mapName = name;
+        this.mapName = mapName;
         MyCharacter = mc;
         MyCharacterName = playerName;
         //set title, frame's size and properties
@@ -66,8 +66,6 @@ public class MapFrame extends JFrame implements KeyListener
     }
     //add components
     public void addComponents(){
-        //create a MyCharacter
-        MyCharacter = new MyCharacter(MyCharacterName,100,30,MyCharacterWidth,MyCharacterHeight,weapon,MyConstants.FILE_CHAR0);
         //create a JPanel for moving background
         mapPanel = new MapPanel(MyCharacter,this);
         mapPanel.setLayout(null);
@@ -88,7 +86,7 @@ public class MapFrame extends JFrame implements KeyListener
 
         //themesound = new MySoundEffect(MyConstants.FILE_THEME1);
         //themesound.playLoop(); themesound.setVolume(0.4f);
-        //creating MyCharacter
+        //creating myCharacter
         System.out.println(MyCharacterName);
         System.out.println(chosenCharacterName);
         System.out.println(Arrays.toString(weapons));
@@ -280,7 +278,7 @@ class MapPanel extends JPanel{
     //actual size of map
     private int IMAGE_WIDTH = MyConstants.BG_WIDTH;
     private int IMAGE_HEIGHT = MyConstants.BG_HEIGHT;
-    //background image and MyCharacter obj
+    //background image and myCharacter obj
     private BufferedImage backgroundImg;
     private MyCharacter MyCharacter;
     private MapFrame mf;

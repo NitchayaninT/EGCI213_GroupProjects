@@ -4,16 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-// I just create this class as a place holder for the real one
-class LevelUpMenu extends JPanel{
-    protected MyCharacter myCharacter;
-
-    // Constructor
-    LevelUpMenu(MyCharacter mc){
-        myCharacter = mc;
-    }
-}
-
 abstract class BaseLabel extends JLabel {
 
     protected String name;
@@ -76,7 +66,7 @@ abstract class Character extends BaseLabel {
 
     // Methods
     void takeDamage(int damage) {
-        // override this for MyCharacter and boss
+        // override this for myCharacter and boss
         this.hp -= damage;
         if (hp <= 0) {
             this.death();
@@ -98,8 +88,6 @@ class MyCharacter extends Character {
     protected MyCharacterPanel panel;
     private int framewidth   = MyConstants.FRAME_WIDTH;
     private int frameheight  = MyConstants.FRAME_HEIGHT;
-    private int MyCharacterWidth = MyConstants.PL_WIDTH;
-    private int MyCharacterHeight = MyConstants.PL_HEIGHT;
     private int imageWidth = MyConstants.BG_WIDTH;
     private int imageHeight = MyConstants.BG_HEIGHT;
     public MyCharacterPanel getMyCharacterPanel() {
@@ -107,8 +95,8 @@ class MyCharacter extends Character {
     }
     public Weapon getWeapon(){return this.weapon;}
     // Constructors
-    MyCharacter(String n, int hp, int s, int w, int h, Weapon wp, String file) {
-        super(n, hp, s, w, h, file,MyConstants.FRAME_WIDTH/2-MyConstants.PL_WIDTH/2,MyConstants.FRAME_WIDTH/2-MyConstants.PL_HEIGHT/2);
+    MyCharacter(String n, int hp, int s,Weapon wp, String file) {
+        super(n, hp, s, MyConstants.CH_WIDTH, MyConstants.CH_HEIGHT, file,MyConstants.FRAME_WIDTH/2-MyConstants.CH_WIDTH/2,MyConstants.FRAME_WIDTH/2-MyConstants.CH_HEIGHT/2);
         this.weapon = wp;
         this.maxHp = hp;
         this.hp = maxHp;
@@ -116,11 +104,6 @@ class MyCharacter extends Character {
         exp = 0;
         maxExp = 10;
         panel = new MyCharacterPanel(this);
-    }
-
-    void levelUp() {
-        level += 1;
-        LevelUpMenu lm = new LevelUpMenu(this);//
     }
 
     @Override
@@ -163,26 +146,26 @@ class MyCharacter extends Character {
 class MyCharacterPanel extends JPanel {
 
     // members
-    protected MyCharacter MyCharacter;
+    protected MyCharacter myCharacter;
     protected JProgressBar healthBar;
-    private int width = MyConstants.PL_WIDTH;
-    private int height = MyConstants.PL_HEIGHT;
+    private int width = MyConstants.CH_HEIGHT;
+    private int height = MyConstants.CH_HEIGHT;
     private JLabel MyCharacterLabel;
     //default character
-    private MyImageIcon defaultImg;
+    private MyImageIcon Img;
 
     // Constructor
     MyCharacterPanel(MyCharacter p) {
-        this.MyCharacter = p;
+        this.myCharacter = p;
         this.setLayout(null);
-        defaultImg = new MyImageIcon(MyConstants.FILE_CHAR0).resize(width, height);
         MyCharacterLabel = new JLabel();
-        MyCharacterLabel.setIcon(defaultImg);
+        this.setOpaque(false);
+        MyCharacterLabel.setIcon(myCharacter.icon);
         MyCharacterLabel.setBounds(0, 0, width, height);
         this.add(MyCharacterLabel);
         // Creating Health Bar
-        healthBar = new JProgressBar(SwingConstants.HORIZONTAL, MyCharacter.maxHp);
-        healthBar.setValue(MyCharacter.maxHp);
+        healthBar = new JProgressBar(SwingConstants.HORIZONTAL, myCharacter.maxHp);
+        healthBar.setValue(myCharacter.maxHp);
         healthBar.setStringPainted(true);
         healthBar.setForeground(Color.RED);
         healthBar.setBackground(Color.GRAY);
