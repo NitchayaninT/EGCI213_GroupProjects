@@ -118,6 +118,7 @@ public class MapMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 chosenMap = list.getSelectedValue();
                 System.out.println("chosen map = "+ chosenMap.getMapName());
+
                 //music continues
                 mf = new MapFrame(chosenMap.getMapName(),myCharacter,playerName);
                 dispose();
@@ -144,19 +145,19 @@ public class MapMenu extends JFrame {
         switch(myCharacterID)
         {
             case 0:
-                myCharacter = new MyCharacter("Hope",132,5,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,
+                myCharacter = new MyCharacter("Hope",132,8,
                         new Weapon("Mat",20,30,30,MyConstants.FILE_WEAPON0,1),MyConstants.FILE_CHAR0);
                 break;
             case 1:
-                myCharacter = new MyCharacter("Phil",125,3,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,
+                myCharacter = new MyCharacter("Phil",125,6,
                         new Weapon("ATmega328p",5,30,30,MyConstants.FILE_WEAPON1,1),MyConstants.FILE_CHAR1);
                 break;
             case 2:
-                myCharacter = new MyCharacter("Ninny",100,4,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,
+                myCharacter = new MyCharacter("Ninny",100,6,
                         new Weapon("Magical Wand",15,40,30,MyConstants.FILE_WEAPON2,1),MyConstants.FILE_CHAR2);
                 break;
             case 3:
-                myCharacter = new MyCharacter("P",222,3,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,
+                myCharacter = new MyCharacter("P",222,7,
                         new Weapon("2Heart",2,32,32,MyConstants.FILE_WEAPON3,1),MyConstants.FILE_CHAR3);
                 break;
             case 4:
