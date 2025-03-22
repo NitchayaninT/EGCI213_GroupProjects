@@ -229,6 +229,8 @@ class Monster extends Character {
             x += (int) (unitX * speedX);
             y += (int) (unitY * speedY);
             setLocation(x, y);
+            revalidate();
+            repaint();
         }
         try {
             Thread.sleep(600);

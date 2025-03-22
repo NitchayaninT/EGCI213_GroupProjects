@@ -34,9 +34,9 @@ public class MapFrame extends JFrame implements KeyListener
     private Monster monster;
     private Boss boss;
     private MyImageIcon backgroundImg;
-    String MyCharacterName;
-    String chosenCharacterName;
-    String musicName;
+    String  MyCharacterName;
+    String  chosenCharacterName;
+    String  musicName;
     Weapon [] weapons;
     private MySoundEffect themesound;
     private int framewidth   = MyConstants.FRAME_WIDTH;
@@ -76,7 +76,10 @@ public class MapFrame extends JFrame implements KeyListener
         mapPanel.add(MyCharacterPanel);
         mapPanel.repaint();
         //theme song
-        for(int i=0;i<10;i++)spawnMonster();
+        for(int i=0;i<10;i++){
+            spawnMonster();
+            System.out.println("Spawn monster");
+        }
         themesound = new MySoundEffect(MyConstants.FILE_THEME1);
         themesound.playLoop(); themesound.setVolume(0.4f);
         //creating MyCharacter
@@ -140,7 +143,7 @@ public class MapFrame extends JFrame implements KeyListener
             {
                 int randX = rand.nextInt(MyConstants.BG_WIDTH-MyConstants.MON1_WIDTH);
                 int randY = rand.nextInt(MyConstants.BG_HEIGHT-MyConstants.MON1_HEIGHT);
-                Monster monster = new Monster("default",MyConstants.MON1_HP,MyConstants.MON1_WIDTH,MyConstants.MON1_HEIGHT,10,MyConstants.FILE_AJ12,randX,randY,MyCharacter);
+                Monster monster = new Monster("default",MyConstants.MON1_HP,10,MyConstants.MON1_WIDTH,MyConstants.MON1_HEIGHT,MyConstants.FILE_AJ12,randX,randY,MyCharacter);
                 mapPanel.add(monster);
                 while(true)
                 {
