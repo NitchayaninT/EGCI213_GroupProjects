@@ -142,15 +142,25 @@ public class MapFrame extends JFrame implements KeyListener
     {
         Thread monsterThread = new Thread()
         {
+            private boolean running = true; //monster has to get hit 3 times
             public void run()
             {
                 int randX = rand.nextInt(MyConstants.BG_WIDTH-MyConstants.MON1_WIDTH);
                 int randY = rand.nextInt(MyConstants.BG_HEIGHT-MyConstants.MON1_HEIGHT);
-                Monster monster = new Monster("default",MyConstants.MON1_HP,10,MyConstants.MON1_WIDTH,MyConstants.MON1_HEIGHT,MyConstants.FILE_AJ12,randX,randY,MyCharacter);
+                Monster monster = new Monster("default",MyConstants.MON1_HP,50,MyConstants.MON1_WIDTH,MyConstants.MON1_HEIGHT,MyConstants.FILE_AJ12,randX,randY,MyCharacter);
                 mapPanel.add(monster);
-                while(true)
+                while(running)
                 {
                     monster.updateLocation();
+                    boolean collide = checkCollision(monster);
+                    if(collide) {
+                        if(monster.getHp()==0) {
+                            mapPanel.remove(monster);
+                            revalidate();
+                            repaint();
+                            running = false; //destroys monster thread
+                        }
+                    }
                 }
             }
         };
@@ -190,7 +200,20 @@ public class MapFrame extends JFrame implements KeyListener
             }
         };
         timerThread.start();
+    }
+    public boolean checkCollision(Monster monster) {
+            // check collision with each monster on the panel
+        Rectangle monsterBounds = monster.getBounds();
+        Rectangle playerBounds = MyCharacterPanel.getBounds();
 
+        if (monsterBounds.intersects(playerBounds)) {
+            System.out.println("Monster hit player!");
+            MyCharacter.takeDamage(10);
+            monster.takeDamage(MyCharacter.getWeapon().getDamage());
+            // e.g. player.takeDamage(), monster.stop(), etc.
+            return true;//stop monster thread
+        }
+        else return false;
     }
 }
 class MapPanel extends JPanel{

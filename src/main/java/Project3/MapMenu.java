@@ -118,7 +118,6 @@ public class MapMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 chosenMap = list.getSelectedValue();
                 System.out.println("chosen map = "+ chosenMap.getMapName());
-
                 //music continues
                 mf = new MapFrame(chosenMap.getMapName(),myCharacter,playerName);
                 dispose();
