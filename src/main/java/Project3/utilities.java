@@ -8,6 +8,8 @@ interface MyConstants{
     static final String PATH       = "src/main/java/Project3/Resource/";
     static final int FRAME_WIDTH   = 1200;
     static final int FRAME_HEIGHT  = 800;
+    static final String FILE_BG    = PATH + "background.jpg";
+    static final String MAP_BG     = PATH + "map.png";
     static final String FILE_BG    = PATH + "background2.jpg";
     static final String FILE_FOREST    = PATH + "forest.JPG";
 
@@ -18,6 +20,11 @@ interface MyConstants{
     static final String FILE_WEAPON3    = PATH + "weapon3.png";
     static final String FILE_WEAPON4    = PATH + "weapon4.png";
     //for character pictures
+    static final String FILE_CHAR0    = PATH + "phil.png";
+    static final int BG_WIDTH = 4272;
+    static final int BG_HEIGHT = 2800;
+
+    static final int MON1_HP = 100;
     static final String FILE_YOURCHARBOX    = PATH + "yourcharacter.JPG";
     static final String FILE_CHAR0    = PATH + "MyCharacters/hope.png";
     static final String FILE_CHAR1    = PATH + "MyCharacters/phil.png";
@@ -61,7 +68,11 @@ interface MyConstants{
     static final int IT_WIDTH      = 60;
     static final int IT_HEIGHT     = 50;
 
+    static final int PL_WIDTH = 50;
+    static final int PL_HEIGHT = 50;
+
     //for music
+    static final String FILE_THEME1        = PATH + "theme.wav";
     static final String FILE_THEME        = PATH + "Music/theme.wav";
     static final String FILE_THEME0       = PATH + "Music/theme0.wav";
     static final String FILE_THEME1       = PATH + "Music/theme1.wav";
