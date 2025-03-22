@@ -61,10 +61,9 @@ interface MyConstants{
     static final String FILE_AJ12       = PATH + "Monsters/"+ "Karin.png";
     static final String FILE_AJ13       = PATH + "Monsters/"+ "Rangsipan.png";
 
-    static final int MON1_WIDTH         = 15;
-    static final int MON1_HEIGHT        = 15;
-    static final int MON2_WIDTH         = 20;
-    static final int MON2_HEIGHT        = 20;
+
+    static final int MON_WIDTH         = 70;
+    static final int MON_HEIGHT        = 70;
     static final int BOSS_WIDTH         = 100;
     static final int BOSS_HEIGHT        = 100;
 
