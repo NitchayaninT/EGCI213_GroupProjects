@@ -8,13 +8,15 @@ interface MyConstants{
     static final String PATH       = "src/main/java/Project3/Resource/";
     static final int FRAME_WIDTH   = 1200;
     static final int FRAME_HEIGHT  = 800;
-    static final String MAP_BG1     = PATH + "map.png";
-    static final String MAP_BG2     = PATH + "map.png";
-    static final String MAP_BG3     = PATH + "map.png";
-    static final String MAP_BG4     = PATH + "map.png";
-    static final String MAP_BG5     = PATH + "map.png";
+    static final String MAP_BG1     = PATH + "Maps/"+ "mapFrame/"+ "map1.png";
+    static final String MAP_BG2     = PATH + "Maps/"+ "mapFrame/"+ "map2.png";
+    static final String MAP_BG3     = PATH + "Maps/"+ "mapFrame/"+ "map3.png";
+    static final String MAP_BG4     = PATH + "Maps/"+ "mapFrame/"+ "map4.png";
+    static final String MAP_BG5     = PATH + "Maps/"+ "mapFrame/"+ "map5.png";
     static final String FILE_BG    = PATH + "background2.jpg";
     static final String FILE_FOREST    = PATH + "forest2.JPG";
+
+    //mapicon
 
     //for weapon pictures
     static final String FILE_WEAPON0    = PATH + "weapon0.png";
@@ -35,12 +37,14 @@ interface MyConstants{
     static final String FILE_CHAR4    = PATH + "MyCharacters/tony.png";
 
 
-    //for MapFrame pictures
-    static final String FILE_MAP0   = PATH + "Maps/"+ "map1.JPG";
-    static final String FILE_MAP1   = PATH + "Maps/"+ "map2.JPG";
-    static final String FILE_MAP2   = PATH + "Maps/"+ "map3.JPG";
-    static final String FILE_MAP3   = PATH + "Maps/"+ "map4.JPG";
-    static final String FILE_MAP4   = PATH + "Maps/"+ "map5.JPG";
+    //for mapIcon
+    static final String FILE_MAP0   = PATH + "Maps/"+ "mapIcon/"+ "map1.JPG";
+    static final String FILE_MAP1   = PATH + "Maps/"+ "mapIcon/"+ "map2.JPG";
+    static final String FILE_MAP2   = PATH + "Maps/"+ "mapIcon/"+ "map3.JPG";
+    static final String FILE_MAP3   = PATH + "Maps/"+ "mapIcon/"+ "map4.JPG";
+    static final String FILE_MAP4   = PATH + "Maps/"+ "mapIcon/"+ "map5.JPG";
+
+
     //for monster pictures
     static final String FILE_AJ0        = PATH + "Monsters/"+ "Tanasanee.png";
     static final String FILE_AJ1        = PATH + "Monsters/"+ "Mingmanas.png";
