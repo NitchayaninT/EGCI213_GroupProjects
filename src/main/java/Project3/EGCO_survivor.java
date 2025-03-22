@@ -256,11 +256,7 @@ public class EGCO_survivor extends JFrame{
         songs[0] = "No role modelz";
         songs[1] = "Rick Roll";
         songs[2] = "Mingle Game";
-<<<<<<< HEAD
-        songs[3] = "Long pao";
-=======
         songs[3] = "Long Pan";
->>>>>>> ed5ab95 (idk)
         songs[4] = "At Doom's Gate";
     }
     //method to make stars fall
