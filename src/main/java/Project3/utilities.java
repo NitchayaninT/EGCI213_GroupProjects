@@ -17,11 +17,11 @@ interface MyConstants{
     static final String FILE_FOREST    = PATH + "forest2.JPG";
 
     //for weapon pictures
-    static final String FILE_WEAPON0    = PATH + "weapon0.png";
-    static final String FILE_WEAPON1    = PATH + "weapon1.png";
-    static final String FILE_WEAPON2    = PATH + "weapon2.png";
-    static final String FILE_WEAPON3    = PATH + "weapon3.png";
-    static final String FILE_WEAPON4    = PATH + "weapon4.png";
+    static final String FILE_WEAPON0    = PATH + "Weapon/weapon0.png";
+    static final String FILE_WEAPON1    = PATH + "Weapon/weapon1.png";
+    static final String FILE_WEAPON2    = PATH + "Weapon/weapon2.png";
+    static final String FILE_WEAPON3    = PATH + "Weapon/weapon3.png";
+    static final String FILE_WEAPON4    = PATH + "Weapon/weapon4.png";
     //for character pictures
     static final int BG_WIDTH = 4272;
     static final int BG_HEIGHT = 2800;

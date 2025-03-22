@@ -31,6 +31,7 @@ public class MapFrame extends JFrame implements KeyListener
     private Random rand = new Random();
     private MyCharacter MyCharacter;
     private MyCharacterPanel MyCharacterPanel;
+    private JLabel myWeaponLabel;
     private Monster monster;
     private Boss boss;
     private MyImageIcon backgroundImg;
@@ -43,6 +44,12 @@ public class MapFrame extends JFrame implements KeyListener
     private int MyCharacterWidth = MyConstants.PL_WIDTH;
     private int MyCharacterHeight = MyConstants.PL_HEIGHT;
     private Weapon weapon;
+    //booleans
+    private boolean spawnWeapon = false;
+    private boolean selectedW = false;
+    private boolean selectedA = false;
+    private boolean selectedS = false;
+    private boolean selectedD = false;
     //this frame
     private MapFrame   currentFrame;
     private MapPanel mapPanel;
@@ -52,6 +59,7 @@ public class MapFrame extends JFrame implements KeyListener
     {
         this.mapName = name;
         MyCharacter = mc;
+        weapon = MyCharacter.getWeapon();
         MyCharacterName = playerName;
         //set title, frame's size and properties
         setTitle("Welcome "+ MyCharacterName);
@@ -73,9 +81,13 @@ public class MapFrame extends JFrame implements KeyListener
         //set dimension for the JPanel
         mapPanel.setPreferredSize(new Dimension(framewidth, frameheight));
         setContentPane(mapPanel);
+        //for character panel
         MyCharacterPanel = MyCharacter.getMyCharacterPanel();
         MyCharacterPanel.setBounds(framewidth/2-MyCharacterWidth/2,frameheight/2-MyCharacterHeight/2,MyCharacterWidth,(int)((double)MyCharacterHeight*1.2));
         mapPanel.add(MyCharacterPanel);
+        //my weapon label
+        myWeaponLabel = new JLabel(weapon.getIcon()); //INITIAL!!!
+        myWeaponLabel.setBounds(framewidth/2-MyCharacterWidth/2,frameheight/2-MyCharacterHeight/2,weapon.getWidth(),weapon.getHeight());
         mapPanel.repaint();
 
         for(int i=0;i<10;i++) {
@@ -107,6 +119,12 @@ public class MapFrame extends JFrame implements KeyListener
         switch(keyCode)
         {
             case KeyEvent.VK_A:
+
+                selectedA = true;
+                selectedD = false;
+                selectedW = false;
+                selectedS = false;
+
                 MyCharacter.moveLeft();
                 mapPanel.moveLeft();
                 mapPanel.repaint();
@@ -114,6 +132,12 @@ public class MapFrame extends JFrame implements KeyListener
                 repaint();
                 break;
             case KeyEvent.VK_D:
+
+                selectedA = false;
+                selectedD = true;
+                selectedW = false;
+                selectedS = false;
+
                 MyCharacter.moveRight();
                 mapPanel.moveRight();
                 mapPanel.repaint();
@@ -121,6 +145,12 @@ public class MapFrame extends JFrame implements KeyListener
                 repaint();
                 break;
             case KeyEvent.VK_W:
+
+                selectedA = false;
+                selectedD = false;
+                selectedW = true;
+                selectedS = false;
+
                 MyCharacter.moveUp();
                 mapPanel.moveUp();
                 mapPanel.repaint();
@@ -128,11 +158,20 @@ public class MapFrame extends JFrame implements KeyListener
                 repaint();
                 break;
             case KeyEvent.VK_S:
+
+                selectedA = false;
+                selectedD = false;
+                selectedW = false;
+                selectedS = true;
+
                 MyCharacter.moveDown();
                 mapPanel.moveDown();
                 mapPanel.repaint();
                 revalidate();
                 repaint();
+                break;
+            case KeyEvent.VK_SPACE:
+                spawnWeapon();
                 break;
         }
     }
@@ -205,15 +244,83 @@ public class MapFrame extends JFrame implements KeyListener
             // check collision with each monster on the panel
         Rectangle monsterBounds = monster.getBounds();
         Rectangle playerBounds = MyCharacterPanel.getBounds();
+        //Rectangle weaponBounds = myWeaponLabel.getBounds();
 
+        //if intersects player
         if (monsterBounds.intersects(playerBounds)) {
             System.out.println("Monster hit player!");
-            MyCharacter.takeDamage(10);
-            monster.takeDamage(MyCharacter.getWeapon().getDamage());
+            MyCharacter.takeDamage(10); //if intersects and dont spawn weapon, character loses blood.
+            //monster.takeDamage(MyCharacter.getWeapon().getDamage());
             // e.g. player.takeDamage(), monster.stop(), etc.
+            /*if(spawnWeapon){
+                monster.takeDamage(MyCharacter.getWeapon().getDamage());
+                spawnWeapon = false;
+            }*/
             return true;//stop monster thread
         }
+        /*else if(monsterBounds.intersects(weaponBounds)) //if intersects weapon
+        {
+            monster.takeDamage(MyCharacter.getWeapon().getDamage());
+            System.out.println("DAMAGE!");
+            mapPanel.remove(myWeaponLabel);
+            revalidate();
+            repaint();
+            spawnWeapon = false;
+            return false;
+        }*/
         else return false;
+    }
+
+    public void spawnWeapon()
+    {
+        Thread weaponThread = new Thread()
+        {
+            private final JLabel weaponLabel = new JLabel(weapon.getIcon());
+            public JLabel getWeaponLabel(){return weaponLabel;}
+            public void run()
+            {
+                Point characterPos = MyCharacterPanel.getLocation();
+                int weaponX = characterPos.x+10;
+                int weaponY = characterPos.y;
+                //set new bounds
+                weaponLabel.setBounds(weaponX,weaponY,weapon.getWidth(),weapon.getHeight());
+                mapPanel.add(weaponLabel);
+                spawnWeapon = true;
+                //to detect key press from initial
+                boolean A = false;
+                boolean D = false;
+                boolean S = false;
+                boolean Y = false;
+                //selected which key? (from initial press)
+                if(selectedA) //left
+                {A = true;}
+                else if(selectedD) //right
+                {D = true;}
+                else if(selectedS) //south
+                {S = true;}
+                else //north
+                {Y = true;}
+                while(spawnWeapon && (weaponLabel.getX()<framewidth||weaponLabel.getY()<frameheight)) //if spawn weapon and still in frame (and not collide with monster yet)
+                {
+                    if(A) //left
+                    {weaponX -= 10;}
+                    else if(D) //right
+                    {weaponX += 10;}
+                    else if(S) //south
+                    {weaponY += 10;}
+                    else //north
+                    {weaponY -= 10;}
+                    weaponLabel.setBounds(weaponX,weaponY,weapon.getWidth(),weapon.getHeight());
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {throw new RuntimeException(e);}
+                    revalidate();
+                    repaint();
+                }
+                spawnWeapon = false; //if out of frame
+            }
+        };
+        weaponThread.start();
     }
 }
 class MapPanel extends JPanel{
@@ -322,5 +429,5 @@ class MapPanel extends JPanel{
         //draw the image
         g.drawImage(backgroundImg, dx1, dy1, dx2, dy2, srcx1, srcy1, srcx2, srcy2, this);
     }
-    
+
 }

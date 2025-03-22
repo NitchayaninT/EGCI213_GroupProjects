@@ -57,6 +57,8 @@ abstract class BaseLabel extends JLabel {
         return speedY;
     }
 
+    public MyImageIcon getIcon(){return icon;}
+
 }
 
 abstract class Character extends BaseLabel {
@@ -191,6 +193,7 @@ class MyCharacterPanel extends JPanel {
         this.add(healthBar);
 
     }
+
 }
 
 class Monster extends Character {

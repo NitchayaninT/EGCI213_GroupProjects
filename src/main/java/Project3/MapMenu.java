@@ -144,7 +144,8 @@ public class MapMenu extends JFrame {
         switch(myCharacterID)
         {
             case 0:
-                myCharacter = new MyCharacter("Hope",132,5,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,new Weapon("Mat",20,10,20,MyConstants.FILE_WEAPON0,1),MyConstants.FILE_CHAR0);
+                myCharacter = new MyCharacter("Hope",132,5,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,
+                        new Weapon("Mat",20,30,30,MyConstants.FILE_WEAPON0,1),MyConstants.FILE_CHAR0);
                 break;
             case 1:
                 myCharacter = new MyCharacter("Phil",125,3,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,
@@ -152,7 +153,7 @@ public class MapMenu extends JFrame {
                 break;
             case 2:
                 myCharacter = new MyCharacter("Ninny",100,4,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,
-                        new Weapon("Magical Wand",15,15,10,MyConstants.FILE_WEAPON2,1),MyConstants.FILE_CHAR2);
+                        new Weapon("Magical Wand",15,40,30,MyConstants.FILE_WEAPON2,1),MyConstants.FILE_CHAR2);
                 break;
             case 3:
                 myCharacter = new MyCharacter("P",222,3,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,

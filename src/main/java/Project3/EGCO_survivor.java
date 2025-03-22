@@ -274,7 +274,7 @@ public class EGCO_survivor extends JFrame{
                 star.setHorizontalAlignment(JLabel.CENTER);
 
                 //use to random x and Y axis
-                Random rand = new Random();;
+                Random rand = new Random();
                 int yAxis = 0; //initial
 
                 //add to draw pane
