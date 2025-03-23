@@ -5,7 +5,6 @@ import java.awt.*;
 import java.util.Random;
 
 abstract class BaseLabel extends JLabel {
-
     protected String name;
     protected MyImageIcon icon;
     protected int x;
@@ -14,7 +13,6 @@ abstract class BaseLabel extends JLabel {
     protected int height;
     protected int speedX, speedY;
     protected JPanel mapPanel;
-
     // Constructors
     public BaseLabel() {super();} // default constructor
     public BaseLabel(String n, int s, int w, int h, String file, int x, int y) {

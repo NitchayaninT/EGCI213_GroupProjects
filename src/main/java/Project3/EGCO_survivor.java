@@ -145,7 +145,7 @@ public class EGCO_survivor extends JFrame{
                 mapFrame = new MapMenu();
                 //and pass messages to the next frame ****
                 mapFrame.setPlayerName(playerName);
-                mapFrame.setMusicName(songID);
+                mapFrame.setMusic(main_theme);
                 mapFrame.setCharacterID(characterID);
                 mapFrame.addComponents();
                 running = false;

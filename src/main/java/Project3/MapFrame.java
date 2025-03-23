@@ -26,6 +26,8 @@ class Map{
 public class MapFrame extends JFrame implements KeyListener
 {
     //methods
+    private MySoundEffect main_theme;
+    private ArrayList<Thread> monsterThreadList = new ArrayList<>();
     private String mapName;
     private MyImageIcon mapIcon;
     private Random rand = new Random();
@@ -49,6 +51,7 @@ public class MapFrame extends JFrame implements KeyListener
     private volatile boolean isPaused = false;
     private JLabel hpLabel;
     private JLabel speedLabel;
+    Timer monsterTimer;
 
     //booleans
     private boolean selectedW = false;
@@ -59,6 +62,7 @@ public class MapFrame extends JFrame implements KeyListener
     private MapFrame   currentFrame;
     private MapPanel mapPanel;
     //constructor
+    public void setMusic(MySoundEffect theme){this.main_theme = theme;}
     public String getMapName(){return mapName;}
     public MapFrame(String mapName,MyCharacter mc,String playerName)
     {
@@ -288,6 +292,7 @@ public class MapFrame extends JFrame implements KeyListener
                 }
             }
         };
+        monsterThreadList.add(monsterThread);
         monsterThread.start();
     }
     private void addTimer()
@@ -304,7 +309,8 @@ public class MapFrame extends JFrame implements KeyListener
                 long ps = -1;
                 JLabel timer = new JLabel(String.valueOf(System.currentTimeMillis()-System.currentTimeMillis()));
                 mapPanel.add(timer);
-                while(true)
+                boolean running = true;
+                while(running)
                 {
                     long currentTime = System.currentTimeMillis();
                     differenceTime = currentTime - startTime;
@@ -332,6 +338,27 @@ public class MapFrame extends JFrame implements KeyListener
                         createLevelUpMenu();
                         ps = totalSeconds;
                     }
+
+                    if(MyCharacter.getHp()<=0)
+                    {
+                        System.out.println(monsterThreadList.size());
+                        for (Monster m:monsterArrayList)
+                        {
+                            m.setAlive(false);
+                        }
+                        for(Thread m:monsterThreadList)
+                        {
+                            try{
+                                m.join();
+                            }catch(Exception e){}
+                        }
+                        running = false;
+                        String s = "You die";
+                        JOptionPane.showMessageDialog(new JFrame(),s,"EGCO Survivor",JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                        main_theme.stop();
+                        new EGCO_survivor();
+                    }
                     /*if(totalSeconds % 10 == 0) {
                         if(cs!=ps) {
                             size *= 2;
@@ -348,12 +375,17 @@ public class MapFrame extends JFrame implements KeyListener
         timerThread.start();
     }
     public void startMonsterSpawner() {
-        Timer monsterTimer = new Timer(2000, new ActionListener() {
+        monsterTimer = new Timer(2000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                for(int i=0;i<5;i++)
-                {
-                    spawnMonster();
+                if(MyCharacter.getHp()>0) {
+                    for (int i = 0; i < 5; i++) {
+                        spawnMonster();
+                    }
+                }else {
+                    System.out.println("stop timer");
+                    monsterTimer.stop();
                 }
+
             }
         });
         monsterTimer.start();
@@ -391,7 +423,7 @@ public class MapFrame extends JFrame implements KeyListener
 
         //if intersects player
         if (monsterBounds.intersects(playerBounds)) {
-            System.out.println("Monster hit player!");
+            //System.out.println("Monster hit player!");
             MyCharacter.takeDamage(1);
             updateHPandSpeedLabel();
 
@@ -497,7 +529,9 @@ public class MapFrame extends JFrame implements KeyListener
     }
     public void updateHPandSpeedLabel()
     {
-        hpLabel.setText("HP: " + MyCharacter.getHp() + "/" + MyCharacter.getMaxHp());
+        int hp = MyCharacter.getHp();
+        if(MyCharacter.getHp()<0)hp=0;
+        hpLabel.setText("HP: " + hp + "/" + MyCharacter.getMaxHp());
         speedLabel.setText("Speed: " + MyCharacter.getSpeedX());
         revalidate();
         repaint();

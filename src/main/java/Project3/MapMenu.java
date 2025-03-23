@@ -9,13 +9,14 @@ public class MapMenu extends JFrame {
     //variables
     private String                  playerName;
     private int                     myCharacterID;
-    private int                     musicID;
+    private MySoundEffect           main_theme;
     private JLabel                  drawCharbox;
     private JLabel                  contentpane; //for background image of frame
     private JList<Map>              list;
     private Font                    F_Plain;
     private Font                    F_Bold;
     private Font                    F_large;
+
 
     //this frame
     private MapMenu currentFrame;
@@ -121,6 +122,7 @@ public class MapMenu extends JFrame {
 
                 //music continues
                 mf = new MapFrame(chosenMap.getMapName(),myCharacter,playerName);
+                mf.setMusic(main_theme);
                 dispose();
             }
         });
@@ -139,7 +141,7 @@ public class MapMenu extends JFrame {
     //methods
     public void setPlayerName(String name){playerName = name;}
     public void setCharacterID(int ID){myCharacterID = ID;}
-    public void setMusicName(int musicID){this.musicID = musicID;}
+    public void setMusic(MySoundEffect theme){this.main_theme = theme;}
     private void createPlayer()
     {
         switch(myCharacterID)
