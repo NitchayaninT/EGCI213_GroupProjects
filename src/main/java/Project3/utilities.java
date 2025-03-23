@@ -7,7 +7,7 @@ import javax.sound.sampled.*;     // for sounds
 interface MyConstants{
     static final String PATH       = "src/main/java/Project3/Resource/";
     static final int FRAME_WIDTH   = 1200;
-    static final int FRAME_HEIGHT  = 800;
+    static final int FRAME_HEIGHT  = 768;
     static final String MAP_BG1     = PATH + "Maps/"+ "mapFrame/"+ "map1.png";
     static final String MAP_BG2     = PATH + "Maps/"+ "mapFrame/"+ "map2.png";
     static final String MAP_BG3     = PATH + "Maps/"+ "mapFrame/"+ "map3.png";
