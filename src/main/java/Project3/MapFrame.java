@@ -366,7 +366,7 @@ public class MapFrame extends JFrame implements KeyListener
                         createLevelUpMenu();
                         ps = totalSeconds;
                     }
-                    if(totalSeconds==1&&!BossSpawn)
+                    if(totalSeconds==60&&!BossSpawn)
                     {
                         BossSpawn = true;
                         spawnBoss();
