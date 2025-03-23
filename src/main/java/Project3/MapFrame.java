@@ -2,13 +2,9 @@ package Project3;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.awt.event.*;
 import javax.swing.Timer;
 import java.util.*;
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
 import java.util.Random;
 
 class Map{
@@ -357,7 +353,7 @@ public class MapFrame extends JFrame implements KeyListener
                         JOptionPane.showMessageDialog(new JFrame(),s,"EGCO Survivor",JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                         main_theme.stop();
-                        new EGCO_survivor();
+                        new MainApplication();
                     }
                     else //if different time exceeds
                     {
@@ -378,7 +374,7 @@ public class MapFrame extends JFrame implements KeyListener
                             JOptionPane.showMessageDialog(new JFrame(),s,"EGCO Survivor",JOptionPane.INFORMATION_MESSAGE);
                             dispose();
                             main_theme.stop();
-                            new EGCO_survivor();
+                            new MainApplication();
                         }
                     }
                     /*if(totalSeconds % 10 == 0) {
@@ -400,6 +396,11 @@ public class MapFrame extends JFrame implements KeyListener
         monsterTimer = new Timer(2000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(MyCharacter.getHp()>0) {
+                    if(differenceTime > 90*1000)
+                    {
+                        System.out.println("stop timer");
+                        monsterTimer.stop();
+                    }
                     for (int i = 0; i < 2; i++) {
                         spawnMonster();
                     }
