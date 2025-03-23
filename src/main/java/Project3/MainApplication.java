@@ -2,6 +2,8 @@ package Project3;
 
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.util.List;
 import java.util.*;
 import java.awt.*;
@@ -24,6 +26,7 @@ public class MainApplication extends JFrame{
     private String              [] songs; //contains all songs (will pass the song name to next frame)
     private boolean             running = true; //keep track of the stars' status. if false, that means we move to another frame
     private MySoundEffect       main_theme;
+    private JSlider             volumeSlider;
 
     //frame width and height
     private int framewidth   = MyConstants.FRAME_WIDTH;
@@ -109,7 +112,7 @@ public class MainApplication extends JFrame{
 
         //for sound effect (FILE_THEME is initial song)
         main_theme = new MySoundEffect(MyConstants.FILE_THEME0);
-        main_theme.playLoop(); main_theme.setVolume(0.4f);
+        main_theme.playLoop(); main_theme.setVolume(0.5f);
 
         //enter name textfield with initial text "enter name", saves player name to a variable that needs to be passed to next frame
         enterNameText = new JTextField("Enter name", 16);
@@ -222,12 +225,16 @@ public class MainApplication extends JFrame{
             }
         });
 
+        //add volume slider
+        volumeSlider();
+
         //setting bounds for all components
         enterNameText.setBounds(450,450,295,40);
         creditsButton.setBounds(625,500,120,40);
         startButton.setBounds(450,500,120,40);
         chooseCharacterBox.setBounds(850,450,180,40);
         radioButtonGroup.setBounds(150,450,200,200);
+        volumeSlider.setBounds(framewidth/2-100,frameheight-180,180,50);
 
         //adding them to drawPane (JLabel,which represents background)
         drawPane.add(enterNameText);
@@ -296,6 +303,33 @@ public class MainApplication extends JFrame{
         starThread.start();
         starThreads.add(starThread);
         return starThreads;
+    }
+    public void volumeSlider()
+    {
+        JLabel volumeLabel = new JLabel("Volume");
+        volumeLabel.setFont(new Font("Century Gothic", Font.BOLD, 16));
+        volumeLabel.setForeground(Color.WHITE);
+        volumeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        volumeLabel.setVisible(true);
+
+        volumeSlider = new JSlider(0, 100, 50); //min, max, initial volume
+        volumeSlider.setMajorTickSpacing(25);
+        volumeSlider.setPaintTicks(true);
+        volumeSlider.setPaintLabels(true);
+        volumeLabel.setBounds(framewidth/2-60,frameheight-220,100,50);
+
+        drawPane.add(volumeSlider);
+        drawPane.add(volumeLabel);
+
+        volumeSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int volume = volumeSlider.getValue();
+                System.out.println("Volume set to: " + volume);
+                main_theme.setVolume(volume/100.0f);
+            }
+        });
+
     }
 }
 

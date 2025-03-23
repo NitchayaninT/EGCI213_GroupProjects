@@ -110,6 +110,13 @@ class MyCharacter extends Character {
             repaint();
         }
     }
+    protected void heal()
+    {
+        this.hp = this.maxHp;
+        panel.healthBar.setValue(hp);
+        revalidate();
+        repaint();
+    }
     @Override
     public String toString() {
         return this.name;
@@ -166,7 +173,6 @@ class MyCharacterPanel extends JPanel {
         this.add(healthBar);
 
     }
-
 }
 
 class Monster extends Character {

@@ -33,21 +33,19 @@ public class MapFrame extends JFrame implements KeyListener
     private Monster monster;
     private Boss boss;
     private MyImageIcon backgroundImg;
-    String  MyCharacterName;
-    String  chosenCharacterName;
-    Weapon [] weapons;
-    private MySoundEffect themesound;
+    private String  MyCharacterName;
+    private String  chosenCharacterName;
+    private Weapon [] weapons;
     private int framewidth   = MyConstants.FRAME_WIDTH;
     private int frameheight  = MyConstants.FRAME_HEIGHT;
     private int MyCharacterWidth = MyConstants.CH_WIDTH;
     private int MyCharacterHeight = MyConstants.CH_HEIGHT;
     private Weapon weapon;
-    ArrayList <Monster> monsterArrayList = new ArrayList<>();
+    protected ArrayList <Monster> monsterArrayList = new ArrayList<>();
     private long differenceTime; //to keep track of different time
-    private volatile boolean isPaused = false;
     private JLabel hpLabel;
     private JLabel speedLabel;
-    Timer monsterTimer;
+    private Timer monsterTimer;
 
     //booleans
     private boolean selectedW = false;
@@ -96,11 +94,6 @@ public class MapFrame extends JFrame implements KeyListener
         myWeaponLabel = new JLabel(weapon.getIcon()); //INITIAL!!!
         myWeaponLabel.setBounds(framewidth/2-MyCharacterWidth/2,frameheight/2-MyCharacterHeight/2,weapon.getWidth(),weapon.getHeight());
 
-        /*
-        for(int i=0;i<20;i++) {
-            spawnMonster();
-            System.out.println("Spawn monster");
-        }*/
         //for hp and speed labels
         hpLabel = new JLabel("HP: " + MyCharacter.getHp() + "/" + MyCharacter.getMaxHp());
         speedLabel = new JLabel("Speed: " + MyCharacter.getSpeedX());
@@ -331,8 +324,6 @@ public class MapFrame extends JFrame implements KeyListener
         {
             public void run()
             {
-                int size = 15;
-                long cs = 0;
                 long ps = -1;
                 JLabel timer = new JLabel(String.valueOf(System.currentTimeMillis()-System.currentTimeMillis()));
                 mapPanel.add(timer);
@@ -406,23 +397,13 @@ public class MapFrame extends JFrame implements KeyListener
                                 }catch(Exception e){}
                             }
                             running = false;
-                            String s = "You Win";
+                            String s = "You Survived EGCO! Congrats!";
                             JOptionPane.showMessageDialog(new JFrame(),s,"EGCO Survivor",JOptionPane.INFORMATION_MESSAGE);
                             dispose();
                             main_theme.stop();
                             new MainApplication();
                         }
                     }
-                    /*if(totalSeconds % 10 == 0) {
-                        if(cs!=ps) {
-                            size *= 2;
-                            System.out.println("Double size");
-                        }
-                    }
-                    if (monsterArrayList.size() < size){
-                        System.out.println(monsterArrayList.size()+" "+size);
-                        spawnMonster();
-                    }*/
                 }
             }
         };
@@ -483,7 +464,11 @@ public class MapFrame extends JFrame implements KeyListener
         //if intersects player
         if (monsterBounds.intersects(playerBounds)) {
             //System.out.println("Monster hit player!");
-            MyCharacter.takeDamage(1);
+            if(Objects.equals(monster.getName(), "AJRangsipan"))
+            {
+                MyCharacter.takeDamage(10);
+            }
+            else MyCharacter.takeDamage(2);
             updateHPandSpeedLabel();
         }
     }
@@ -543,7 +528,6 @@ public class MapFrame extends JFrame implements KeyListener
     }
     public void createLevelUpMenu()
     {
-        isPaused = true;
         JPanel levelUpPanel = new JPanel();
         levelUpPanel.setLayout(new BoxLayout(levelUpPanel, BoxLayout.Y_AXIS));
         levelUpPanel.setBackground(Color.WHITE);
@@ -556,34 +540,41 @@ public class MapFrame extends JFrame implements KeyListener
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel speedLabel = new JLabel("Speed increased!");
-        MyCharacter.setSpeed(MyCharacter.getSpeedX()+1); //player's speed +1
+        MyCharacter.setSpeed(MyCharacter.getSpeedX()+2); //player's speed +1
         System.out.println("Speed"+MyCharacter.getSpeedX());
         JLabel hpLabel = new JLabel("HP increased to full!");
-        MyCharacter.setHp(MyCharacter.getMaxHp());
+        MyCharacter.heal();
         //update panel too
         updateHPandSpeedLabel();
         speedLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         hpLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton okButton = new JButton("OK");
-        okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        okButton.addActionListener(e -> {
-            isPaused = false;
-            levelUpPanel.setVisible(false);
-            mapPanel.remove(levelUpPanel);
-            MapFrame.this.requestFocus();
-        });
         levelUpPanel.add(Box.createVerticalStrut(10));
         levelUpPanel.add(title);
         levelUpPanel.add(Box.createVerticalStrut(15));
         levelUpPanel.add(speedLabel);
         levelUpPanel.add(Box.createVerticalStrut(15));
         levelUpPanel.add(hpLabel);
-        levelUpPanel.add(okButton);
+        //levelUpPanel.add(okButton);
         levelUpPanel.setOpaque(true);
         mapPanel.add(levelUpPanel);
         revalidate();
         repaint();
+
+        //hide panel after 2.5 seconds using anonymous class
+        new Timer(2500, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                levelUpPanel.setVisible(false);
+                mapPanel.remove(levelUpPanel);
+                MapFrame.this.requestFocus();
+                ((Timer) e.getSource()).stop(); //stop the timer
+            }
+        }) {{
+            setRepeats(false);
+            start();
+        }};
+
     }
     public void updateHPandSpeedLabel()
     {
@@ -593,6 +584,7 @@ public class MapFrame extends JFrame implements KeyListener
         speedLabel.setText("Speed: " + MyCharacter.getSpeedX());
         revalidate();
         repaint();
-
     }
+
 }
+
