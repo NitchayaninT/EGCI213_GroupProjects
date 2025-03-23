@@ -140,7 +140,6 @@ public class MapFrame extends JFrame implements KeyListener
         {
             public void run()
             {
-
                 int srcx1 = mapPanel.getsrcx1();
                 int srcx2 = mapPanel.getsrcx2();
                 int srcy1 = mapPanel.getsrcy1();
@@ -316,7 +315,6 @@ class MapPanel extends JPanel{
             }
         }
     }
-
     public void moveUp()
     {
         if (srcy1 - MyCharacter.getSpeedY() >= 0)

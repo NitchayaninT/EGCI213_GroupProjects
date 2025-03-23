@@ -158,7 +158,8 @@ public class MapMenu extends JFrame {
                 myCharacter = new MyCharacter("P",222,3,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,
                         new Weapon("2Heart",2,32,32,MyConstants.FILE_WEAPON3,1),MyConstants.FILE_CHAR3);
                 break;
-            case 4:
+            case 4:myCharacter = new MyCharacter("Tony",120,8,MyConstants.CH_WIDTH,MyConstants.CH_HEIGHT,
+                    new Weapon("2Heart",2,32,32,MyConstants.FILE_WEAPON3,1),MyConstants.FILE_CHAR3);
                 //Tony
                 break;
         }
