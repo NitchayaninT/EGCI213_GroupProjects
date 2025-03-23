@@ -165,40 +165,15 @@ public class MapMenu extends JFrame {
                 break;
         }
     }
-    /*private void createSong()
-    {
-        switch(musicID)
-        {
-            case 0:
-                myMusic = new MySoundEffect(MyConstants.FILE_THEME0);
-                //myMusic.playLoop(); myMusic.setVolume(0.4f);
-                break;
-            case 1:
-                myMusic = new MySoundEffect(MyConstants.FILE_THEME1);
-                //myMusic.playLoop(); myMusic.setVolume(0.4f);
-                break;
-            case 2:
-                myMusic = new MySoundEffect(MyConstants.FILE_THEME2);
-                //myMusic.playLoop(); myMusic.setVolume(0.4f);
-                break;
-            case 3:
-
-                break;
-            case 4:
-                myMusic = new MySoundEffect(MyConstants.FILE_THEME4);
-                //myMusic.playLoop(); myMusic.setVolume(0.4f);
-                break;
-        }
-    }*/
     private JList<Map> createMapList()
     {
         //create list of maps model
         DefaultListModel<Map> mapModel = new DefaultListModel<>();
-        mapModel.addElement(new Map("MapFrame 1", new MyImageIcon(MyConstants.FILE_MAP0).resize(75,75)));
-        mapModel.addElement(new Map("MapFrame 2", new MyImageIcon(MyConstants.FILE_MAP1).resize(75,75)));
-        mapModel.addElement(new Map("MapFrame 3", new MyImageIcon(MyConstants.FILE_MAP2).resize(75,75)));
-        mapModel.addElement(new Map("MapFrame 4", new MyImageIcon(MyConstants.FILE_MAP3).resize(75,75)));
-        mapModel.addElement(new Map("MapFrame 5", new MyImageIcon(MyConstants.FILE_MAP4).resize(75,75)));
+        mapModel.addElement(new Map("Desert", new MyImageIcon(MyConstants.FILE_MAP0).resize(75,75)));
+        mapModel.addElement(new Map("Galaxy", new MyImageIcon(MyConstants.FILE_MAP1).resize(75,75)));
+        mapModel.addElement(new Map("Sky", new MyImageIcon(MyConstants.FILE_MAP2).resize(75,75)));
+        mapModel.addElement(new Map("Hell", new MyImageIcon(MyConstants.FILE_MAP3).resize(75,75)));
+        mapModel.addElement(new Map("Grass", new MyImageIcon(MyConstants.FILE_MAP4).resize(75,75)));
 
         list = new JList<Map>(mapModel);
         list.setFixedCellHeight(75);

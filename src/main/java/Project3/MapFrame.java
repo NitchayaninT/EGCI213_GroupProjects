@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.*;
+import javax.swing.Timer;
 import java.util.*;
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -44,6 +45,11 @@ public class MapFrame extends JFrame implements KeyListener
     private int MyCharacterHeight = MyConstants.CH_HEIGHT;
     private Weapon weapon;
     ArrayList <Monster> monsterArrayList = new ArrayList<>();
+    private long differenceTime; //to keep track of different time
+    private volatile boolean isPaused = false;
+    private JLabel hpLabel;
+    private JLabel speedLabel;
+
     //booleans
     private boolean selectedW = false;
     private boolean selectedA = false;
@@ -77,7 +83,11 @@ public class MapFrame extends JFrame implements KeyListener
         mapPanel.setLayout(null);
         //set dimension for the JPanel
         mapPanel.setPreferredSize(new Dimension(framewidth, frameheight));
+        mapPanel.setFocusable(true);
+        mapPanel.requestFocusInWindow();
+        mapPanel.addKeyListener(this);
         setContentPane(mapPanel);
+
         //for character panel
         MyCharacterPanel = MyCharacter.getMyCharacterPanel();
         MyCharacterPanel.setBounds(framewidth/2-MyCharacterWidth/2,frameheight/2-MyCharacterHeight/2,MyCharacterWidth,(int)((double)MyCharacterHeight*1.2));
@@ -85,16 +95,33 @@ public class MapFrame extends JFrame implements KeyListener
         //my weapon label
         myWeaponLabel = new JLabel(weapon.getIcon()); //INITIAL!!!
         myWeaponLabel.setBounds(framewidth/2-MyCharacterWidth/2,frameheight/2-MyCharacterHeight/2,weapon.getWidth(),weapon.getHeight());
-        mapPanel.repaint();
 
         /*
         for(int i=0;i<20;i++) {
             spawnMonster();
             System.out.println("Spawn monster");
         }*/
+        //for hp and speed labels
+        hpLabel = new JLabel("HP: " + MyCharacter.getHp() + "/" + MyCharacter.getMaxHp());
+        speedLabel = new JLabel("Speed: " + MyCharacter.getSpeedX());
+        hpLabel.setFont(new Font("Century Gothic", Font.BOLD, 16));
+        hpLabel.setForeground(Color.RED);
+        hpLabel.setBounds(5,10,150,20);
+        hpLabel.setOpaque(true);
+        hpLabel.setBackground(mapPanel.getBackground());
+
+        speedLabel.setFont(new Font("Century Gothic", Font.BOLD, 16));
+        speedLabel.setForeground(Color.BLUE);
+        speedLabel.setBounds(200, 10, 150, 20);
+        speedLabel.setOpaque(true);
+        speedLabel.setBackground(mapPanel.getBackground());
+
+        mapPanel.add(hpLabel);
+        mapPanel.add(speedLabel);
+        mapPanel.repaint();
         //for timer
         addTimer();
-
+        startMonsterSpawner();
         //themesound = new MySoundEffect(MyConstants.FILE_THEME1);
         //themesound.playLoop(); themesound.setVolume(0.4f);
         //creating myCharacter
@@ -117,12 +144,10 @@ public class MapFrame extends JFrame implements KeyListener
         switch(keyCode)
         {
             case KeyEvent.VK_A:
-
                 selectedA = true;
                 selectedD = false;
                 selectedW = false;
                 selectedS = false;
-
                 MyCharacter.moveLeft();
                 mapPanel.moveLeft();
                 mapPanel.repaint();
@@ -130,12 +155,10 @@ public class MapFrame extends JFrame implements KeyListener
                 repaint();
                 break;
             case KeyEvent.VK_D:
-
                 selectedA = false;
                 selectedD = true;
                 selectedW = false;
                 selectedS = false;
-
                 MyCharacter.moveRight();
                 mapPanel.moveRight();
                 mapPanel.repaint();
@@ -143,12 +166,10 @@ public class MapFrame extends JFrame implements KeyListener
                 repaint();
                 break;
             case KeyEvent.VK_W:
-
                 selectedA = false;
                 selectedD = false;
                 selectedW = true;
                 selectedS = false;
-
                 MyCharacter.moveUp();
                 mapPanel.moveUp();
                 mapPanel.repaint();
@@ -156,12 +177,10 @@ public class MapFrame extends JFrame implements KeyListener
                 repaint();
                 break;
             case KeyEvent.VK_S:
-
                 selectedA = false;
                 selectedD = false;
                 selectedW = false;
                 selectedS = true;
-
                 MyCharacter.moveDown();
                 mapPanel.moveDown();
                 mapPanel.repaint();
@@ -282,18 +301,16 @@ public class MapFrame extends JFrame implements KeyListener
 
                 int size = 15;
                 long cs = 0;
-                long ps = 0;
+                long ps = -1;
                 JLabel timer = new JLabel(String.valueOf(System.currentTimeMillis()-System.currentTimeMillis()));
                 mapPanel.add(timer);
-                while(true) //until level up (progress bar 100%) -> reset thread
+                while(true)
                 {
                     long currentTime = System.currentTimeMillis();
-                    long differenceTime = currentTime - startTime;
+                    differenceTime = currentTime - startTime;
 
                     //total seconds
                     long totalSeconds = differenceTime / 1000;
-                    ps = cs;
-                    cs = totalSeconds;
                     //minutes and actual seconds
                     long minutes = totalSeconds / 60;
                     long seconds = totalSeconds % 60;
@@ -304,10 +321,18 @@ public class MapFrame extends JFrame implements KeyListener
                     //set timer text
                     timer.setText(timer_text);
                     timer.setBackground(Color.WHITE);
-                    timer.setFont(new Font("Century Gothic", Font.BOLD, 24));
-                    timer.setBounds((mapPanel.getWidth()-timer.getWidth())/2,10,100,60);
 
-                    if(totalSeconds % 10 == 0) {
+                    if(Objects.equals(mapName, "Galaxy")) timer.setForeground(Color.WHITE); //if galaxy, text is white
+                    timer.setFont(new Font("Century Gothic", Font.BOLD, 24));
+                    timer.setBounds((mapPanel.getWidth()-timer.getWidth())/2+20,10,100,60);
+
+                    //level up every 30 secs
+                    if(totalSeconds%10 == 0 && totalSeconds != ps && totalSeconds>0)
+                    {
+                        createLevelUpMenu();
+                        ps = totalSeconds;
+                    }
+                    /*if(totalSeconds % 10 == 0) {
                         if(cs!=ps) {
                             size *= 2;
                             System.out.println("Double size");
@@ -316,11 +341,22 @@ public class MapFrame extends JFrame implements KeyListener
                     if (monsterArrayList.size() < size){
                         System.out.println(monsterArrayList.size()+" "+size);
                         spawnMonster();
-                    }
+                    }*/
                 }
             }
         };
         timerThread.start();
+    }
+    public void startMonsterSpawner() {
+        Timer monsterTimer = new Timer(2000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                for(int i=0;i<5;i++)
+                {
+                    spawnMonster();
+                }
+            }
+        });
+        monsterTimer.start();
     }
 
     // Weapon and Monster
@@ -356,9 +392,9 @@ public class MapFrame extends JFrame implements KeyListener
         //if intersects player
         if (monsterBounds.intersects(playerBounds)) {
             System.out.println("Monster hit player!");
-            MyCharacter.takeDamage(1); //if intersects and dont spawn weapon, character loses blood.
-            //monster.takeDamage(MyCharacter.getWeapon().getDamage());
-            // e.g. player.takeDamage(), monster.stop(), etc.
+            MyCharacter.takeDamage(1);
+            updateHPandSpeedLabel();
+
         }
     }
 
@@ -372,7 +408,7 @@ public class MapFrame extends JFrame implements KeyListener
             public void run()
             {
                 Point characterPos = MyCharacterPanel.getLocation();
-                int weaponX = characterPos.x+10;
+                int weaponX = characterPos.x;
                 int weaponY = characterPos.y;
                 //set new bounds
                 weaponLabel.setBounds(weaponX,weaponY,weapon.getWidth(),weapon.getHeight());
@@ -415,131 +451,56 @@ public class MapFrame extends JFrame implements KeyListener
         };
         weaponThread.start();
     }
-}
-class MapPanel extends JPanel{
-    //size of panel that we are going to map to frame
-    private static final int DIM_W = MyConstants.FRAME_WIDTH;
-    private static final int DIM_H = MyConstants.FRAME_HEIGHT;
-    //where background will be drawn on the panel, basically where you want to image to be drawn
-    private int dx1,dx2,dy1,dy2;
-    //the part of the bg image to be drawn
-    private int srcx1,srcx2,srcy1,srcy2;
-    //actual size of map
-    private int IMAGE_WIDTH = MyConstants.BG_WIDTH;
-    private int IMAGE_HEIGHT = MyConstants.BG_HEIGHT;
-    //background image and myCharacter obj
-    private BufferedImage backgroundImg;
-    private MyCharacter MyCharacter;
-    private MapFrame mf;
-    public int getsrcx1(){return srcx1;}
-    public int getsrcx2(){return srcx2;}
-    public int getsrcy1(){return srcy1;}
-    public int getsrcy2(){return srcy2;};
-    public MapPanel(MyCharacter MyCharacter,MapFrame map)
+    public void createLevelUpMenu()
     {
-        //import background image
-        mf = map;
-        String mapName = mf.getMapName();
-        String background = "";
-        switch(mapName)
-        {
-            case "MapFrame 1":
-                background = MyConstants.MAP_BG1;
-                break;
-            case "MapFrame 2":
-                background = MyConstants.MAP_BG2;
-                break;
-            case "MapFrame 3":
-                background = MyConstants.MAP_BG3;
-                break;
-            case "MapFrame 4":
-                background = MyConstants.MAP_BG4;
-                break;
-            case "MapFrame 5":
-                background = MyConstants.MAP_BG5;
-                break;
-        }
-        try{
-        backgroundImg = ImageIO.read(new File(background));
+        isPaused = true;
+        JPanel levelUpPanel = new JPanel();
+        levelUpPanel.setLayout(new BoxLayout(levelUpPanel, BoxLayout.Y_AXIS));
+        levelUpPanel.setBackground(Color.WHITE);
+        levelUpPanel.setBounds(framewidth/2-105,frameheight/2-200,200,125);
+        levelUpPanel.setVisible(true); // hidden by default
+
+        JLabel title = new JLabel("LEVEL UP!");
+        title.setFont(new Font("Century Gothic", Font.BOLD, 24));
+        title.setForeground(Color.RED);
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel speedLabel = new JLabel("Speed increased!");
+        MyCharacter.setSpeed(MyCharacter.getSpeedX()+1); //player's speed +1
+        System.out.println("Speed"+MyCharacter.getSpeedX());
+        JLabel hpLabel = new JLabel("HP increased to full!");
+        MyCharacter.setHp(MyCharacter.getMaxHp());
+        //update panel too
+        updateHPandSpeedLabel();
+        speedLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        hpLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JButton okButton = new JButton("OK");
+        okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        okButton.addActionListener(e -> {
+            isPaused = false;
+            levelUpPanel.setVisible(false);
+            mapPanel.remove(levelUpPanel);
+            MapFrame.this.requestFocus();
+        });
+        levelUpPanel.add(Box.createVerticalStrut(10));
+        levelUpPanel.add(title);
+        levelUpPanel.add(Box.createVerticalStrut(15));
+        levelUpPanel.add(speedLabel);
+        levelUpPanel.add(Box.createVerticalStrut(15));
+        levelUpPanel.add(hpLabel);
+        levelUpPanel.add(okButton);
+        levelUpPanel.setOpaque(true);
+        mapPanel.add(levelUpPanel);
+        revalidate();
         repaint();
-        }catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-        initImagePoints();  
-        this.MyCharacter = MyCharacter;
     }
-    private void initImagePoints()
+    public void updateHPandSpeedLabel()
     {
-        dx1 =0;
-        dy1 =0;
-        dx2 = DIM_W;
-        dy2 = DIM_H;
-        srcx1 = (IMAGE_WIDTH/2)-(DIM_W/2);
-        srcy1 = (IMAGE_HEIGHT/2)-(DIM_H/2);
-        srcx2 = (IMAGE_WIDTH/2)+(DIM_W/2);
-        srcy2 = (IMAGE_HEIGHT/2)+(DIM_H/2);
-    }
-    public void moveRight()
-    {
-        if (srcx2 + MyCharacter.getSpeedX() <= IMAGE_WIDTH)
-        {
-            srcx1 += MyCharacter.getSpeedX();
-            srcx2 += MyCharacter.getSpeedX();
-            for (Monster monster : mf.monsterArrayList) {
-                monster.setX(monster.getX() - MyCharacter.getSpeedX());
-                monster.setY(monster.getY());
-            }
-        }
-    }
-    public void moveLeft()
-    {
-        if (srcx1 - MyCharacter.getSpeedX() >= 0)
-        {
-            srcx1 -= MyCharacter.getSpeedX();
-            srcx2 -= MyCharacter.getSpeedX();
-            for (Monster monster : mf.monsterArrayList) {
-                monster.setX(monster.getX() + MyCharacter.getSpeedX());
-                monster.setY(monster.getY());
-            }
-        }
-    }
+        hpLabel.setText("HP: " + MyCharacter.getHp() + "/" + MyCharacter.getMaxHp());
+        speedLabel.setText("Speed: " + MyCharacter.getSpeedX());
+        revalidate();
+        repaint();
 
-    public void moveUp()
-    {
-        if (srcy1 - MyCharacter.getSpeedY() >= 0)
-        {
-            srcy1 -= MyCharacter.getSpeedY();
-            srcy2 -= MyCharacter.getSpeedY();
-            for (Monster monster : mf.monsterArrayList) {
-                monster.setX(monster.getX());
-                monster.setY(monster.getY()+MyCharacter.getSpeedY());
-            }
-        }
     }
-
-    public void moveDown()
-    {
-        if (srcy2 + MyCharacter.getSpeedY() <= IMAGE_HEIGHT)
-        {
-            srcy1 += MyCharacter.getSpeedY();
-            srcy2 += MyCharacter.getSpeedY();
-            for (Monster monster : mf.monsterArrayList) {
-                monster.setX(monster.getX());
-                monster.setY(monster.getY()-MyCharacter.getSpeedY());
-            }
-        }
-    }
-    @Override
-    protected void paintComponent(Graphics g)
-    {
-        //clear background by calling default implementation
-        super.paintComponent(g);
-        g.setColor(Color.WHITE);
-        //draw a filled white rectangle on the panel
-        g.fillRect(0,0,getWidth(),getHeight());
-        //draw the image
-        g.drawImage(backgroundImg, dx1, dy1, dx2, dy2, srcx1, srcy1, srcx2, srcy2, this);
-    }
-    
 }
