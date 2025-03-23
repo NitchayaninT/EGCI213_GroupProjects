@@ -326,7 +326,7 @@ public class MapFrame extends JFrame implements KeyListener
 
                     //set timer text
                     timer.setText(timer_text);
-                    timer.setBackground(Color.WHITE);
+                    timer.setForeground(Color.WHITE);
 
                     if(Objects.equals(mapName, "Galaxy")) timer.setForeground(Color.WHITE); //if galaxy, text is white
                     timer.setFont(new Font("Century Gothic", Font.BOLD, 24));
@@ -353,7 +353,7 @@ public class MapFrame extends JFrame implements KeyListener
                             }catch(Exception e){}
                         }
                         running = false;
-                        String s = "You die";
+                        String s = "    You die \nGAME OVER!!";
                         JOptionPane.showMessageDialog(new JFrame(),s,"EGCO Survivor",JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                         main_theme.stop();
