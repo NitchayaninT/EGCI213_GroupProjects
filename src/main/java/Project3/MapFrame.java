@@ -341,7 +341,7 @@ public class MapFrame extends JFrame implements KeyListener
 
                     if(MyCharacter.getHp()<=0)
                     {
-                        System.out.println(monsterThreadList.size());
+                        //System.out.println(monsterThreadList.size());
                         for (Monster m:monsterArrayList)
                         {
                             m.setAlive(false);
@@ -358,6 +358,18 @@ public class MapFrame extends JFrame implements KeyListener
                         dispose();
                         main_theme.stop();
                         new EGCO_survivor();
+                    }
+                    else //if different time exceeds
+                    {
+                        if(differenceTime > 90*1000)
+                        {
+                            running = false;
+                            String s = "You win";
+                            JOptionPane.showMessageDialog(new JFrame(),s,"EGCO Survivor",JOptionPane.INFORMATION_MESSAGE);
+                            dispose();
+                            main_theme.stop();
+                            new EGCO_survivor();
+                        }
                     }
                     /*if(totalSeconds % 10 == 0) {
                         if(cs!=ps) {
@@ -378,7 +390,7 @@ public class MapFrame extends JFrame implements KeyListener
         monsterTimer = new Timer(2000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(MyCharacter.getHp()>0) {
-                    for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 2; i++) {
                         spawnMonster();
                     }
                 }else {
