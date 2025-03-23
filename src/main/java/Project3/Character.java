@@ -64,8 +64,8 @@ abstract class Character extends BaseLabel {
 
     // setter getter
     void setHp(int hp) { this.hp = hp; }
+    void setSpeed(int s){this.speedX = s; this.speedY = s;}
     int getHp(){return this.hp;}
-
     // Methods
     void takeDamage(int damage) {
         // override this for myCharacter and boss
@@ -101,7 +101,7 @@ class MyCharacter extends Character {
         this.hp = maxHp;
         panel = new MyCharacterPanel(this);
     }
-
+    int getMaxHp(){return this.maxHp;}
     @Override
     void takeDamage(int damage) {
         this.hp -= damage;
