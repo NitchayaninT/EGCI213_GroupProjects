@@ -374,7 +374,7 @@ public class MapFrame extends JFrame implements KeyListener
                                 }catch(Exception e){}
                             }
                             running = false;
-                            String s = "You win";
+                            String s = "You Win";
                             JOptionPane.showMessageDialog(new JFrame(),s,"EGCO Survivor",JOptionPane.INFORMATION_MESSAGE);
                             dispose();
                             main_theme.stop();
