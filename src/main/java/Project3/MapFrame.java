@@ -363,6 +363,16 @@ public class MapFrame extends JFrame implements KeyListener
                     {
                         if(differenceTime > 90*1000)
                         {
+                            for (Monster m:monsterArrayList)
+                            {
+                                m.setAlive(false);
+                            }
+                            for(Thread m:monsterThreadList)
+                            {
+                                try{
+                                    m.join();
+                                }catch(Exception e){}
+                            }
                             running = false;
                             String s = "You win";
                             JOptionPane.showMessageDialog(new JFrame(),s,"EGCO Survivor",JOptionPane.INFORMATION_MESSAGE);
