@@ -38,11 +38,11 @@ interface MyConstants{
 
 
     //for mapIcon
-    static final String FILE_MAP0   = PATH + "Maps/"+ "mapIcon/"+ "map1.JPG";
-    static final String FILE_MAP1   = PATH + "Maps/"+ "mapIcon/"+ "map2.JPG";
-    static final String FILE_MAP2   = PATH + "Maps/"+ "mapIcon/"+ "map3.JPG";
-    static final String FILE_MAP3   = PATH + "Maps/"+ "mapIcon/"+ "map4.JPG";
-    static final String FILE_MAP4   = PATH + "Maps/"+ "mapIcon/"+ "map5.JPG";
+    static final String FILE_MAP0   = PATH + "Maps/"+ "mapIcon/"+ "map01.jpg";
+    static final String FILE_MAP1   = PATH + "Maps/"+ "mapIcon/"+ "map02.jpg";
+    static final String FILE_MAP2   = PATH + "Maps/"+ "mapIcon/"+ "map03.jpg";
+    static final String FILE_MAP3   = PATH + "Maps/"+ "mapIcon/"+ "map04.jpg";
+    static final String FILE_MAP4   = PATH + "Maps/"+ "mapIcon/"+ "map05.jpg";
 
 
     //for monster pictures
