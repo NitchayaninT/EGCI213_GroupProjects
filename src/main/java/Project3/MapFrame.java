@@ -201,24 +201,9 @@ public class MapFrame extends JFrame implements KeyListener
             //monster has to get hit 3 times
             public void run()
             {
-
-                int srcx1 = mapPanel.getsrcx1();
-                int srcx2 = mapPanel.getsrcx2();
-                int srcy1 = mapPanel.getsrcy1();
-                int srcy2 = mapPanel.getsrcy2();
-                int randY;
-                int randX = rand.nextInt(MyConstants.BG_WIDTH-MyConstants.MON_WIDTH);
-                if(randX<=srcx1||randX>=srcx2)
-                {
-                    randY = rand.nextInt(MyConstants.BG_HEIGHT-MyConstants.MON_HEIGHT);
-                }else
-                {
-                    randY = rand.nextInt(MyConstants.BG_HEIGHT-MyConstants.FRAME_HEIGHT-MyConstants.MON_HEIGHT);
-                    if(randY>srcy1)
-                    {
-                        randY+=MyConstants.FRAME_HEIGHT;
-                    }
-                }
+                ArrayList<Integer> randomVar = randomXY();
+                int randX = randomVar.get(0);
+                int randY = randomVar.get(1);
                 int type = rand.nextInt(13);//0-12
                 int speed = 0;
                 String monsterType = "";
@@ -277,7 +262,7 @@ public class MapFrame extends JFrame implements KeyListener
                         speed = 10;
                         break;
                 }
-                Monster monster = new Monster("default",MyConstants.MON_HP,speed,MyConstants.MON_WIDTH,MyConstants.MON_HEIGHT,MyConstants.FILE_AJ12,randX,randY,MyCharacter,monsterType);
+                Monster monster = new Monster("default",MyConstants.MON_HP,speed,MyConstants.MON_WIDTH,MyConstants.MON_HEIGHT,monsterType,randX,randY,MyCharacter);
                 monsterArrayList.add(monster);
                 System.out.println("Spawn monster");
                 mapPanel.add(monster);
@@ -291,6 +276,53 @@ public class MapFrame extends JFrame implements KeyListener
         monsterThreadList.add(monsterThread);
         monsterThread.start();
     }
+
+    public void spawnBoss()
+    {
+        Thread bossThread = new Thread()
+        {
+            public void run()
+            {
+                ArrayList<Integer>randomVar = randomXY();
+                int randX = randomVar.get(0);
+                int randY = randomVar.get(1);
+                boss = new Boss("AJRangsipan",10,10,MyConstants.BOSS_WIDTH,MyConstants.BOSS_WIDTH,MyConstants.FILE_AJ13,randX,randY,MyCharacter);
+                mapPanel.add(boss);
+                monsterArrayList.add(boss);
+                while(boss.isAlive())
+                {
+                    boss.updateLocation();
+                    checkCollision(boss);
+                }
+            }
+        };
+        monsterThreadList.add(bossThread);
+        bossThread.start();
+    }
+    public ArrayList<Integer> randomXY()
+    {
+        ArrayList<Integer>randomVar = new ArrayList<>();
+        int srcx1 = mapPanel.getsrcx1();
+        int srcx2 = mapPanel.getsrcx2();
+        int srcy1 = mapPanel.getsrcy1();
+        int srcy2 = mapPanel.getsrcy2();
+        int randY;
+        int randX = rand.nextInt(MyConstants.BG_WIDTH-MyConstants.MON_WIDTH);
+        if(randX<=srcx1||randX>=srcx2)
+        {
+            randY = rand.nextInt(MyConstants.BG_HEIGHT-MyConstants.MON_HEIGHT);
+        }else
+        {
+            randY = rand.nextInt(MyConstants.BG_HEIGHT-MyConstants.FRAME_HEIGHT-MyConstants.MON_HEIGHT);
+            if(randY>srcy1)
+            {
+                randY+=MyConstants.FRAME_HEIGHT;
+            }
+        }
+        randomVar.add(randX);
+        randomVar.add(randY);
+        return randomVar;
+    }
     private void addTimer()
     {
         //start time
@@ -299,13 +331,13 @@ public class MapFrame extends JFrame implements KeyListener
         {
             public void run()
             {
-
                 int size = 15;
                 long cs = 0;
                 long ps = -1;
                 JLabel timer = new JLabel(String.valueOf(System.currentTimeMillis()-System.currentTimeMillis()));
                 mapPanel.add(timer);
                 boolean running = true;
+                boolean BossSpawn = false;
                 while(running)
                 {
                     long currentTime = System.currentTimeMillis();
@@ -334,7 +366,11 @@ public class MapFrame extends JFrame implements KeyListener
                         createLevelUpMenu();
                         ps = totalSeconds;
                     }
-
+                    if(totalSeconds==1&&!BossSpawn)
+                    {
+                        BossSpawn = true;
+                        spawnBoss();
+                    }
                     if(MyCharacter.getHp()<=0)
                     {
                         //System.out.println(monsterThreadList.size());
@@ -449,7 +485,6 @@ public class MapFrame extends JFrame implements KeyListener
             //System.out.println("Monster hit player!");
             MyCharacter.takeDamage(1);
             updateHPandSpeedLabel();
-
         }
     }
 

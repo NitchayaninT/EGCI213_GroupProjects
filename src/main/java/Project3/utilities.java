@@ -64,8 +64,8 @@ interface MyConstants{
 
     static final int MON_WIDTH         = 70;
     static final int MON_HEIGHT        = 70;
-    static final int BOSS_WIDTH         = 100;
-    static final int BOSS_HEIGHT        = 100;
+    static final int BOSS_WIDTH         = 200;
+    static final int BOSS_HEIGHT        = 200;
 
     //will change this
     static final int IT_WIDTH      = 60;

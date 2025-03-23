@@ -12,7 +12,6 @@ abstract class BaseLabel extends JLabel {
     protected int width;
     protected int height;
     protected int speedX, speedY;
-    protected JPanel mapPanel;
     // Constructors
     public BaseLabel() {super();} // default constructor
     public BaseLabel(String n, int s, int w, int h, String file, int x, int y) {
@@ -178,12 +177,11 @@ class Monster extends Character {
     // Constructor
     private MyCharacter MyCharacter;
 
-    Monster(String n, int hp, int s, int w, int h, String file, int x, int y, MyCharacter p,String monsterType) {
+    Monster(String n, int hp, int s, int w, int h, String file, int x, int y, MyCharacter p) {
         super(n, hp, s, w, h, file, x, y);
         width = MyConstants.MON_WIDTH;
         height = MyConstants.MON_HEIGHT;
-        Random rand = new Random();
-        icon = new MyImageIcon(monsterType).resize(width, height);
+        icon = new MyImageIcon(file).resize(width, height);
         setIcon(icon);
         setBounds(x, y, width, height);
         MyCharacter = p;
@@ -221,11 +219,16 @@ class Monster extends Character {
     }
 }
 class Boss extends Monster {
-        Boss(String n, int hp, int s, int w, int h, String file, int x, int y, MyCharacter p,String monster) {
-            super(n, hp, s, w, h, file, x, y, p,monster);
+        private MyCharacter MyCharacter;
+        private boolean alive = true;
+        Boss(String n, int hp, int s, int w, int h, String file, int x, int y, MyCharacter p) {
+            super(n, hp, s, w, h, file, x, y, p);
+            icon = new MyImageIcon(file).resize(w, h);
+            setIcon(icon);
+            setBounds(x, y, w, h);
+            MyCharacter = p;
         }
-        @Override
-        protected void death() {
-            //win();
-        }
+
+        public boolean isAlive(){return alive;}
+        public void setAlive(boolean bool){alive = bool;}
     }
