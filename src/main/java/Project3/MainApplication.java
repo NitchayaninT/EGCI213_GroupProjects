@@ -14,12 +14,12 @@ public class MainApplication extends JFrame{
     //components
     private JPanel              contentPane;
     private JLabel              drawPane;
-    private JButton             startButton, creditsButton;
+    private JButton             startButton, creditsButton, howToPlayButton;
     private ButtonGroup         bg;
     private JComboBox<String>   chooseCharacterBox; //keep characters
     private JToggleButton []    tb; //keep radio buttons
     private JTextField          enterNameText;
-    private JTextArea           creditsText;
+    private JTextArea           creditsText, howToPlayText;
     private Font                F_Plain;
     private Font                F_Bold;
     private String              [] players; //contains players name (will pass the name user chooses to next frame)
@@ -228,6 +228,9 @@ public class MainApplication extends JFrame{
         //add volume slider
         volumeSlider();
 
+        //how to play button
+        howToPlay();
+
         //setting bounds for all components
         enterNameText.setBounds(450,450,295,40);
         creditsButton.setBounds(625,500,120,40);
@@ -235,6 +238,7 @@ public class MainApplication extends JFrame{
         chooseCharacterBox.setBounds(850,450,180,40);
         radioButtonGroup.setBounds(150,450,200,200);
         volumeSlider.setBounds(framewidth/2-100,frameheight-180,180,50);
+        howToPlayButton.setBounds(framewidth-325,500,120,40);
 
         //adding them to drawPane (JLabel,which represents background)
         drawPane.add(enterNameText);
@@ -242,6 +246,7 @@ public class MainApplication extends JFrame{
         drawPane.add(startButton);
         drawPane.add(chooseCharacterBox);
         drawPane.add(radioButtonGroup);
+        drawPane.add(howToPlayButton);
 
         //adding background + components to contentPane
         contentPane.add(drawPane);
@@ -307,7 +312,7 @@ public class MainApplication extends JFrame{
     public void volumeSlider()
     {
         JLabel volumeLabel = new JLabel("Volume");
-        volumeLabel.setFont(new Font("Century Gothic", Font.BOLD, 16));
+        volumeLabel.setFont(F_Bold);
         volumeLabel.setForeground(Color.WHITE);
         volumeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         volumeLabel.setVisible(true);
@@ -327,6 +332,27 @@ public class MainApplication extends JFrame{
                 int volume = volumeSlider.getValue();
                 System.out.println("Volume set to: " + volume);
                 main_theme.setVolume(volume/100.0f);
+            }
+        });
+    }
+    public void howToPlay()
+    {
+        //for how to play button
+        howToPlayButton = new JButton("How to play");
+        howToPlayButton.setFont(F_Bold);
+
+        howToPlayButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //if clicked, go to JOptionPane
+                howToPlayText = new JTextArea("Welcome to EGCO survivors!\n" +
+                        "We want to know if you can actually survive from EGCO battlefield \n" +
+                        "Are you good enough to survive?\n\n" +
+                        "Press W,A,S,D keys to control the character\n" +
+                        "Press Space bar to shoot\n"+
+                        "Be prepared...for the EGCO war\n");
+                howToPlayText.setFont(F_Bold);
+                JOptionPane.showMessageDialog(currentFrame,howToPlayText,"Credits",JOptionPane.PLAIN_MESSAGE);
             }
         });
 
