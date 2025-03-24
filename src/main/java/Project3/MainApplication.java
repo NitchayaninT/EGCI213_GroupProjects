@@ -10,6 +10,7 @@ import java.awt.*;
 
 //main menu
 public class MainApplication extends JFrame{
+
     //components
     private JPanel              contentPane;
     private JLabel              drawPane;
@@ -315,7 +316,7 @@ public class MainApplication extends JFrame{
         volumeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         volumeLabel.setVisible(true);
 
-        volumeSlider = new JSlider(0, 100, 50); //min, max, initial volume
+        volumeSlider = new JSlider(0, 100, 10); //min, max, initial volume
         volumeSlider.setMajorTickSpacing(25);
         volumeSlider.setPaintTicks(true);
         volumeSlider.setPaintLabels(true);
@@ -351,7 +352,7 @@ public class MainApplication extends JFrame{
                         "Press Space bar to shoot\n"+
                         "Be prepared...for the EGCO war\n");
                 howToPlayText.setFont(F_Bold);
-                JOptionPane.showMessageDialog(currentFrame,howToPlayText,"How to Play",JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(currentFrame,howToPlayText,"How to play",JOptionPane.PLAIN_MESSAGE);
             }
         });
         drawPane.add(howToPlayButton);
