@@ -65,7 +65,9 @@ public class MapFrame extends JFrame implements KeyListener
         weapon = MyCharacter.getWeapon();
         MyCharacterName = playerName;
         //set title, frame's size and properties
-        setTitle("Welcome "+ MyCharacterName);
+        if(MyCharacterName!=null) setTitle("Welcome "+ MyCharacterName);
+        else setTitle("Welcome");
+
         setSize(framewidth,frameheight);
         setLocationRelativeTo(null); // Centers the frame
         setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE );
