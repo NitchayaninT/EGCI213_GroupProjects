@@ -112,7 +112,8 @@ class MyCharacter extends Character {
     }
     protected void heal()
     {
-        this.hp = this.maxHp;
+        if(this.hp+50>this.maxHp) this.hp = this.maxHp;
+        else{this.hp += 50;}
         panel.healthBar.setValue(hp);
         revalidate();
         repaint();

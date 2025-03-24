@@ -147,23 +147,23 @@ public class MapMenu extends JFrame {
         switch(myCharacterID)
         {
             case 0:
-                myCharacter = new MyCharacter("Hope",1320,8,
+                myCharacter = new MyCharacter("Hope",1320,10,
                         new Weapon("Mat",1,30,30,MyConstants.FILE_WEAPON0,1),MyConstants.FILE_CHAR0);
                 break;
             case 1:
-                myCharacter = new MyCharacter("Phil",1250,6,
+                myCharacter = new MyCharacter("Phil",1250,9,
                         new Weapon("ATmega328p",1,30,30,MyConstants.FILE_WEAPON1,1),MyConstants.FILE_CHAR1);
                 break;
             case 2:
-                myCharacter = new MyCharacter("Ninny",1000,6,
+                myCharacter = new MyCharacter("Ninny",1000,9,
                         new Weapon("Magical Wand",1,40,30,MyConstants.FILE_WEAPON2,1),MyConstants.FILE_CHAR2);
                 break;
             case 3:
-                myCharacter = new MyCharacter("P",2220,7,
+                myCharacter = new MyCharacter("P",2220,10,
                         new Weapon("2Heart",1,32,32,MyConstants.FILE_WEAPON3,1),MyConstants.FILE_CHAR3);
                 break;
             case 4:
-                myCharacter = new MyCharacter("Tony",1200,7,
+                myCharacter = new MyCharacter("Tony",1200,11,
                         new Weapon("Cat",1,32,32,MyConstants.FILE_WEAPON4,1),MyConstants.FILE_CHAR4);
                 break;
         }

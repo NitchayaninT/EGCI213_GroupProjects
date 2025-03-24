@@ -101,13 +101,13 @@ public class MapFrame extends JFrame implements KeyListener
         speedLabel = new JLabel("Speed: " + MyCharacter.getSpeedX());
         hpLabel.setFont(new Font("Century Gothic", Font.BOLD, 16));
         hpLabel.setForeground(Color.RED);
-        hpLabel.setBounds(5,10,150,20);
+        hpLabel.setBounds(50,40,150,20);
         hpLabel.setOpaque(true);
         hpLabel.setBackground(mapPanel.getBackground());
 
         speedLabel.setFont(new Font("Century Gothic", Font.BOLD, 16));
         speedLabel.setForeground(Color.BLUE);
-        speedLabel.setBounds(200, 10, 150, 20);
+        speedLabel.setBounds(210, 40, 150, 20);
         speedLabel.setOpaque(true);
         speedLabel.setBackground(mapPanel.getBackground());
 
@@ -201,63 +201,77 @@ public class MapFrame extends JFrame implements KeyListener
                 int randY = randomVar.get(1);
                 int type = rand.nextInt(13);//0-12
                 int speed = 0;
+                int hp = 0;
                 String monsterType = "";
                 switch(type)
                 {
                     case 0:
                         monsterType = MyConstants.FILE_AJ0;
                         speed = 2;
+                        hp = 2;
                         break;
                     case 1:
                         monsterType = MyConstants.FILE_AJ1;
                         speed = 2;
+                        hp = 2;
                         break;
                     case 2:
                         monsterType = MyConstants.FILE_AJ2;
                         speed = 4;
+                        hp = 3;
                         break;
                     case 3:
                         monsterType = MyConstants.FILE_AJ3;
                         speed = 5;
+                        hp = 3;
                         break;
                     case 4:
                         monsterType = MyConstants.FILE_AJ4;
                         speed = 3;
+                        hp = 1;
                         break;
                     case 5:
                         monsterType = MyConstants.FILE_AJ5;
                         speed = 4;
+                        hp = 2;
                         break;
                     case 6:
                         monsterType = MyConstants.FILE_AJ6;
                         speed = 1;
+                        hp = 3;
                         break;
                     case 7:
                         monsterType = MyConstants.FILE_AJ7;
                         speed = 2;
+                        hp = 2;
                         break;
                     case 8:
                         monsterType = MyConstants.FILE_AJ8;
                         speed = 3;
+                        hp = 1;
                         break;
                     case 9:
                         monsterType = MyConstants.FILE_AJ9;
                         speed = 3;
+                        hp = 3;
                         break;
                     case 10:
                         monsterType = MyConstants.FILE_AJ10;
                         speed = 4;
+                        hp = 2;
                         break;
                     case 11:
                         monsterType = MyConstants.FILE_AJ11;
                         speed = 2;
+                        hp = 1;
                         break;
                     case 12:
                         monsterType = MyConstants.FILE_AJ12;
                         speed = 10;
+                        hp = 3;
                         break;
                 }
-                Monster monster = new Monster("default",MyConstants.MON_HP,speed,MyConstants.MON_WIDTH,MyConstants.MON_HEIGHT,monsterType,randX,randY,MyCharacter);
+                Monster monster = new Monster("default",hp,speed,MyConstants.MON_WIDTH,MyConstants.MON_HEIGHT,monsterType,randX,randY,MyCharacter);
                 monsterArrayList.add(monster);
                 System.out.println("Spawn monster");
                 mapPanel.add(monster);
@@ -351,7 +365,7 @@ public class MapFrame extends JFrame implements KeyListener
 
                     if(Objects.equals(mapName, "Galaxy")) timer.setForeground(Color.WHITE); //if galaxy, text is white
                     timer.setFont(new Font("Century Gothic", Font.BOLD, 24));
-                    timer.setBounds((mapPanel.getWidth()-timer.getWidth())/2+20,10,100,60);
+                    timer.setBounds((mapPanel.getWidth()-timer.getWidth())/2+20,30,100,60);
 
                     //level up every 30 secs
                     if(totalSeconds%10 == 0 && totalSeconds != ps && totalSeconds>0)
@@ -533,7 +547,7 @@ public class MapFrame extends JFrame implements KeyListener
         JPanel levelUpPanel = new JPanel();
         levelUpPanel.setLayout(new BoxLayout(levelUpPanel, BoxLayout.Y_AXIS));
         levelUpPanel.setBackground(Color.WHITE);
-        levelUpPanel.setBounds(framewidth/2-105,frameheight/2-200,200,125);
+        levelUpPanel.setBounds(framewidth/2-105,frameheight/2-200,200,150);
         levelUpPanel.setVisible(true); // hidden by default
 
         JLabel title = new JLabel("LEVEL UP!");
@@ -544,12 +558,13 @@ public class MapFrame extends JFrame implements KeyListener
         JLabel speedLabel = new JLabel("Speed increased!");
         MyCharacter.setSpeed(MyCharacter.getSpeedX()+2); //player's speed +1
         System.out.println("Speed"+MyCharacter.getSpeedX());
-        JLabel hpLabel = new JLabel("HP increased to full!");
+        JLabel hpLabel = new JLabel("HP increased by 50!");
         MyCharacter.heal();
         //update panel too
         updateHPandSpeedLabel();
         speedLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         hpLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
         levelUpPanel.add(Box.createVerticalStrut(10));
         levelUpPanel.add(title);
@@ -557,6 +572,15 @@ public class MapFrame extends JFrame implements KeyListener
         levelUpPanel.add(speedLabel);
         levelUpPanel.add(Box.createVerticalStrut(15));
         levelUpPanel.add(hpLabel);
+        if(differenceTime == 60*1000)
+        {
+            JLabel BossLabel = new JLabel("BOSS IS HERE!");
+            BossLabel.setForeground(Color.RED);
+            BossLabel.setFont(new Font("Century Gothic", Font.BOLD, 24));
+            BossLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            levelUpPanel.add(Box.createVerticalStrut(10));
+            levelUpPanel.add(BossLabel);
+        }
         //levelUpPanel.add(okButton);
         levelUpPanel.setOpaque(true);
         mapPanel.add(levelUpPanel);
@@ -587,6 +611,5 @@ public class MapFrame extends JFrame implements KeyListener
         revalidate();
         repaint();
     }
-
 }
 
