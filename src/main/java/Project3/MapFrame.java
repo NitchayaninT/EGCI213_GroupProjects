@@ -400,7 +400,7 @@ public class MapFrame extends JFrame implements KeyListener
                     }
                     else //if different time exceeds
                     {
-                        if(differenceTime > 90*1000)
+                        if(differenceTime >= 90*1000)
                         {
                             for (Monster m:monsterArrayList)
                             {
@@ -429,7 +429,7 @@ public class MapFrame extends JFrame implements KeyListener
         monsterTimer = new Timer(2000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(MyCharacter.getHp()>0) {
-                    if(differenceTime > 90*1000)
+                    if(differenceTime >= 90*1000)
                     {
                         System.out.println("stop timer");
                         monsterTimer.stop();

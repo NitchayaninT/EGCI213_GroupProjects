@@ -238,7 +238,7 @@ public class MainApplication extends JFrame{
         chooseCharacterBox.setBounds(850,450,180,40);
         radioButtonGroup.setBounds(150,450,200,200);
         volumeSlider.setBounds(framewidth/2-100,frameheight-180,180,50);
-        howToPlayButton.setBounds(framewidth-325,500,120,40);
+        howToPlayButton.setBounds(framewidth-335,500,150,40);
 
         //adding them to drawPane (JLabel,which represents background)
         drawPane.add(enterNameText);
