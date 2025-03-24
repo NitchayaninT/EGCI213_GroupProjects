@@ -352,7 +352,7 @@ public class MainApplication extends JFrame{
                         "Press Space bar to shoot\n"+
                         "Be prepared...for the EGCO war\n");
                 howToPlayText.setFont(F_Bold);
-                JOptionPane.showMessageDialog(currentFrame,howToPlayText,"Credits",JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(currentFrame,howToPlayText,"How to Play",JOptionPane.PLAIN_MESSAGE);
             }
         });
         drawPane.add(howToPlayButton);
