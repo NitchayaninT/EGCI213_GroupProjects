@@ -246,7 +246,6 @@ public class MainApplication extends JFrame{
         drawPane.add(startButton);
         drawPane.add(chooseCharacterBox);
         drawPane.add(radioButtonGroup);
-        drawPane.add(howToPlayButton);
 
         //adding background + components to contentPane
         contentPane.add(drawPane);
@@ -321,6 +320,7 @@ public class MainApplication extends JFrame{
         volumeSlider.setMajorTickSpacing(25);
         volumeSlider.setPaintTicks(true);
         volumeSlider.setPaintLabels(true);
+        volumeSlider.setOpaque(true);
         volumeLabel.setBounds(framewidth/2-60,frameheight-220,100,50);
 
         drawPane.add(volumeSlider);
@@ -355,6 +355,7 @@ public class MainApplication extends JFrame{
                 JOptionPane.showMessageDialog(currentFrame,howToPlayText,"Credits",JOptionPane.PLAIN_MESSAGE);
             }
         });
+        drawPane.add(howToPlayButton);
 
     }
 }
