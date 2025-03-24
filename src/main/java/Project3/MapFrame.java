@@ -143,7 +143,6 @@ public class MapFrame extends JFrame implements KeyListener
                 selectedD = false;
                 selectedW = false;
                 selectedS = false;
-                MyCharacter.moveLeft();
                 mapPanel.moveLeft();
                 mapPanel.repaint();
                 revalidate();
@@ -154,7 +153,6 @@ public class MapFrame extends JFrame implements KeyListener
                 selectedD = true;
                 selectedW = false;
                 selectedS = false;
-                MyCharacter.moveRight();
                 mapPanel.moveRight();
                 mapPanel.repaint();
                 revalidate();
@@ -165,7 +163,6 @@ public class MapFrame extends JFrame implements KeyListener
                 selectedD = false;
                 selectedW = true;
                 selectedS = false;
-                MyCharacter.moveUp();
                 mapPanel.moveUp();
                 mapPanel.repaint();
                 revalidate();
@@ -176,7 +173,6 @@ public class MapFrame extends JFrame implements KeyListener
                 selectedD = false;
                 selectedW = false;
                 selectedS = true;
-                MyCharacter.moveDown();
                 mapPanel.moveDown();
                 mapPanel.repaint();
                 revalidate();

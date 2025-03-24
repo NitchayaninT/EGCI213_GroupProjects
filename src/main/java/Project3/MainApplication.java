@@ -10,7 +10,6 @@ import java.awt.*;
 
 //main menu
 public class MainApplication extends JFrame{
-
     //components
     private JPanel              contentPane;
     private JLabel              drawPane;

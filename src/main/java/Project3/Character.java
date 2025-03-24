@@ -49,10 +49,8 @@ abstract class BaseLabel extends JLabel {
 }
 
 abstract class Character extends BaseLabel {
-
     // Variable
     protected int hp;
-
     // Constructor
     public Character(String n, int hp, int s, int w, int h, String file, int x, int y) {
         super(n, s, w, h, file, x, y);
@@ -67,13 +65,6 @@ abstract class Character extends BaseLabel {
     void takeDamage(int damage) {
         // override this for myCharacter and boss
         this.hp -= damage;
-        if (hp <= 0) {
-            this.death();
-        }
-    }
-
-    protected void death() {
-
     }
 }
 
@@ -102,9 +93,7 @@ class MyCharacter extends Character {
     @Override
     void takeDamage(int damage) {
         this.hp -= damage;
-        if (hp <= 0) {
-            this.death();
-        } else {
+        if (hp > 0) {
             panel.healthBar.setValue(this.hp);
             revalidate();
             repaint();
@@ -121,26 +110,6 @@ class MyCharacter extends Character {
     @Override
     public String toString() {
         return this.name;
-    }
-    public void moveLeft()
-    {
-        if(x-speedX>=framewidth/2)x-=speedX;
-        else x = framewidth/2;
-    }
-    public void moveRight()
-    {
-        if(x+speedX<=imageWidth-(framewidth/2))x+=speedX;
-        else x = imageWidth-(framewidth/2);
-    }
-    public void moveUp()
-    {
-        if(y-speedY>=frameheight/2)y-=speedY;
-        else y = frameheight/2;
-    }
-    public void moveDown()
-    {
-        if(y+speedY<=imageHeight-(frameheight/2))y-=speedY;
-        else y = imageHeight-(frameheight/2);
     }
 }
 
