@@ -1,4 +1,9 @@
-package Project3;
+/*Akkhrawin Nair 6580013
+Pakin Panawattanakul 6580043
+Nitchayanin Thamkunanon 6580081
+Pibhu Chitburanachart 6580195
+Panupong Sangaphunchai 6580587*/
+package Project3_6580081;
 
 import javax.swing.*;
 import java.awt.*;
@@ -143,7 +148,6 @@ public class MapFrame extends JFrame implements KeyListener
                 selectedD = false;
                 selectedW = false;
                 selectedS = false;
-                MyCharacter.moveLeft();
                 mapPanel.moveLeft();
                 mapPanel.repaint();
                 revalidate();
@@ -154,7 +158,6 @@ public class MapFrame extends JFrame implements KeyListener
                 selectedD = true;
                 selectedW = false;
                 selectedS = false;
-                MyCharacter.moveRight();
                 mapPanel.moveRight();
                 mapPanel.repaint();
                 revalidate();
@@ -165,7 +168,6 @@ public class MapFrame extends JFrame implements KeyListener
                 selectedD = false;
                 selectedW = true;
                 selectedS = false;
-                MyCharacter.moveUp();
                 mapPanel.moveUp();
                 mapPanel.repaint();
                 revalidate();
@@ -176,7 +178,6 @@ public class MapFrame extends JFrame implements KeyListener
                 selectedD = false;
                 selectedW = false;
                 selectedS = true;
-                MyCharacter.moveDown();
                 mapPanel.moveDown();
                 mapPanel.repaint();
                 revalidate();
@@ -400,7 +401,7 @@ public class MapFrame extends JFrame implements KeyListener
                     }
                     else //if different time exceeds
                     {
-                        if(differenceTime > 90*1000)
+                        if(differenceTime >= 90*1000)
                         {
                             for (Monster m:monsterArrayList)
                             {
@@ -429,7 +430,7 @@ public class MapFrame extends JFrame implements KeyListener
         monsterTimer = new Timer(2000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(MyCharacter.getHp()>0) {
-                    if(differenceTime > 90*1000)
+                    if(differenceTime >= 88*1000)
                     {
                         System.out.println("stop timer");
                         monsterTimer.stop();

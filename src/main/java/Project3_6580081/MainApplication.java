@@ -1,4 +1,10 @@
-package Project3;
+/*Akkhrawin Nair 6580013
+Pakin Panawattanakul 6580043
+Nitchayanin Thamkunanon 6580081
+Pibhu Chitburanachart 6580195
+Panupong Sangaphunchai 6580587*/
+
+package Project3_6580081;
 
 import java.awt.event.*;
 import javax.swing.*;
@@ -238,7 +244,7 @@ public class MainApplication extends JFrame{
         chooseCharacterBox.setBounds(850,450,180,40);
         radioButtonGroup.setBounds(150,450,200,200);
         volumeSlider.setBounds(framewidth/2-100,frameheight-180,180,50);
-        howToPlayButton.setBounds(framewidth-325,500,120,40);
+        howToPlayButton.setBounds(framewidth-335,500,150,40);
 
         //adding them to drawPane (JLabel,which represents background)
         drawPane.add(enterNameText);
@@ -316,7 +322,7 @@ public class MainApplication extends JFrame{
         volumeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         volumeLabel.setVisible(true);
 
-        volumeSlider = new JSlider(0, 100, 50); //min, max, initial volume
+        volumeSlider = new JSlider(0, 100, 10); //min, max, initial volume
         volumeSlider.setMajorTickSpacing(25);
         volumeSlider.setPaintTicks(true);
         volumeSlider.setPaintLabels(true);
@@ -351,7 +357,7 @@ public class MainApplication extends JFrame{
                         "Press Space bar to shoot\n"+
                         "Be prepared...for the EGCO war\n");
                 howToPlayText.setFont(F_Bold);
-                JOptionPane.showMessageDialog(currentFrame,howToPlayText,"Credits",JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(currentFrame,howToPlayText,"How to play",JOptionPane.PLAIN_MESSAGE);
             }
         });
         drawPane.add(howToPlayButton);
