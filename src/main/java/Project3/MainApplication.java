@@ -140,9 +140,9 @@ public class MainApplication extends JFrame{
         //for start button
         startButton = new JButton("Start");
         startButton.setFont(F_Bold);
-        startButton.addActionListener(new ActionListener() {
+        startButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 //if clicked, go to next frame
                 mapFrame = new MapMenu();
                 //and pass messages to the next frame ****
@@ -341,9 +341,8 @@ public class MainApplication extends JFrame{
         howToPlayButton = new JButton("How to play");
         howToPlayButton.setFont(F_Bold);
 
-        howToPlayButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        howToPlayButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
                 //if clicked, go to JOptionPane
                 howToPlayText = new JTextArea("Welcome to EGCO survivors!\n" +
                         "We want to know if you can actually survive from EGCO battlefield \n" +
